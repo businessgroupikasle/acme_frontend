@@ -1,17 +1,76 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Loader2, AlertCircle } from 'lucide-react';
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setForm({ name: '', email: '', phone: '', message: '' });
-    }, 3000);
+    setLoading(true);
+    setErrorMsg('');
+
+    const payload = {
+      name: form.name,
+      email: form.email,
+      phone: form.phone || 'N/A',
+      message: form.message,
+      _subject: `New Inquiry from ${form.name} - ACME Bricks Website`,
+      _replyto: form.email,
+      _template: 'table',
+      _captcha: 'false'
+    };
+
+    try {
+      let sent = false;
+      try {
+        const phpRes = await fetch('/send-mail.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (phpRes.ok) {
+          const phpData = await phpRes.json();
+          if (phpData.success) {
+            sent = true;
+          }
+        }
+      } catch (phpErr) {
+        // Fallback to FormSubmit
+      }
+
+      if (!sent) {
+        const response = await fetch('https://formsubmit.co/ajax/info@acmebricks.in', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        if (response.ok || data.success === 'true' || data.success === true) {
+          sent = true;
+        } else {
+          throw new Error(data.message || 'Failed to submit');
+        }
+      }
+
+      if (sent) {
+        setSubmitted(true);
+        setForm({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setErrorMsg('Failed to submit inquiry. Please check your connection or contact info@acmebricks.in.');
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setErrorMsg('Failed to submit inquiry. Please check your internet connection.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -134,8 +193,41 @@ export default function ContactForm() {
                   ></textarea>
                 </div>
 
-                <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-                  Submit Inquiry
+                {errorMsg && (
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    backgroundColor: '#fef2f2',
+                    border: '1px solid #fecaca',
+                    color: '#b91c1c',
+                    fontSize: '13.5px',
+                    marginBottom: '16px'
+                  }}>
+                    <AlertCircle size={18} style={{ flexShrink: 0 }} />
+                    <span>{errorMsg}</span>
+                  </div>
+                )}
+
+                <button 
+                  type="submit" 
+                  disabled={loading} 
+                  className="btn btn-primary" 
+                  style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
+                >
+                  {loading ? (
+                    <>
+                      <span>Sending Inquiry...</span>
+                      <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
+                    </>
+                  ) : (
+                    <>
+                      <span>Submit Inquiry</span>
+                      <Send size={16} />
+                    </>
+                  )}
                 </button>
               </form>
             )}

@@ -46,7 +46,7 @@ export default defineConfig({
       '/api': {
         target: 'https://acmebricks.ikasle.in',
         changeOrigin: true,
-        secure: true,
+        secure: false,
         headers: {
           Host: 'acmebricks.ikasle.in',
           Origin: 'https://acmebricks.ikasle.in'

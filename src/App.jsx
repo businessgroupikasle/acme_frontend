@@ -722,12 +722,18 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
+      if (!API_URL && window.location.hostname === 'localhost') {
+        // Use static catalog for local development
+        setProducts(MOCK_CATALOG);
+        setLoading(false);
+        return;
+      }
       const res = await fetch(`${API_URL}/api/products`);
       if (!res.ok) {
         throw new Error('API server returned status ' + res.status);
       }
       const data = await res.json();
-      if (data.status === 'success') {
+      if (data && data.status === 'success' && Array.isArray(data.data)) {
         const allowedCategories = [
           'Fly Ash Bricks',
           'Fly Ash Blocks',
@@ -737,13 +743,12 @@ export default function App() {
           'AAC Blocks'
         ];
         const filtered = data.data.filter(p => allowedCategories.includes(p.type));
-        setProducts(filtered);
-      } else {
-        throw new Error('API error format');
+        if (filtered.length > 0) {
+          setProducts(filtered);
+        }
       }
     } catch (err) {
-      console.warn('Could not connect to Node Express backend api. Running in offline mockup mode.');
-      // Keep static mock catalog
+      // Quietly retain static mock catalog
       setProducts(prev => {
         const allowedCategories = [
           'Fly Ash Bricks',

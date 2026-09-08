@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { 
-  Home, 
-  Info, 
-  Package, 
-  Image as ImageIcon, 
-  Calculator, 
-  Phone, 
-  MapPin, 
-  FileCode, 
-  Search, 
-  ChevronRight, 
-  ArrowRight, 
-  Layers, 
-  Building2, 
-  Sparkles, 
-  ShieldCheck, 
-  Factory, 
+import {
+  Home,
+  Info,
+  Package,
+  Image as ImageIcon,
+  Calculator,
+  Phone,
+  MapPin,
+  FileCode,
+  Search,
+  ChevronRight,
+  ArrowRight,
+  Layers,
+  Building2,
+  Sparkles,
+  ShieldCheck,
+  Factory,
   ExternalLink,
   CheckCircle2,
   FileText,
@@ -207,7 +207,7 @@ export default function Sitemap({ onNavigate }) {
 
   // Filter sections by search query if user types
   const filteredSections = sitemapSections.map(section => {
-    const matchingLinks = section.links.filter(link => 
+    const matchingLinks = section.links.filter(link =>
       link.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       link.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       link.url.toLowerCase().includes(searchQuery.toLowerCase())
@@ -239,7 +239,7 @@ export default function Sitemap({ onNavigate }) {
           borderRadius: '50%',
           pointerEvents: 'none'
         }} />
-        
+
         <div className="container" style={{ textAlign: 'left', position: 'relative', zIndex: 1 }}>
           <h1 style={{
             fontSize: '38px',
@@ -260,7 +260,7 @@ export default function Sitemap({ onNavigate }) {
             alignItems: 'center',
             flexWrap: 'wrap'
           }}>
-            <button 
+            <button
               onClick={() => onNavigate && onNavigate('home')}
               style={{
                 background: 'none',
@@ -303,15 +303,15 @@ export default function Sitemap({ onNavigate }) {
             flex: '1',
             minWidth: '260px'
           }}>
-            <Search 
-              size={18} 
+            <Search
+              size={18}
               style={{
                 position: 'absolute',
                 left: '14px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 color: '#94a3b8'
-              }} 
+              }}
             />
             <input
               type="text"
@@ -407,7 +407,7 @@ export default function Sitemap({ onNavigate }) {
             </div>
           ) : (
             filteredSections.map((section, idx) => (
-              <div 
+              <div
                 key={idx}
                 style={{
                   background: '#ffffff',

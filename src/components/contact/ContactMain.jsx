@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Mail, Phone, FileText, MessageSquare, Send, MapPin, Clock, Check } from 'lucide-react';
+import { User, Mail, Phone, FileText, MessageSquare, Send, MapPin, Clock, Check, Loader2, AlertCircle } from 'lucide-react';
 
 export default function ContactMain() {
   const [form, setForm] = useState({
@@ -10,19 +10,82 @@ export default function ContactMain() {
     message: '',
     agree: false
   });
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.agree) {
       alert("Please agree to the Privacy Policy.");
       return;
     }
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setForm({ name: '', email: '', phone: '', subject: '', message: '', agree: false });
-    }, 4000);
+
+    setLoading(true);
+    setErrorMsg('');
+
+    const payload = {
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      subject: form.subject || 'Product Inquiry',
+      message: form.message,
+      _subject: `New Inquiry from ${form.name} (${form.subject}) - ACME Bricks Website`,
+      _replyto: form.email,
+      _template: 'table',
+      _captcha: 'false'
+    };
+
+    try {
+      // 1. First attempt: Try PHP mailer if deployed on Apache/cPanel server
+      let sent = false;
+      try {
+        const phpRes = await fetch('/send-mail.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (phpRes.ok) {
+          const phpData = await phpRes.json();
+          if (phpData.success) {
+            sent = true;
+          }
+        }
+      } catch (phpErr) {
+        // Not running on PHP server (e.g. localhost/Vite), proceed to FormSubmit
+      }
+
+      // 2. Fallback attempt: Send via FormSubmit API
+      if (!sent) {
+        const response = await fetch('https://formsubmit.co/ajax/info@acmebricks.in', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        if (response.ok || data.success === 'true' || data.success === true) {
+          sent = true;
+        } else {
+          throw new Error(data.message || 'Error submitting form');
+        }
+      }
+
+      if (sent) {
+        setSubmitted(true);
+        setForm({ name: '', email: '', phone: '', subject: '', message: '', agree: false });
+      } else {
+        setErrorMsg('Could not deliver message. Please check Spam folder in your email or call us directly.');
+      }
+    } catch (err) {
+      console.error('Form submission error:', err);
+      setErrorMsg('Failed to send message. Please check your internet connection or email info@acmebricks.in directly.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -327,10 +390,44 @@ export default function ContactMain() {
                     </div>
                   </div>
 
+                  {/* Error Message */}
+                  {errorMsg && (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '12px 16px',
+                      borderRadius: '8px',
+                      backgroundColor: '#fef2f2',
+                      border: '1px solid #fecaca',
+                      color: '#b91c1c',
+                      fontSize: '13.5px',
+                      marginTop: '16px',
+                      marginBottom: '16px'
+                    }}>
+                      <AlertCircle size={18} style={{ flexShrink: 0 }} />
+                      <span>{errorMsg}</span>
+                    </div>
+                  )}
+
                   {/* Submit Button */}
-                  <button type="submit" className="contact-submit-btn">
-                    SEND MESSAGE
-                    <Send size={15} />
+                  <button 
+                    type="submit" 
+                    disabled={loading} 
+                    className="contact-submit-btn"
+                    style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
+                  >
+                    {loading ? (
+                      <>
+                        SENDING MESSAGE...
+                        <Loader2 size={16} className="spin-animation" style={{ animation: 'spin 1s linear infinite' }} />
+                      </>
+                    ) : (
+                      <>
+                        SEND MESSAGE
+                        <Send size={15} />
+                      </>
+                    )}
                   </button>
                 </form>
               </>
