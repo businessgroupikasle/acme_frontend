@@ -1095,7 +1095,7 @@ export default function App() {
         {activeTab === 'contact' && (
           <>
             <ContactHero onHomeClick={() => setActiveTab('home')} />
-            <ContactMain />
+            <ContactMain onNavigate={handleFooterNavigation} />
             <ContactMap />
             {/* <ContactTrustBar /> */}
           </>

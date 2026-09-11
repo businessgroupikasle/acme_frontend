@@ -34,6 +34,19 @@ if (empty($name) || empty($email) || empty($message)) {
     exit();
 }
 
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "message" => "Invalid email address."]);
+    exit();
+}
+
+$phoneDigits = preg_replace('/\D/', '', $phone);
+if (!empty($phone) && (strlen($phoneDigits) < 10 || strlen($phoneDigits) > 12)) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "message" => "Please enter a valid 10 to 12 digit phone number."]);
+    exit();
+}
+
 // Zoho SMTP Configuration
 $smtpConfig = [
     'hosts'    => ['ssl://smtppro.zoho.in', 'ssl://smtp.zoho.in', 'ssl://smtp.zoho.com', 'ssl://smtppro.zoho.com'],

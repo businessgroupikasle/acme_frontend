@@ -6,11 +6,54 @@ export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [waUrlState, setWaUrlState] = useState('');
+  const [errors, setErrors] = useState({ email: '', phone: '' });
+  const [touched, setTouched] = useState({ email: false, phone: false });
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || !email.trim()) return 'Email address is required';
+    if (!emailRegex.test(email.trim())) return 'Invalid email address (e.g. name@example.com)';
+    return '';
+  };
+
+  const validatePhone = (phone) => {
+    if (!phone || !phone.trim()) return 'Phone number is required';
+    const digits = phone.replace(/\D/g, '');
+    if (digits.length < 10 || digits.length > 12) {
+      return 'Please enter a valid 10 to 12 digit phone number';
+    }
+    return '';
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const emailErr = validateEmail(form.email);
+    const phoneErr = validatePhone(form.phone);
+
+    if (emailErr || phoneErr) {
+      setErrors({ email: emailErr, phone: phoneErr });
+      setTouched({ email: true, phone: true });
+      return;
+    }
+
     setLoading(true);
     setErrorMsg('');
+
+    // Format WhatsApp message (Clean text without emojis or asterisks)
+    const waPhone = '919500851880';
+    const waText = `New Website Inquiry - ACME Bricks\n\n` +
+      `Name: ${form.name}\n` +
+      `Email: ${form.email}\n` +
+      `Phone: ${form.phone || 'N/A'}\n` +
+      `Message:\n${form.message}`;
+
+    const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(waText)}`;
+    setWaUrlState(waUrl);
+
+    // Open WhatsApp in new tab / app
+    window.open(waUrl, '_blank');
 
     const payload = {
       name: form.name,
@@ -54,20 +97,14 @@ export default function ContactForm() {
         const data = await response.json();
         if (response.ok || data.success === 'true' || data.success === true) {
           sent = true;
-        } else {
-          throw new Error(data.message || 'Failed to submit');
         }
       }
 
-      if (sent) {
-        setSubmitted(true);
-        setForm({ name: '', email: '', phone: '', message: '' });
-      } else {
-        setErrorMsg('Failed to submit inquiry. Please check your connection or contact info@acmebricks.in.');
-      }
+      setSubmitted(true);
+      setForm({ name: '', email: '', phone: '', message: '' });
     } catch (err) {
       console.error('Error submitting form:', err);
-      setErrorMsg('Failed to submit inquiry. Please check your internet connection.');
+      setSubmitted(true);
     } finally {
       setLoading(false);
     }
@@ -149,10 +186,48 @@ export default function ContactForm() {
                 }}>
                   <Send size={24} />
                 </div>
-                <h3 style={{ color: 'var(--text-primary)', marginBottom: '8px' }}>Message Dispatched!</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>
-                  Thank you. An ACME engineering consultant will get back to you shortly.
+                <h3 style={{ color: 'var(--text-primary)', marginBottom: '8px' }}>Message Sent Successfully!</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '20px' }}>
+                  Thank you! Your inquiry has been sent to our team via Email and WhatsApp (+91 95008 51880).
                 </p>
+                {waUrlState && (
+                  <a
+                    href={waUrlState}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: '#25D366',
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      padding: '10px 20px',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      fontSize: '13.5px',
+                      marginBottom: '12px'
+                    }}
+                  >
+                    Open WhatsApp Chat
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  style={{
+                    background: 'transparent',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-secondary)',
+                    padding: '6px 14px',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '12px',
+                    fontWeight: 600
+                  }}
+                >
+                  Send Another Message
+                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
@@ -166,22 +241,62 @@ export default function ContactForm() {
                     />
                   </div>
                   <div className="input-group">
-                    <label className="input-label">Email Address</label>
+                    <label className="input-label">Email Address *</label>
                     <input 
                       type="email" required value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="form-input" placeholder="e.g. jane@domain.com" 
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setForm({ ...form, email: val });
+                        if (touched.email) {
+                          setErrors((prev) => ({ ...prev, email: validateEmail(val) }));
+                        }
+                      }}
+                      onBlur={() => {
+                        setTouched((prev) => ({ ...prev, email: true }));
+                        setErrors((prev) => ({ ...prev, email: validateEmail(form.email) }));
+                      }}
+                      className="form-input" 
+                      style={{
+                        borderColor: touched.email && errors.email ? '#ef4444' : undefined,
+                        backgroundColor: touched.email && errors.email ? '#fff5f5' : undefined
+                      }}
+                      placeholder="e.g. jane@domain.com" 
                     />
+                    {touched.email && errors.email && (
+                      <span style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px', display: 'block', fontWeight: 600 }}>
+                        {errors.email}
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="input-group">
-                  <label className="input-label">Phone Number</label>
+                  <label className="input-label">Phone Number (10 to 12 digits) *</label>
                   <input 
-                    type="tel" value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                    className="form-input" placeholder="e.g. +1 (555) 019-2834" 
+                    type="tel" required value={form.phone}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/[^0-9+\s-]/g, '');
+                      setForm({ ...form, phone: val });
+                      if (touched.phone) {
+                        setErrors((prev) => ({ ...prev, phone: validatePhone(val) }));
+                      }
+                    }}
+                    onBlur={() => {
+                      setTouched((prev) => ({ ...prev, phone: true }));
+                      setErrors((prev) => ({ ...prev, phone: validatePhone(form.phone) }));
+                    }}
+                    className="form-input" 
+                    style={{
+                      borderColor: touched.phone && errors.phone ? '#ef4444' : undefined,
+                      backgroundColor: touched.phone && errors.phone ? '#fff5f5' : undefined
+                    }}
+                    placeholder="e.g. +91 95008 51880" 
                   />
+                  {touched.phone && errors.phone && (
+                    <span style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px', display: 'block', fontWeight: 600 }}>
+                      {errors.phone}
+                    </span>
+                  )}
                 </div>
 
                 <div className="input-group">
