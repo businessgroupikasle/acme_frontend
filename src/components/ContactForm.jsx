@@ -273,9 +273,27 @@ export default function ContactForm() {
                 <div className="input-group">
                   <label className="input-label">Phone Number (10 to 12 digits) *</label>
                   <input 
-                    type="tel" required value={form.phone}
+                    type="tel" 
+                    required 
+                    maxLength={16}
+                    value={form.phone}
                     onChange={(e) => {
-                      const val = e.target.value.replace(/[^0-9+\s-]/g, '');
+                      const raw = e.target.value;
+                      let digitCount = 0;
+                      let val = '';
+                      for (let i = 0; i < raw.length; i++) {
+                        const char = raw[i];
+                        if (/\d/.test(char)) {
+                          if (digitCount < 12) {
+                            digitCount++;
+                            val += char;
+                          }
+                        } else if (char === '+' && val.length === 0) {
+                          val += char;
+                        } else if (char === ' ' || char === '-') {
+                          val += char;
+                        }
+                      }
                       setForm({ ...form, phone: val });
                       if (touched.phone) {
                         setErrors((prev) => ({ ...prev, phone: validatePhone(val) }));
