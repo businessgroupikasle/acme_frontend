@@ -10,14 +10,15 @@
   --text-secondary: #475569;
   --text-muted: #64748b;
 
-  --accent: #7ca13a;
-  /* ACME Bricks corporate green */
-  --accent-light: #8cb543;
-  --accent-glow: rgba(124, 161, 58, 0.1);
-  --accent-border: rgba(124, 161, 58, 0.2);
+  --accent: #55721f;
+  /* ACME Bricks corporate green - WCAG AA accessible contrast (5.51:1 vs white) */
+  --accent-light: #7ca13a;
+  --accent-hover: #466016;
+  --accent-glow: rgba(85, 114, 31, 0.12);
+  --accent-border: rgba(85, 114, 31, 0.25);
 
   --border: #e2e8f0;
-  --border-focus: rgba(124, 161, 58, 0.5);
+  --border-focus: rgba(85, 114, 31, 0.5);
 
   --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(0, 0, 0, 0.08);
@@ -180,14 +181,15 @@ a {
 
 .btn-primary {
   background: var(--accent);
-  color: #fff;
-  box-shadow: 0 4px 12px 0 rgba(124, 161, 58, 0.2);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4px 12px 0 rgba(85, 114, 31, 0.25);
 }
 
 .btn-primary:hover {
-  background: var(--accent-light);
+  background: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px 0 rgba(124, 161, 58, 0.3);
+  box-shadow: 0 6px 16px 0 rgba(85, 114, 31, 0.35);
 }
 
 .btn-primary:active {
@@ -298,7 +300,7 @@ a {
 /* Contact Page Specific Styles */
 .contact-hero {
   position: relative;
-  background-image: linear-gradient(rgba(18, 29, 36, 0.88), rgba(18, 29, 36, 0.92)), url('/images/banner1.jpg');
+  background-image: linear-gradient(rgba(18, 29, 36, 0.88), rgba(18, 29, 36, 0.92)), url('/images/banner1.webp');
   background-size: cover;
   background-position: center;
   padding: 80px 0;
@@ -1505,7 +1507,7 @@ a {
 }
 
 .footer-copyright {
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .footer-credits {
@@ -1513,9 +1515,9 @@ a {
 }
 
 .footer-agency-link {
-  color: var(--accent, #7ca13a);
+  color: #a3e635;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.2s ease;
 }
 

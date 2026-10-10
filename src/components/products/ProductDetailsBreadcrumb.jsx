@@ -8,7 +8,7 @@ export default function ProductDetailsBreadcrumb({ productName, categoryName = '
     if (lower.includes('paver')) return 'Paver Blocks Manufacturer in Coimbatore';
     if (lower.includes('interlock')) return 'Interlock Bricks Manufacturer in Coimbatore';
     if (lower.includes('solid')) return 'Solid Concrete Blocks Manufacturer in Coimbatore';
-    if (lower.includes('aac')) return 'AAC Blocks Supplier in Coimbatore';
+    if (lower.includes('aac')) return 'AAC Blocks Manufacturer in Coimbatore';
     return `${name} in Coimbatore`;
   };
 

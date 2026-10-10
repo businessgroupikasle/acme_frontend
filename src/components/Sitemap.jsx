@@ -49,7 +49,7 @@ export default function Sitemap({ onNavigate }) {
         {
           name: 'Products Catalog',
           url: '/products/',
-          description: 'Full range of eco-friendly bricks, blocks, and interlocking pavers manufactured in Coimbatore.',
+          description: 'Full range of eco-friendly bricks, blocks, and Interlock pavers manufactured in Coimbatore.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products')
         },
@@ -83,42 +83,42 @@ export default function Sitemap({ onNavigate }) {
       links: [
         {
           name: 'Fly Ash Bricks',
-          url: '/fly-ash-bricks/',
+          url: '/fly-ash-bricks-manufacturer-coimbatore',
           description: 'Standard 9x4x3 inch high-density fly ash bricks conforming to IS 12894:2002 standard.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products', null, 'Fly Ash Bricks')
         },
         {
           name: 'Fly Ash Blocks',
-          url: '/fly-ash-blocks/',
-          description: 'Durable masonry blocks sized 230x230x70/75 mm conforming to IS 2185 (Part 1).',
+          url: '/fly-ash-blocks-manufacturer-coimbatore',
+          description: 'High-quality 9x9x4 inch fly ash blocks manufactured for residential, commercial and industrial construction.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products', null, 'Fly Ash Blocks')
         },
         {
           name: 'Paver Blocks',
-          url: '/paver-blocks/',
-          description: '60mm and 80mm heavy-duty decorative paver blocks for driveways, parking, and pathways.',
+          url: '/paver-blocks-manufacturer-coimbatore',
+          description: 'Looking for paver blocks in Coimbatore? ACME Bricks supplies paver blocks for driveways, pathways, parking areas and landscaping. Enquire about prices and bulk orders.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products', null, 'Paver Blocks')
         },
         {
           name: 'Interlock Bricks',
-          url: '/interlock-bricks/',
+          url: '/interlock-bricks-manufacturer-coimbatore',
           description: 'Self-locking masonry bricks engineered for high structural strength (IS 15658).',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products', null, 'Interlock Bricks')
         },
         {
           name: 'Solid Blocks',
-          url: '/solid-blocks/',
+          url: '/solid-blocks-manufacturer-coimbatore',
           description: 'Solid concrete building blocks (400x200x150/200mm) for heavy-load bearing walls.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products', null, 'Solid Blocks')
         },
         {
           name: 'AAC Blocks',
-          url: '/aac-blocks/',
+          url: '/aac-blocks-manufacturer-coimbatore',
           description: 'Lightweight Autoclaved Aerated Concrete blocks with superior thermal and acoustic insulation.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products', null, 'AAC Blocks')

@@ -5,6 +5,16 @@ export default function Gallery({ onHomeClick }) {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
+  const getThumbPath = (p) => {
+    if (!p) return '';
+    return p.replace(/\.(jpg|jpeg|png|JPG|PNG)$/, '-thumb.webp');
+  };
+
+  const getDisplayPath = (p) => {
+    if (!p) return '';
+    return p.replace(/\.(jpg|jpeg|png|JPG|PNG)$/, '.webp');
+  };
+
   const filters = ['All', 'Fly Ash Bricks', 'Fly Ash Blocks', 'Paver Blocks', 'Interlock Bricks', 'Solid Blocks', 'AAC Blocks'];
 
   const originalItems = [
@@ -62,8 +72,8 @@ export default function Gallery({ onHomeClick }) {
       id: 9,
       image: '/images/products/interlock.png',
       category: 'Interlock Bricks',
-      title: 'Interlocking Wall Bricks',
-      desc: 'Innovative dry-stack interlocking soil cement blocks showcasing high-precision locks.',
+      title: 'Interlock Wall Bricks',
+      desc: 'Innovative dry-stack Interlock soil cement blocks showcasing high-precision locks.',
       colSpan: 'span-6',
       rowSpan: 'span-1',
       height: '240px'
@@ -102,26 +112,26 @@ export default function Gallery({ onHomeClick }) {
     ...[
       'acme-interlock-bricks-manufacturer-coimbatore-01.jpg',
       'interlock-bricks-manufacturing-in-coimbatore-02.jpg',
-      'acme-bricks-interlocking-blocks-coimbatore-03.jpg',
+      'acme-bricks-Interlock-blocks-coimbatore-03.jpg',
       'premium-interlock-bricks-coimbatore-04.jpg',
-      'high-strength-interlocking-bricks-coimbatore-05.jpg',
+      'high-strength-Interlock-bricks-coimbatore-05.jpg',
       'eco-friendly-interlock-bricks-manufacturing-06.jpg',
       'dry-stack-interlock-bricks-coimbatore-07.jpg',
-      'acme-interlocking-wall-bricks-coimbatore-08.jpg',
+      'acme-Interlock-wall-bricks-coimbatore-08.jpg',
       'cost-effective-interlock-bricks-manufacturing-09.jpg',
-      'heavy-duty-interlocking-bricks-coimbatore-10.jpg',
+      'heavy-duty-Interlock-bricks-coimbatore-10.jpg',
       'precision-molded-interlock-bricks-coimbatore-11.jpg',
       'interlock-cement-bricks-manufacturing-coimbatore-12.jpg',
       'residential-building-interlock-bricks-13.jpg',
       'commercial-construction-interlock-bricks-coimbatore-14.jpg',
       'acme-bricks-interlock-stockyard-coimbatore-15.jpg',
-      'quality-tested-interlocking-bricks-coimbatore-16.jpg',
+      'quality-tested-Interlock-bricks-coimbatore-16.jpg',
       'best-interlock-bricks-manufacturer-coimbatore-17.jpg'
     ].map((file, idx) => ({
       path: `/images/gallery/interlock/${file}`,
       category: 'Interlock Bricks',
       title: `Interlock Brick Arrangement ${idx + 1}`,
-      desc: 'Precision interlocking brick for rapid mortarless construction and walling.'
+      desc: 'Precision Interlock brick for rapid mortarless construction and walling.'
     })),
 
     // Paver Blocks
@@ -148,7 +158,7 @@ export default function Gallery({ onHomeClick }) {
     let colSpan = 'span-4';
     let rowSpan = 'span-1';
     let height = '198px';
-    
+
     // Create alternating spans for a beautiful masonry look
     if (id % 9 === 1) {
       colSpan = 'span-8';
@@ -178,8 +188,8 @@ export default function Gallery({ onHomeClick }) {
 
   const galleryItems = [...originalItems, ...dynamicItems];
 
-  const filteredItems = selectedFilter === 'All' 
-    ? galleryItems 
+  const filteredItems = selectedFilter === 'All'
+    ? galleryItems
     : galleryItems.filter(item => item.category === selectedFilter);
 
   const openLightbox = (index) => {
@@ -206,7 +216,7 @@ export default function Gallery({ onHomeClick }) {
       <style>{`
         #gallery-page .gallery-hero {
           position: relative;
-          background-image: linear-gradient(rgba(17, 24, 39, 0.75), rgba(17, 24, 39, 0.8)), url('/images/banner1.png');
+          background-image: linear-gradient(rgba(17, 24, 39, 0.75), rgba(17, 24, 39, 0.8)), url('/images/banner1.webp');
           background-size: cover;
           background-position: center;
           padding: 50px 0;
@@ -485,7 +495,7 @@ export default function Gallery({ onHomeClick }) {
             Explore Our Bricks &amp; Blocks
           </h2>
           <p style={{ color: 'var(--text-secondary)', maxWidth: '680px', margin: '0 auto', fontSize: '14px', lineHeight: 1.6 }}>
-            Take a closer look at our range of Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlocking Bricks, Solid Blocks and AAC Blocks, manufactured for quality, strength and durability in Coimbatore.
+            Take a closer look at our range of Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlock Bricks, Solid Blocks and AAC Blocks, manufactured for quality, strength and durability in Coimbatore.
           </p>
         </div>
 
@@ -517,10 +527,16 @@ export default function Gallery({ onHomeClick }) {
               onClick={() => openLightbox(index)}
             >
               <div className="gallery-image-wrapper">
-                <img 
-                  src={item.image} 
-                  alt={`${item.title} - ${item.category} manufactured by ACME Bricks in Coimbatore`} 
-                  loading="lazy" 
+                <img
+                  src={getThumbPath(item.image)}
+                  alt={`${item.title} - ${item.category} manufactured by ACME Bricks in Coimbatore`}
+                  loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="300"
+                  onError={(e) => {
+                    e.target.src = item.image;
+                  }}
                 />
               </div>
             </div>
@@ -532,7 +548,7 @@ export default function Gallery({ onHomeClick }) {
       {lightboxIndex !== null && (
         <div className="lightbox-modal" onClick={closeLightbox}>
           {/* Close trigger button */}
-          <button 
+          <button
             onClick={closeLightbox}
             className="lightbox-close-btn"
           >
@@ -548,12 +564,12 @@ export default function Gallery({ onHomeClick }) {
           </button>
 
           {/* Main Content Card with Blurred Background Fit */}
-          <div 
+          <div
             onClick={(e) => e.stopPropagation()}
             className="lightbox-card"
           >
             {/* Blurred Backdrop Image */}
-            <div 
+            <div
               style={{
                 position: 'absolute',
                 inset: 0,
@@ -568,12 +584,16 @@ export default function Gallery({ onHomeClick }) {
 
             {/* Foreground Image Wrapper (Full aspect ratio containment) */}
             <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 2 }}>
-              <img 
-                src={filteredItems[lightboxIndex].image} 
-                alt={filteredItems[lightboxIndex].title} 
-                style={{ 
-                  maxHeight: '92%', 
-                  maxWidth: '92%', 
+              <img
+                src={getDisplayPath(filteredItems[lightboxIndex].image)}
+                alt={filteredItems[lightboxIndex].title}
+                decoding="async"
+                onError={(e) => {
+                  e.target.src = filteredItems[lightboxIndex].image;
+                }}
+                style={{
+                  maxHeight: '92%',
+                  maxWidth: '92%',
                   objectFit: 'contain',
                   borderRadius: '10px',
                   boxShadow: '0 15px 35px rgba(0, 0, 0, 0.5)'

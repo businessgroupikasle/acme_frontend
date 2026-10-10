@@ -3,7 +3,7 @@ import { ShieldCheck, Leaf, Clock, ChevronLeft, ChevronRight } from 'lucide-reac
 
 const bannerImages = [
   {
-    url: '/images/banner1.png',
+    url: '/images/brick-manufacturer-coimbatore-acme-bricks.png',
     caption: 'Built Strong. Built to Last. - Premium Blocks & Bricks'
   }
 ];
@@ -140,19 +140,36 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
         }
       `}</style>
 
-      {/* Background Images with smooth cross-fade transition */}
-      {bannerImages.map((image, index) => (
-        <div
-          key={image.url}
-          className="home-hero-bg"
+      {/* High-Performance Responsive Hero Banner with fetchpriority high */}
+      <picture style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 1 }}>
+        <source media="(max-width: 768px)" srcSet="/images/brick-manufacturer-coimbatore-acme-bricks-mobile.webp" type="image/webp" />
+        <source media="(min-width: 769px)" srcSet="/images/brick-manufacturer-coimbatore-acme-bricks.webp" type="image/webp" />
+        <img
+          src="/images/brick-manufacturer-coimbatore-acme-bricks.png"
+          alt="ACME Bricks, brick manufacturer in Coimbatore"
+          fetchPriority="high"
+          decoding="async"
+          loading="eager"
+          width="1920"
+          height="800"
           style={{
-            backgroundImage: `linear-gradient(rgba(18, 29, 36, 0.60), rgba(18, 29, 36, 0.75)), url('${image.url}')`,
-            opacity: index === currentImageIndex ? 1 : 0
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center'
           }}
-          role="img"
-          aria-label={image.caption}
         />
-      ))}
+      </picture>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(rgba(18, 29, 36, 0.65), rgba(18, 29, 36, 0.80))',
+          zIndex: 1
+        }}
+      />
 
       {/* Decorative radial glows for premium depth */}
       <div style={{
@@ -195,7 +212,7 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
 
           {/* Subtitle */}
           <p className="home-hero-subtitle">
-            ACME Bricks & Blocks is a trusted manufacturer and supplier of quality construction materials in Coimbatore, offering Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlocking Bricks, Solid Blocks and AAC Blocks for residential, commercial and industrial construction.
+            ACME Bricks & Blocks is a trusted manufacturer and supplier of quality construction materials in Coimbatore, offering Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlock Bricks, Solid Blocks and AAC Blocks for residential, commercial and industrial construction.
           </p>
 
           {/* Feature Icons Row */}
@@ -236,7 +253,7 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
             <button
               onClick={onExploreClick}
               className="btn btn-primary"
-              style={{ padding: '14px 28px', fontSize: '15px', borderRadius: '6px' }}
+              style={{ padding: '14px 28px', fontSize: '15px', fontWeight: 700, borderRadius: '6px' }}
             >
               EXPLORE PRODUCTS
             </button>

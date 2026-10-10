@@ -23,7 +23,7 @@ export default function AboutCompany() {
     { text: 'Fly Ash Bricks', icon: <BrickIcon size={18} color="var(--accent)" /> },
     { text: 'Fly Ash Blocks', icon: <BrickIcon size={18} color="var(--accent)" /> },
     { text: 'Paver Blocks', icon: <BrickIcon size={18} color="var(--accent)" /> },
-    { text: 'Interlocking Bricks', icon: <BrickIcon size={18} color="var(--accent)" /> },
+    { text: 'Interlock Bricks', icon: <BrickIcon size={18} color="var(--accent)" /> },
     { text: 'Solid Blocks', icon: <BrickIcon size={18} color="var(--accent)" /> },
     { text: 'AAC Blocks', icon: <BrickIcon size={18} color="var(--accent)" /> }
   ];
@@ -72,6 +72,7 @@ export default function AboutCompany() {
           position: relative;
         }
 
+        .ac-img-wrapper picture,
         .ac-img-wrapper img {
           position: absolute;
           inset: 0;
@@ -183,7 +184,7 @@ export default function AboutCompany() {
             textAlign: 'justify',
             textJustify: 'inter-word'
           }}>
-            ACME Bricks &amp; Blocks is an established manufacturer and supplier of quality concrete products and masonry materials based in Coimbatore, Tamil Nadu. We specialize in producing Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlocking Bricks, Solid Blocks and AAC Blocks engineered for residential, commercial and industrial construction projects.
+            ACME Bricks &amp; Blocks is an established manufacturer and supplier of quality concrete products and masonry materials based in Coimbatore, Tamil Nadu. We specialize in producing Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlock Bricks, Solid Blocks and AAC Blocks engineered for residential, commercial and industrial construction projects.
           </p>
 
           <p className="about-company-desc" style={{
@@ -243,10 +244,23 @@ export default function AboutCompany() {
         {/* Right: Image */}
         <div className="ac-img-col">
           <div className="ac-img-wrapper">
-            <img
-              src="/images/about-page/about.png"
-              alt="ACME Bricks Factory"
-            />
+            <picture>
+              <source
+                srcSet="/images/about-page/acme-bricks-manufacturing-facility-tamil-nadu.webp"
+                type="image/webp"
+              />
+              <img
+                src="/images/about-page/acme-bricks-manufacturing-facility-tamil-nadu.png"
+                alt="ACME Bricks production facility in Tamil Nadu"
+                loading="eager"
+                decoding="async"
+                width="600"
+                height="400"
+                onError={(e) => {
+                  e.target.src = '/images/about-page/acme-bricks-manufacturer-coimbatore.png';
+                }}
+              />
+            </picture>
           </div>
 
           {/* Badge */}

@@ -43,7 +43,7 @@ export default function ProjectsTestimonials() {
       avatar: ''
     },
     {
-      paragraph: 'Prompt customer support and reliable fleet delivery. The interlocking bricks have made our boundary and pathway projects effortless.',
+      paragraph: 'Prompt customer support and reliable fleet delivery. The Interlock bricks have made our boundary and pathway projects effortless.',
       name: 'Murugan K',
       city: 'Pollachi',
       avatar: ''

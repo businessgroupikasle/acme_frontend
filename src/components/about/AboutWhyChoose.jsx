@@ -44,7 +44,7 @@ export default function AboutWhyChoose() {
     {
       title: 'Bricks, Blocks & Paving Products',
       label: 'WIDE PRODUCT RANGE',
-      desc: 'From Fly Ash Bricks and Fly Ash Blocks to Paver Blocks, Interlocking Bricks, Solid Blocks and AAC Blocks, we offer products for different construction applications.',
+      desc: 'From Fly Ash Bricks and Fly Ash Blocks to Paver Blocks, Interlock Bricks, Solid Blocks and AAC Blocks, we offer products for different construction applications.',
       icon: <Grid size={24} color="var(--accent)" />
     },
     {
@@ -96,7 +96,7 @@ export default function AboutWhyChoose() {
         {/* Qualities Grid */}
         <div className="why-choose-grid-custom">
           {qualities.map((item, idx) => (
-            <div 
+            <div
               key={idx}
               className={`why-choose-card-custom ${isVisible ? 'active' : ''}`}
               style={{

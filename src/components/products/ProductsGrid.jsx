@@ -22,10 +22,10 @@ export default function ProductsGrid({
       id: '2',
       name: 'Fly Ash Blocks',
       image: '/images/products/ash-blocks.png',
-      dimensions: { length: 230, width: 230, height: 75 },
-      strength: '3.5–7.0 N/mm²',
-      shortDesc: 'Durable fly ash blocks designed for efficient masonry and strong wall construction.',
-      characteristics: ['Durable Construction', 'Consistent Dimensions']
+      dimensions: { length: 230, width: 230, height: 100 },
+      strength: '9.5–10 kg',
+      shortDesc: 'Durable fly ash blocks for residential, commercial and industrial construction.',
+      characteristics: ['Consistent Dimensions', 'Masonry Applications']
     },
     {
       id: '3',
@@ -43,7 +43,7 @@ export default function ProductsGrid({
       dimensions: { length: 230, width: 230, height: 115 },
       strength: '5.5–11.77 N/mm²',
       shortDesc: 'Precision-made interlock bricks for durable, attractive and low-maintenance paving applications.',
-      characteristics: ['Strong Interlocking Design', 'Easy Installation']
+      characteristics: ['Strong Interlock Design', 'Easy Installation']
     },
     {
       id: '5',
@@ -205,11 +205,15 @@ export default function ProductsGrid({
                 overflow: 'hidden',
                 cursor: 'pointer'
               }}
-              onClick={() => onViewDetails(prod)}
+                onClick={() => onViewDetails(prod)}
               >
                 <img
-                  src={prod.image || '/images/products/flyash-bricks.png'}
+                  src={(prod.image || '/images/products/flyash-bricks.webp').replace(/\.png$/, '-thumb.webp')}
                   alt={prod.name}
+                  loading={index < 3 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  width="240"
+                  height="140"
                   style={{
                     width: '100%',
                     height: '100%',
@@ -219,105 +223,105 @@ export default function ProductsGrid({
                 />
               </div>
 
-            {/* Product Title */}
-            <h3 style={{
-              fontSize: '15px',
-              fontWeight: 800,
-              color: 'var(--text-primary)',
-              marginBottom: '6px'
-            }}>
-              {prod.name}
-            </h3>
+              {/* Product Title */}
+              <h3 style={{
+                fontSize: '15px',
+                fontWeight: 800,
+                color: 'var(--text-primary)',
+                marginBottom: '6px'
+              }}>
+                {prod.name}
+              </h3>
 
-            {/* Short description */}
-            {prod.shortDesc && (
-              <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '10px', flex: 1 }}>
-                {prod.shortDesc}
-              </p>
-            )}
+              {/* Short description */}
+              {prod.shortDesc && (
+                <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '10px', flex: 1 }}>
+                  {prod.shortDesc}
+                </p>
+              )}
 
-            {/* Product Specs */}
-            <div style={{
-              fontSize: '11px',
-              color: 'var(--text-muted)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '3px',
-              marginBottom: '10px',
-              background: '#f8faf5',
-              borderRadius: '6px',
-              padding: '8px 10px'
-            }}>
-              <span>Size: {prod.dimensions ? `${prod.dimensions.length} × ${prod.dimensions.width} × ${prod.dimensions.height}` : '190 × 90 × 90'} mm</span>
-              <span>Strength: {prod.strength || '7.5 N/mm²'}</span>
+              {/* Product Specs */}
+              <div style={{
+                fontSize: '11px',
+                color: 'var(--text-muted)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '3px',
+                marginBottom: '10px',
+                background: '#f8faf5',
+                borderRadius: '6px',
+                padding: '8px 10px'
+              }}>
+                <span>Size: {prod.dimensions ? `${prod.dimensions.length} × ${prod.dimensions.width} × ${prod.dimensions.height}` : '190 × 90 × 90'} mm</span>
+                <span>Strength: {prod.strength || '7.5 N/mm²'}</span>
+              </div>
+
+              {/* Green Checks Highlights */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '5px',
+                fontSize: '11px',
+                color: '#16a34a',
+                fontWeight: 600,
+                marginBottom: '16px'
+              }}>
+                {(prod.characteristics || ['High Durability', 'Eco Friendly']).slice(0, 2).map((char, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <Check size={11} strokeWidth={3} />
+                    <span>{char}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Details trigger button/link row */}
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingTop: '12px',
+                borderTop: '1px solid var(--border)'
+              }}>
+                <button
+                  onClick={() => onViewDetails(prod)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '11.5px',
+                    fontWeight: 700,
+                    color: 'var(--text-primary)',
+                    cursor: 'pointer',
+                    padding: 0,
+                    letterSpacing: '0.04em'
+                  }}
+                >
+                  VIEW DETAILS
+                </button>
+
+                <button
+                  onClick={() => onViewDetails(prod)}
+                  style={{
+                    background: 'var(--accent)',
+                    width: '28px',
+                    height: '28px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: 'none',
+                    outline: 'none',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 6px rgba(124, 161, 58, 0.25)'
+                  }}
+                  className="grid-card-arrow"
+                >
+                  <ArrowRight size={12} color="#ffffff" />
+                </button>
+              </div>
+
             </div>
-
-            {/* Green Checks Highlights */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '5px',
-              fontSize: '11px',
-              color: '#16a34a',
-              fontWeight: 600,
-              marginBottom: '16px'
-            }}>
-              {(prod.characteristics || ['High Durability', 'Eco Friendly']).slice(0, 2).map((char, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  <Check size={11} strokeWidth={3} />
-                  <span>{char}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Details trigger button/link row */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              paddingTop: '12px',
-              borderTop: '1px solid var(--border)'
-            }}>
-              <button
-                onClick={() => onViewDetails(prod)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  fontSize: '11.5px',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                  cursor: 'pointer',
-                  padding: 0,
-                  letterSpacing: '0.04em'
-                }}
-              >
-                VIEW DETAILS
-              </button>
-
-              <button
-                onClick={() => onViewDetails(prod)}
-                style={{
-                  background: 'var(--accent)',
-                  width: '28px',
-                  height: '28px',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: 'none',
-                  outline: 'none',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 6px rgba(124, 161, 58, 0.25)'
-                }}
-                className="grid-card-arrow"
-              >
-                <ArrowRight size={12} color="#ffffff" />
-              </button>
-            </div>
-
-          </div>
-        );
-      })}
+          );
+        })}
       </div>
 
       {/* Pagination Widget */}

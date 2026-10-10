@@ -11,12 +11,12 @@ export default function Footer({ onNavigate }) {
   ];
 
   const productsLinks = [
-    { label: 'Fly Ash Bricks', url: '/fly-ash-bricks/' },
-    { label: 'Fly Ash Blocks', url: '/fly-ash-blocks/' },
-    { label: 'Paver Blocks', url: '/paver-blocks/' },
-    { label: 'Interlock Bricks', url: '/interlock-bricks/' },
-    { label: 'Solid Blocks', url: '/solid-blocks/' },
-    { label: 'AAC Blocks', url: '/aac-blocks/' }
+    { label: 'Fly Ash Bricks', url: '/fly-ash-bricks-manufacturer-coimbatore' },
+    { label: 'Fly Ash Blocks', url: '/fly-ash-blocks-manufacturer-coimbatore' },
+    { label: 'Paver Blocks', url: '/paver-blocks-manufacturer-coimbatore' },
+    { label: 'Interlock Bricks', url: '/interlock-bricks-manufacturer-coimbatore' },
+    { label: 'Solid Blocks', url: '/solid-blocks-manufacturer-coimbatore' },
+    { label: 'AAC Blocks', url: '/aac-blocks-manufacturer-coimbatore' }
   ];
 
   return (

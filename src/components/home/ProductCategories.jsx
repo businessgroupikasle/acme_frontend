@@ -14,42 +14,42 @@ export default function ProductCategories({ onCategorySelect }) {
       name: 'Fly Ash Bricks',
       tagline: 'Durable Bricks for Modern Construction',
       desc: 'Manufactured for consistent strength, dimensional accuracy and durability, our fly ash bricks are suitable for residential, commercial and industrial construction.',
-      image: '/images/products/flyash-bricks.png',
+      image: '/images/products/flyash-bricks-thumb.webp',
       btnText: 'VIEW FLY ASH BRICKS'
     },
     {
       name: 'Fly Ash Blocks',
       tagline: 'Reliable Blocks for Efficient Masonry',
       desc: 'Fly ash blocks designed for durable masonry construction, offering consistent dimensions and dependable performance across a range of building applications.',
-      image: '/images/products/ash-blocks.png',
+      image: '/images/products/ash-blocks-thumb.webp',
       btnText: 'VIEW FLY ASH BLOCKS'
     },
     {
       name: 'Paver Blocks',
       tagline: 'Durable Paving for Outdoor Spaces',
       desc: 'Paver blocks designed for driveways, walkways, pathways, parking areas and other residential and commercial paving applications.',
-      image: '/images/products/paver-block.png',
+      image: '/images/products/paver-block-thumb.webp',
       btnText: 'VIEW PAVER BLOCKS'
     },
     {
-      name: 'Interlocking Bricks',
+      name: 'Interlock Bricks',
       tagline: 'Precision-Made for Efficient Construction',
-      desc: 'Interlocking bricks manufactured with consistent dimensions for efficient installation and durable performance in suitable construction applications.',
-      image: '/images/products/interlock.png',
-      btnText: 'VIEW INTERLOCKING BRICKS'
+      desc: 'Interlock bricks manufactured with consistent dimensions for efficient installation and durable performance in suitable construction applications.',
+      image: '/images/products/interlock-thumb.webp',
+      btnText: 'VIEW Interlock BRICKS'
     },
     {
       name: 'Solid Blocks',
       tagline: 'Strong Blocks for Durable Structures',
       desc: 'Solid concrete blocks manufactured for consistent strength and dimensions, suitable for masonry and structural construction applications.',
-      image: '/images/products/solid-blocks.png',
+      image: '/images/products/solid-blocks-thumb.webp',
       btnText: 'VIEW SOLID BLOCKS'
     },
     {
       name: 'AAC Blocks',
       tagline: 'Lightweight Blocks for Modern Building',
       desc: 'Lightweight Autoclaved Aerated Concrete blocks designed to help reduce structural load while supporting efficient construction and thermal performance.',
-      image: '/images/products/aac-blocks.png',
+      image: '/images/products/aac-blocks-thumb.webp',
       btnText: 'VIEW AAC BLOCKS'
     }
   ];
@@ -185,7 +185,7 @@ export default function ProductCategories({ onCategorySelect }) {
             lineHeight: '1.6',
             margin: 0
           }}>
-            Explore ACME&apos;s range of Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlocking Bricks, Solid Blocks and AAC Blocks, manufactured for residential, commercial and industrial construction.
+            Explore ACME&apos;s range of Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlock Bricks, Solid Blocks and AAC Blocks, manufactured for residential, commercial and industrial construction.
           </p>
         </div>
 
@@ -224,6 +224,10 @@ export default function ProductCategories({ onCategorySelect }) {
                     <img
                       src={cat.image}
                       alt={cat.name}
+                      loading="lazy"
+                      decoding="async"
+                      width="200"
+                      height="120"
                       style={{
                         maxHeight: '120px',
                         maxWidth: '100%',

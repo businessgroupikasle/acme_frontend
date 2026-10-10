@@ -35,12 +35,25 @@ try {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  build: {
+    target: 'esnext',
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-swiper': ['swiper'],
+          'vendor-icons': ['lucide-react']
+        }
+      }
+    }
+  },
   server: {
     port: 5173,
     host: '0.0.0.0',
     watch: {
-      ignored: ['**/*.zip', '**/public/images/**']
+      ignored: ['**/*.zip', '**/public/images/**/*.zip']
     },
     proxy: {
       '/api': {

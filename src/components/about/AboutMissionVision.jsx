@@ -194,8 +194,12 @@ export default function AboutMissionVision() {
           <div>
             <div className="mv-image-container">
               <img
-                src="/images/about-page/oru-mission.png"
+                src="/images/about-page/oru-mission.webp"
                 alt="ACME Bricks Stacking Warehouse"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="400"
                 style={{ width: '100%', height: 'auto', display: 'block', transition: 'all 0.5s ease' }}
               />
             </div>

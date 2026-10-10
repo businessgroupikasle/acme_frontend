@@ -510,14 +510,14 @@ export default function ContactMain({ onNavigate }) {
 
                     {/* Checkbox */}
                     <div className="contact-checkbox-container">
-                      <div 
+                      <div
                         onClick={() => setForm({ ...form, agree: !form.agree })}
                         className={`contact-checkbox-custom ${form.agree ? 'checked' : ''}`}
                       >
                         {form.agree && <Check size={12} strokeWidth={4} />}
                       </div>
                       <span style={{ fontSize: '13px', color: 'var(--text-secondary)', userSelect: 'none' }}>
-                        <span 
+                        <span
                           onClick={() => setForm({ ...form, agree: !form.agree })}
                           style={{ cursor: 'pointer' }}
                         >
@@ -569,9 +569,9 @@ export default function ContactMain({ onNavigate }) {
                   )}
 
                   {/* Submit Button */}
-                  <button 
-                    type="submit" 
-                    disabled={loading} 
+                  <button
+                    type="submit"
+                    disabled={loading}
                     className="contact-submit-btn"
                     style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
                   >
@@ -598,11 +598,11 @@ export default function ContactMain({ onNavigate }) {
               Get in Touch for Bricks &amp; Blocks
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '14.5px', marginBottom: '16px', lineHeight: 1.6 }}>
-              Looking for Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlocking Bricks, Solid Blocks or AAC Blocks in Coimbatore? Send us your requirement and our team will get back to you with product details, pricing and delivery information.
+              Looking for Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlock Bricks, Solid Blocks or AAC Blocks in Coimbatore? Send us your requirement and our team will get back to you with product details, pricing and delivery information.
             </p>
 
             <div className="contact-info-list" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              
+
               {/* Location */}
               <div className="contact-info-item-row">
                 <div className="contact-info-icon-badge">
@@ -618,7 +618,7 @@ export default function ContactMain({ onNavigate }) {
                     Vellanaipatti, Coimbatore,<br />
                     Tamil Nadu 641048
                   </p>
-                  <a 
+                  <a
                     href="https://www.google.com/maps/place/Acme+Bricks+%26+Blocks/@11.1045893,77.0926709,1076m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3ba8f9492c15ce3d:0x8a8f2a8da41428b3!8m2!3d11.1045893!4d77.0926709!16s%2Fg%2F11sg_gx3vd?entry=ttu"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -640,24 +640,24 @@ export default function ContactMain({ onNavigate }) {
                     Call Us
                   </h4>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                    <a 
-                      href="tel:+919500851880" 
+                    <a
+                      href="tel:+919500851880"
                       style={{ fontSize: '13.5px', color: 'var(--text-secondary)', transition: 'var(--transition)' }}
                       onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
                       onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}
                     >
                       +91 95008 51880
                     </a>
-                    <a 
-                      href="tel:+918807408780" 
+                    <a
+                      href="tel:+918807408780"
                       style={{ fontSize: '13.5px', color: 'var(--text-secondary)', transition: 'var(--transition)' }}
                       onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
                       onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}
                     >
                       +91 88074 08780
                     </a>
-                    <a 
-                      href="tel:+917305970966" 
+                    <a
+                      href="tel:+917305970966"
                       style={{ fontSize: '13.5px', color: 'var(--text-secondary)', transition: 'var(--transition)' }}
                       onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
                       onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}
@@ -677,8 +677,8 @@ export default function ContactMain({ onNavigate }) {
                   <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginTop: 0, marginBottom: '4px', lineHeight: 1.3 }}>
                     Email Us
                   </h4>
-                  <a 
-                    href="mailto:info@acmebricks.in" 
+                  <a
+                    href="mailto:info@acmebricks.in"
                     style={{ fontSize: '13.5px', color: 'var(--text-secondary)', transition: 'var(--transition)' }}
                     onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
                     onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}

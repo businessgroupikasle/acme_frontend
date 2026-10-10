@@ -32,11 +32,24 @@ export default function AboutUs({ onKnowMoreClick }) {
               position: 'relative',
               cursor: 'pointer'
             }} className="image-hover-zoom">
-              <img
-                src="/images/about-page/about.png"
-                alt="ACME Bricks & Blocks Facility"
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
+              <picture>
+                <source
+                  srcSet="/images/about-page/acme-bricks-manufacturer-coimbatore.webp"
+                  type="image/webp"
+                />
+                <img
+                  src="/images/about-page/acme-bricks-manufacturer-coimbatore.png"
+                  alt="ACME Bricks manufacturing company in Coimbatore"
+                  loading="lazy"
+                  decoding="async"
+                  width="540"
+                  height="360"
+                  style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
+                  onError={(e) => {
+                    e.target.src = '/images/about-page/about.png';
+                  }}
+                />
+              </picture>
 
             </div>
           </div>

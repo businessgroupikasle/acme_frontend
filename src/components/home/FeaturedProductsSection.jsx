@@ -96,8 +96,12 @@ export default function FeaturedProductsSection({ products, onQuoteClick, onView
                   overflow: 'hidden'
                 }}>
                   <img 
-                    src={prod.image || '/images/products/flyash-bricks.png'} 
+                    src={(prod.image || '/images/products/flyash-bricks.webp').replace(/\.png$/, '-thumb.webp')} 
                     alt={prod.name} 
+                    loading="lazy"
+                    decoding="async"
+                    width="240"
+                    height="130"
                     style={{
                       width: '100%',
                       height: '100%',

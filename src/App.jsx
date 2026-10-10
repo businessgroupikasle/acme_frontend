@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import TopBar from './components/home/TopBar.jsx';
 import Header from './components/home/Header.jsx';
 import HeroSection from './components/home/HeroSection.jsx';
@@ -6,41 +6,41 @@ import PartnerLogos from './components/home/PartnerLogos.jsx';
 import AboutUs from './components/home/AboutUs.jsx';
 import ProductCategories from './components/home/ProductCategories.jsx';
 import WhyChooseUs from './components/home/WhyChooseUs.jsx';
-import ManufacturingProcess from './components/home/ManufacturingProcess.jsx';
 import FeaturedProductsSection from './components/home/FeaturedProductsSection.jsx';
 import ProjectsTestimonials from './components/home/ProjectsTestimonials.jsx';
 import CTASection from './components/home/CTASection.jsx';
-import ContactForm from './components/ContactForm.jsx';
-import BrickCalculator from './components/BrickCalculator.jsx';
-import Dashboard from './components/Dashboard.jsx';
 import Footer from './components/home/Footer.jsx';
+import FloatingContactWidget from './components/FloatingContactWidget.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
+
+// Core public pages eagerly imported for zero CLS
 import AboutCompany from './components/about/AboutCompany.jsx';
-import AboutJourney from './components/about/AboutJourney.jsx';
 import AboutMissionVision from './components/about/AboutMissionVision.jsx';
 import AboutWhyChoose from './components/about/AboutWhyChoose.jsx';
-import AboutCredentials from './components/about/AboutCredentials.jsx';
-import AboutCTA from './components/about/AboutCTA.jsx';
 import AboutHero from './components/about/AboutHero.jsx';
+import ManufacturingProcess from './components/home/ManufacturingProcess.jsx';
+
 import ProductsHero from './components/products/ProductsHero.jsx';
-import ProductsSidebar from './components/products/ProductsSidebar.jsx';
 import ProductsGrid from './components/products/ProductsGrid.jsx';
 import ProductsTrustBar from './components/products/ProductsTrustBar.jsx';
-import ProductsCTA from './components/products/ProductsCTA.jsx';
+
 import ProductDetailsBreadcrumb from './components/products/ProductDetailsBreadcrumb.jsx';
 import ProductDetailsMain from './components/products/ProductDetailsMain.jsx';
 import ProductDetailsTabs from './components/products/ProductDetailsTabs.jsx';
 import ProductDetailsRelated from './components/products/ProductDetailsRelated.jsx';
-import ProductDetailsCTA from './components/products/ProductDetailsCTA.jsx';
+
 import ContactHero from './components/contact/ContactHero.jsx';
 import ContactMain from './components/contact/ContactMain.jsx';
 import ContactMap from './components/contact/ContactMap.jsx';
-import Gallery from './components/Gallery.jsx';
-import Sitemap from './components/Sitemap.jsx';
-import TermsAndConditions from './components/TermsAndConditions.jsx';
-import PrivacyPolicy from './components/PrivacyPolicy.jsx';
-import NotFound from './components/NotFound.jsx';
-import FloatingContactWidget from './components/FloatingContactWidget.jsx';
-import ScrollToTop from './components/ScrollToTop.jsx';
+
+// Heavy secondary and utility tools code-split on demand
+const Gallery = lazy(() => import('./components/Gallery.jsx'));
+const BrickCalculator = lazy(() => import('./components/BrickCalculator.jsx'));
+const Dashboard = lazy(() => import('./components/Dashboard.jsx'));
+const Sitemap = lazy(() => import('./components/Sitemap.jsx'));
+const TermsAndConditions = lazy(() => import('./components/TermsAndConditions.jsx'));
+const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy.jsx'));
+const NotFound = lazy(() => import('./components/NotFound.jsx'));
 
 // Fallback seed catalog in case backend isn't loaded/running yet
 const MOCK_CATALOG = [
@@ -52,9 +52,9 @@ const MOCK_CATALOG = [
     "dimensions": { "length": 230, "width": 100, "height": 75 },
     "strength": "9.15-10.15",
     "application": ["residential", "commercial"],
-    "characteristics": ["Size: 9 x 4 x 3 inch", "Compressive Strength: 9.15 - 10.15 N/mm²", "Indian Standard: IS 12894:2002", "Density: Approx. 1700–1850 kg/m³", "Water Absorption: <10% (Conforms to IS 12894)"],
-    "image": "/images/products/flyash-bricks.png",
-    "description": "ACME Fly Ash Bricks are manufactured using carefully selected fly ash, cement, sand and water to deliver strong, durable and dimensionally consistent building materials. Designed as an eco-friendly alternative to conventional clay bricks, our fly ash bricks offer excellent strength, low water absorption and a smooth, uniform finish.\n\nManufactured at our facility in Coimbatore, Tamil Nadu, ACME Fly Ash Bricks are suitable for residential, commercial and industrial construction projects across Coimbatore, Tamil Nadu and Kerala.",
+    "characteristics": ["Size: 9 × 3 × 4 inches", "Compressive Strength: 9.15–10.15 N/mm²", "Dry Density: Approximately 1,700–1,850 kg/m³", "Shape: Rectangular", "Colour: Grey", "Eco-Friendly: Yes"],
+    "image": "/images/products/flyash-bricks.webp",
+    "description": "ACME Bricks manufactures and supplies fly ash bricks in Coimbatore for residential buildings, commercial developments and industrial construction projects. We serve homeowners, builders, civil contractors, construction companies and developers looking for a reliable fly ash brick supplier for their projects.\n\nBased in the Coimbatore market, ACME Bricks caters to individual orders and bulk requirements, with supply enquiries welcomed from across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 25000,
     "popularity": 95
   },
@@ -63,12 +63,12 @@ const MOCK_CATALOG = [
     "name": "Fly Ash Blocks",
     "type": "Fly Ash Blocks",
     "price": 6.80,
-    "dimensions": { "length": 230, "width": 230, "height": 75 },
+    "dimensions": { "length": 230, "width": 230, "height": 100 },
     "strength": "3.5-7.0",
     "application": ["infrastructure", "industrial", "residential", "commercial"],
-    "characteristics": ["Size: 230 x 230 x 70/75 mm", "Compressive Strength: 3.5 - 7.0 N/mm²", "Indian Standard: IS 2185 (Part 1)", "Density: Approx. 1,600 - 1,850 kg/m³", "Water Absorption: <10%"],
-    "image": "/images/products/ash-blocks.png",
-    "description": "ACME Fly Ash Blocks are manufactured using quality-controlled materials to provide a durable and efficient solution for modern masonry construction. Designed for consistent dimensions, good strength and reliable performance, these blocks are suitable for residential, commercial and industrial building projects.\n\nOur fly ash blocks in Coimbatore are manufactured with a focus on dimensional accuracy, durability and efficient construction. They provide a practical alternative for wall construction and are supplied to projects across Coimbatore, Tamil Nadu and Kerala.",
+    "characteristics": ["Size: 9 × 9 × 4 inches", "Weight: 9.5–10 kg", "Shape: Rectangular", "Colour: Grey", "Eco-Friendly: Yes"],
+    "image": "/images/products/ash-blocks.webp",
+    "description": "ACME Bricks manufactures and supplies fly ash blocks in Coimbatore for residential buildings, commercial developments and industrial construction projects. We serve homeowners, builders, civil contractors, construction companies and developers looking for a reliable fly ash block supplier.\n\nWe cater to individual orders and bulk requirements, with supply enquiries welcomed from across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 8000,
     "popularity": 80
   },
@@ -80,9 +80,15 @@ const MOCK_CATALOG = [
     "dimensions": { "length": 230, "width": 230, "height": 60 },
     "strength": "5.5-11.77",
     "application": ["residential", "infrastructure", "commercial"],
-    "characteristics": ["Thickness Options: 60 mm, 80 mm", "Material: High-quality cement, pigments", "Manufacturing: Vibrocompaction and pressing", "Key Benefits: Versatile, Durable, Slip-Resistant"],
-    "image": "/images/products/paver-block.png",
-    "description": "ACME Paver Blocks are designed to provide a strong, attractive and practical surface solution for residential, commercial and infrastructure applications. Manufactured using quality cement, aggregates and colour pigments, our paver blocks offer durability, consistent dimensions and a range of applications.\n\nOur paver blocks in Coimbatore are suitable for driveways, parking areas, pathways, gardens, commercial spaces and other outdoor surfaces. We supply paving products across Coimbatore, Tamil Nadu and Kerala.",
+    "characteristics": [
+      "Thickness Options: 60 mm, 80 mm (custom thickness on request)",
+      "Material Composition: High-quality cement, fine aggregates, and colour pigments",
+      "Manufacturing Process: Vibrocompaction and hydraulic pressing",
+      "Key Benefits: Versatile Designs, High Durability, Slip-Resistant, Weatherproof, Eco-Drainage",
+      "Eco Friendly: Yes"
+    ],
+    "image": "/images/products/paver-block.webp",
+    "description": "ACME Bricks manufactures and supplies paver blocks in Coimbatore for residential, commercial, industrial and landscaping applications. Our paver blocks are available in different colours and thickness options to suit a variety of outdoor paving requirements. We cater to driveways, pathways, parking areas, courtyards and other paving projects across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 3500,
     "popularity": 92
   },
@@ -94,9 +100,15 @@ const MOCK_CATALOG = [
     "dimensions": { "length": 230, "width": 230, "height": 115 },
     "strength": "5.5-11.77",
     "application": ["infrastructure", "industrial", "residential", "commercial"],
-    "characteristics": ["Size: 9\"x9\"x4.5\", 12\"x4\"x2\", 9\"x3\"x2\"", "Compressive Strength: 5.5 - 11.77 N/mm²", "Indian Standard: IS 15658", "Density: Approx. 1,600 kg/m³", "Water Absorption: 06% to 20%"],
-    "image": "/images/products/interlock.png",
-    "description": "ACME Interlock Bricks are designed to create strong, stable and visually appealing paved surfaces. Their interlocking design helps individual units work together to form a durable surface suitable for residential, commercial and outdoor applications.\n\nOur interlock bricks in Coimbatore are manufactured with consistent dimensions and are suitable for driveways, pathways, parking areas, landscaping and other paving requirements. We supply interlock paving products across Coimbatore, Tamil Nadu and Kerala.",
+    "characteristics": [
+      "Sizes: 6-Inch & 8-Inch Interlock Blocks",
+      "6-Inch Dimensions: 11 x 6 x 5 inches",
+      "8-Inch Dimensions: 11 x 8 x 5 inches",
+      "Weight: 10–12 kg",
+      "Key Benefits: Strong & Durable, Precision Dimensions, Interlock Design, Easy Installation"
+    ],
+    "image": "/images/products/interlock.webp",
+    "description": "ACME Bricks manufactures and supplies interlock bricks and Interlock blocks in Coimbatore for construction projects. Our product range includes 6-inch and 8-inch interlock blocks to meet different project requirements. We cater to builders, civil contractors, construction companies and bulk buyers across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 1200,
     "popularity": 85
   },
@@ -108,9 +120,15 @@ const MOCK_CATALOG = [
     "dimensions": { "length": 400, "width": 200, "height": 200 },
     "strength": "4.0-5.0",
     "application": ["commercial", "industrial", "residential"],
-    "characteristics": ["Size Options: 400x200x150/100/200/230 mm", "Compressive Strength: 4.0 - 5.0 N/mm²", "Indian Standard: IS 2185", "Density: Approx. >1,800 kg/m³", "Water Absorption: ~90 g/(m²·s⁰·⁵)"],
-    "image": "/images/products/solid-blocks.png",
-    "description": "ACME Solid Blocks are manufactured to provide strong and dependable masonry solutions for residential, commercial and industrial construction. With consistent dimensions and a solid concrete structure, these blocks are suitable for wall construction and other building applications where strength and durability are important.\n\nOur solid blocks in Coimbatore are available in multiple size options to suit different construction requirements. We supply solid concrete blocks across Coimbatore, Tamil Nadu and Kerala for builders, contractors and construction projects.",
+    "characteristics": [
+      "Sizes: 4-Inch, 6-Inch & 8-Inch Solid Blocks",
+      "4-Inch Dimensions: 15 x 4 x 8 inches (15–16 kg)",
+      "6-Inch Dimensions: 15 x 6 x 8 inches (15–16 kg)",
+      "8-Inch Dimensions: 12 x 8 x 8 inches (20–23 kg)",
+      "High Strength & Uniform Dimensions"
+    ],
+    "image": "/images/products/solid-blocks.webp",
+    "description": "ACME Bricks manufactures and supplies solid concrete blocks in Coimbatore for residential, commercial and industrial construction projects. Our solid blocks are available in different sizes to meet varied masonry requirements. They are suitable for walls, partitions and other construction applications, depending on the project specifications.\n\nWe supply solid blocks to builders, civil contractors, construction companies and bulk buyers across Coimbatore, with supply enquiries welcomed from Tamil Nadu and Kerala.",
     "stock": 14000,
     "popularity": 88
   },
@@ -123,7 +141,7 @@ const MOCK_CATALOG = [
     "strength": "3.0-4.5",
     "application": ["residential", "commercial"],
     "characteristics": ["Size Options: 600 x 200 x 100/150/200/230 mm", "Compressive Strength: 3.0 - 4.5 N/mm²", "Indian Standard: IS 2185", "Density: Approx. 550 - 650 kg/m³", "Water Absorption: <15%"],
-    "image": "/images/products/aac-blocks.png",
+    "image": "/images/products/aac-blocks.webp",
     "description": "ACME AAC Blocks are lightweight building blocks designed for efficient wall construction. Their cellular structure provides lower weight compared with conventional dense masonry materials while also offering useful thermal insulation properties.\n\nOur AAC blocks in Coimbatore are suitable for residential, commercial and modern building projects where lightweight construction, thermal comfort and construction efficiency are important. We supply AAC blocks for projects across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 6000,
     "popularity": 90
@@ -132,21 +150,27 @@ const MOCK_CATALOG = [
 
 // SEO Friendly URL Slugs Configuration
 const PRODUCT_SLUGS = {
-  '1': '/fly-ash-bricks/',
-  '2': '/fly-ash-blocks/',
-  '3': '/paver-blocks/',
-  '4': '/interlock-bricks/',
-  '5': '/solid-blocks/',
-  '6': '/aac-blocks/'
+  '1': '/fly-ash-bricks-manufacturer-coimbatore',
+  '2': '/fly-ash-blocks-manufacturer-coimbatore',
+  '3': '/paver-blocks-manufacturer-coimbatore',
+  '4': '/interlock-bricks-manufacturer-coimbatore',
+  '5': '/solid-blocks-manufacturer-coimbatore',
+  '6': '/aac-blocks-manufacturer-coimbatore'
 };
 
 const SLUG_TO_PRODUCT_ID = {
+  'fly-ash-bricks-manufacturer-coimbatore': '1',
   'fly-ash-bricks': '1',
+  'fly-ash-blocks-manufacturer-coimbatore': '2',
   'fly-ash-blocks': '2',
+  'paver-blocks-manufacturer-coimbatore': '3',
   'paver-blocks': '3',
+  'interlock-bricks-manufacturer-coimbatore': '4',
   'interlock-bricks': '4',
-  'interlocking-bricks': '4',
+  'Interlock-bricks': '4',
+  'solid-blocks-manufacturer-coimbatore': '5',
   'solid-blocks': '5',
+  'aac-blocks-manufacturer-coimbatore': '6',
   'aac-blocks': '6'
 };
 
@@ -166,7 +190,7 @@ const PAGE_SLUGS = {
 
 const getRouteFromUrl = (catalog = MOCK_CATALOG) => {
   if (typeof window === 'undefined') return { tab: 'home', product: null };
-  
+
   const pathname = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
 
   // 1. Direct Product Slug match (e.g. /fly-ash-bricks/ or fly-ash-bricks)
@@ -237,7 +261,7 @@ const getRouteFromUrl = (catalog = MOCK_CATALOG) => {
 
 export default function App() {
   const [products, setProducts] = useState(MOCK_CATALOG);
-  
+
   // Initialize route from current URL path
   const initialRoute = getRouteFromUrl(MOCK_CATALOG);
   const [activeTab, setActiveTab] = useState(initialRoute.tab);
@@ -253,7 +277,7 @@ export default function App() {
   // Effect to sync state changes to clean SEO URL paths (No query parameters)
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     let targetPath = '/';
     if (activeTab === 'home') {
       targetPath = '/';
@@ -266,7 +290,7 @@ export default function App() {
     } else {
       targetPath = `/${activeTab}/`;
     }
-    
+
     if (window.location.pathname !== targetPath) {
       window.history.pushState({ activeTab, productId: selectedProductDetail?.id }, '', targetPath);
     }
@@ -294,9 +318,9 @@ export default function App() {
   // Effect for Dynamic SEO Metadata & JSON-LD Structured Data
   useEffect(() => {
     // 1. Define metadata values based on current active tab and product details
-    let seoTitle = 'Fly Ash Bricks, Paver & Interlocking Bricks Manufacturer in Coimbatore | ACME';
-    let seoDescription = 'ACME Bricks manufactures fly ash bricks, paver blocks and interlocking bricks in Coimbatore, supplying quality construction materials across Tamil Nadu and Kerala.';
-    let seoKeywords = 'bricks manufacturer in Coimbatore, blocks manufacturer in Coimbatore, fly ash bricks Coimbatore, paver blocks Coimbatore, interlocking bricks Coimbatore, construction material supplier Coimbatore';
+    let seoTitle = 'Fly Ash Bricks, Paver & Interlock Bricks Manufacturer in Coimbatore | ACME';
+    let seoDescription = 'ACME Bricks manufactures fly ash bricks, paver blocks and Interlock bricks in Coimbatore, supplying quality construction materials across Tamil Nadu and Kerala.';
+    let seoKeywords = 'bricks manufacturer in Coimbatore, blocks manufacturer in Coimbatore, fly ash bricks Coimbatore, paver blocks Coimbatore, Interlock bricks Coimbatore, construction material supplier Coimbatore';
     let canonicalUrl = 'https://acmebricks.in/';
     let schemaMarkup = null;
 
@@ -343,9 +367,9 @@ export default function App() {
     };
 
     if (activeTab === 'home') {
-      seoTitle = 'Fly Ash Bricks, Paver & Interlocking Bricks Manufacturer in Coimbatore | ACME';
-      seoDescription = 'ACME Bricks manufactures fly ash bricks, paver blocks and interlocking bricks in Coimbatore, supplying quality construction materials across Tamil Nadu and Kerala.';
-      seoKeywords = 'bricks manufacturer in Coimbatore, blocks manufacturer in Coimbatore, fly ash bricks Coimbatore, paver blocks Coimbatore, interlocking bricks Coimbatore, construction material supplier Coimbatore';
+      seoTitle = 'Fly Ash Bricks, Paver & Interlock Bricks Manufacturer in Coimbatore | ACME';
+      seoDescription = 'ACME Bricks manufactures fly ash bricks, paver blocks and Interlock bricks in Coimbatore, supplying quality construction materials across Tamil Nadu and Kerala.';
+      seoKeywords = 'bricks manufacturer in Coimbatore, blocks manufacturer in Coimbatore, fly ash bricks Coimbatore, paver blocks Coimbatore, Interlock bricks Coimbatore, construction material supplier Coimbatore';
       canonicalUrl = 'https://acmebricks.in/';
       schemaMarkup = {
         "@context": "https://schema.org",
@@ -370,7 +394,7 @@ export default function App() {
       };
     } else if (activeTab === 'about') {
       seoTitle = 'About ACME Bricks & Blocks | Construction Materials Manufacturer';
-      seoDescription = 'Learn about ACME Bricks & Blocks, a Coimbatore-based manufacturer and supplier of fly ash bricks, paver blocks, interlocking bricks and other construction materials since 2015.';
+      seoDescription = 'Learn about ACME Bricks & Blocks, a Coimbatore-based manufacturer and supplier of fly ash bricks, paver blocks, Interlock bricks and other construction materials since 2015.';
       seoKeywords = 'About ACME Bricks, ACME Coimbatore Manufacturer, brick manufacturer Coimbatore, construction materials supplier Tamil Nadu, established 2015 bricks company';
       canonicalUrl = 'https://acmebricks.in/about/';
       schemaMarkup = {
@@ -384,7 +408,7 @@ export default function App() {
       };
     } else if (activeTab === 'products') {
       seoTitle = 'Bricks & Blocks | Fly Ash, Paver, Interlock & AAC | ACME Bricks';
-      seoDescription = 'Explore ACME Bricks\' range of fly ash bricks, fly ash blocks, paver blocks, interlocking bricks, solid blocks and AAC blocks manufactured and supplied from Coimbatore.';
+      seoDescription = 'Explore ACME Bricks\' range of fly ash bricks, fly ash blocks, paver blocks, Interlock bricks, solid blocks and AAC blocks manufactured and supplied from Coimbatore.';
       seoKeywords = 'bricks manufacturer in Coimbatore, blocks manufacturer in Coimbatore, construction material supplier Coimbatore, fly ash bricks, paver blocks, interlock bricks, AAC blocks, solid blocks';
       canonicalUrl = 'https://acmebricks.in/products/';
       schemaMarkup = {
@@ -398,44 +422,44 @@ export default function App() {
     } else if (activeTab === 'product-details' && selectedProductDetail) {
       const prod = selectedProductDetail;
       const lower = (prod.name || '').toLowerCase();
-      
+
       if (lower.includes('fly ash brick')) {
         seoTitle = 'Fly Ash Bricks Manufacturer in Coimbatore | ACME Bricks';
-        seoDescription = 'ACME Bricks manufactures high-strength fly ash bricks in Coimbatore for residential, commercial and industrial construction. Bulk supply available across Tamil Nadu and Kerala.';
+        seoDescription = 'ACME Bricks manufactures and supplies fly ash bricks in Coimbatore for residential, commercial and industrial projects. Enquire about bulk orders and delivery.';
         seoKeywords = 'fly ash bricks in Coimbatore, fly ash brick supplier Coimbatore, fly ash brick manufacturers Tamil Nadu, fly ash bricks supplier, fly ash bricks price Coimbatore, eco friendly bricks Coimbatore';
-        canonicalUrl = 'https://acmebricks.in/fly-ash-bricks/';
+        canonicalUrl = 'https://acmebricks.in/fly-ash-bricks-manufacturer-coimbatore';
       } else if (lower.includes('fly ash block')) {
         seoTitle = 'Fly Ash Blocks Manufacturer in Coimbatore | ACME Bricks';
-        seoDescription = 'ACME Bricks manufactures and supplies durable fly ash blocks in Coimbatore for masonry and building construction. Bulk orders available across Tamil Nadu and Kerala.';
+        seoDescription = 'Looking for fly ash blocks in Coimbatore? ACME Bricks supplies fly ash blocks for residential, commercial and industrial construction. Enquire about pricing and bulk orders.';
         seoKeywords = 'fly ash blocks in Coimbatore, fly ash block supplier Coimbatore, fly ash blocks manufacturer Tamil Nadu, fly ash concrete blocks, fly ash blocks supplier';
-        canonicalUrl = 'https://acmebricks.in/fly-ash-blocks/';
+        canonicalUrl = 'https://acmebricks.in/fly-ash-blocks-manufacturer-coimbatore';
       } else if (lower.includes('paver')) {
         seoTitle = 'Paver Blocks Manufacturer in Coimbatore | ACME Bricks';
-        seoDescription = 'ACME Bricks manufactures durable paver blocks in Coimbatore for driveways, pathways, parking areas and landscaping. Bulk supply available across Tamil Nadu and Kerala.';
+        seoDescription = 'Looking for paver blocks in Coimbatore? ACME Bricks supplies paver blocks for driveways, pathways, parking areas and landscaping. Enquire about prices and bulk orders.';
         seoKeywords = 'paver blocks in Coimbatore, paver block supplier Coimbatore, paver block manufacturers Tamil Nadu, concrete paver blocks Coimbatore, interlock paver blocks, paver blocks price Coimbatore, driveway paver blocks';
-        canonicalUrl = 'https://acmebricks.in/paver-blocks/';
+        canonicalUrl = 'https://acmebricks.in/paver-blocks-manufacturer-coimbatore';
       } else if (lower.includes('interlock')) {
         seoTitle = 'Interlock Bricks Manufacturer in Coimbatore | ACME Bricks';
-        seoDescription = 'ACME Bricks manufactures interlock bricks in Coimbatore for durable construction and masonry applications. Quality products and bulk supply across Tamil Nadu and Kerala.';
-        seoKeywords = 'interlock bricks Coimbatore, interlocking bricks supplier Coimbatore, interlock bricks manufacturer Tamil Nadu, interlock blocks Coimbatore, interlocking blocks, interlock bricks price Coimbatore';
-        canonicalUrl = 'https://acmebricks.in/interlock-bricks/';
+        seoDescription = 'Looking for interlock bricks in Coimbatore? ACME Bricks supplies interlock paving bricks for driveways, pathways, parking areas and outdoor spaces. Enquire for prices and bulk orders.';
+        seoKeywords = 'interlock bricks Coimbatore, interlock bricks manufacturer Coimbatore, Interlock bricks supplier Coimbatore, interlock blocks Coimbatore, Interlock paving bricks Coimbatore, interlock bricks price Coimbatore';
+        canonicalUrl = 'https://acmebricks.in/interlock-bricks-manufacturer-coimbatore';
       } else if (lower.includes('solid')) {
-        seoTitle = 'Solid Concrete Blocks Manufacturer in Coimbatore | ACME Bricks';
-        seoDescription = 'ACME Bricks manufactures solid concrete blocks in Coimbatore for residential, commercial and industrial construction. Durable blocks available for bulk orders.';
-        seoKeywords = 'solid blocks Coimbatore, solid concrete blocks Coimbatore, solid block supplier Coimbatore, concrete blocks manufacturer Tamil Nadu, solid blocks for construction';
-        canonicalUrl = 'https://acmebricks.in/solid-blocks/';
+        seoTitle = 'Solid Blocks Manufacturer in Coimbatore | ACME Bricks';
+        seoDescription = 'Looking for solid concrete blocks in Coimbatore? ACME Bricks supplies 4-inch, 6-inch and 8-inch solid blocks for construction projects. Enquire about prices and bulk orders.';
+        seoKeywords = 'solid blocks Coimbatore, solid blocks manufacturer Coimbatore, solid concrete blocks Coimbatore, solid block supplier Coimbatore, 4 inch solid blocks, 6 inch solid blocks, 8 inch solid blocks';
+        canonicalUrl = 'https://acmebricks.in/solid-blocks-manufacturer-coimbatore';
       } else if (lower.includes('aac')) {
-        seoTitle = 'AAC Blocks Supplier in Coimbatore | ACME Bricks';
-        seoDescription = 'ACME Bricks supplies lightweight AAC blocks in Coimbatore for residential, commercial and industrial construction. Enquire for quality products and bulk supply.';
-        seoKeywords = 'AAC blocks Coimbatore, AAC block supplier Coimbatore, AAC blocks Tamil Nadu, lightweight concrete blocks, AAC block supplier';
-        canonicalUrl = 'https://acmebricks.in/aac-blocks/';
+        seoTitle = 'AAC Blocks Manufacturer in Coimbatore | ACME Bricks';
+        seoDescription = 'Looking for AAC blocks in Coimbatore? ACME Bricks manufactures and supplies lightweight AAC concrete blocks for residential, commercial and industrial projects. Enquire for prices and bulk supply.';
+        seoKeywords = 'AAC blocks Coimbatore, AAC blocks manufacturer Coimbatore, AAC block supplier Coimbatore, AAC concrete blocks Coimbatore, lightweight concrete blocks, AAC block price';
+        canonicalUrl = 'https://acmebricks.in/aac-blocks-manufacturer-coimbatore';
       } else {
         seoTitle = `${prod.name} Manufacturer in Coimbatore | ACME Bricks`;
         seoDescription = `${prod.description} High compressive strength of ${prod.strength} N/mm². Manufactured in Coimbatore by ACME Bricks.`;
         seoKeywords = `${prod.name}, ${prod.type}, ${prod.name} Coimbatore, ${prod.name} supplier`;
         canonicalUrl = `https://acmebricks.in/products/?id=${prod.id}`;
       }
-      
+
       schemaMarkup = {
         "@context": "https://schema.org",
         "@graph": [
@@ -518,7 +542,7 @@ export default function App() {
       };
     } else if (activeTab === 'gallery') {
       seoTitle = 'Bricks & Blocks Gallery | Fly Ash, Paver & Interlock | ACME Bricks';
-      seoDescription = 'View ACME Bricks\' product gallery featuring fly ash bricks, fly ash blocks, paver blocks, interlocking bricks, solid blocks and AAC blocks manufactured in Coimbatore.';
+      seoDescription = 'View ACME Bricks\' product gallery featuring fly ash bricks, fly ash blocks, paver blocks, Interlock bricks, solid blocks and AAC blocks manufactured in Coimbatore.';
       seoKeywords = 'Product Gallery ACME, Fly ash bricks gallery, paver blocks pictures, interlock bricks photos, Coimbatore bricks project gallery';
       canonicalUrl = 'https://acmebricks.in/gallery/';
       schemaMarkup = {
@@ -531,7 +555,7 @@ export default function App() {
       };
     } else if (activeTab === 'contact') {
       seoTitle = 'Contact ACME Bricks & Blocks | Coimbatore';
-      seoDescription = 'Contact ACME Bricks & Blocks in Coimbatore for fly ash bricks, paver blocks, interlocking bricks, fly ash blocks, solid blocks and AAC blocks. Enquire for bulk orders.';
+      seoDescription = 'Contact ACME Bricks & Blocks in Coimbatore for fly ash bricks, paver blocks, Interlock bricks, fly ash blocks, solid blocks and AAC blocks. Enquire for bulk orders.';
       seoKeywords = 'Contact ACME Bricks, ACME bricks Coimbatore, bricks manufacturer contact, paver blocks Coimbatore inquiry, fly ash bricks quote';
       canonicalUrl = 'https://acmebricks.in/contact/';
       schemaMarkup = {
@@ -667,14 +691,14 @@ export default function App() {
       schemaScript.setAttribute('type', 'application/ld+json');
       document.head.appendChild(schemaScript);
     }
-    
+
     if (schemaMarkup) {
       schemaScript.textContent = JSON.stringify(schemaMarkup, null, 2);
     } else {
       schemaScript.textContent = '';
     }
   }, [activeTab, selectedProductDetail]);
-  
+
 
   const handleViewDetails = (product) => {
     setSelectedProductDetail(product);
@@ -1029,16 +1053,6 @@ export default function App() {
               paddingTop: '40px',
               paddingBottom: '60px'
             }}>
-              {/* Products Sidebar / Filter Section Hidden as requested */}
-              {/* <ProductsSidebar
-                selectedCategory={selectedCategory}
-                onCategoryChange={handleCategorySelect}
-                activeFilters={activeFilters}
-                onFilterToggle={handleFilterToggle}
-                onResetFilters={handleResetFilters}
-                categoryCounts={categoryCounts}
-                filterCounts={filterCounts}
-              /> */}
               <ProductsGrid
                 products={sortedProducts}
                 onViewDetails={handleViewDetails}
@@ -1075,59 +1089,62 @@ export default function App() {
           </>
         )}
 
-        {activeTab === 'calculator' && (
-          <BrickCalculator
-            products={products}
-            preselectedProduct={calculatorPreselect}
-          />
-        )}
-
-        {activeTab === 'admin' && (
-          <Dashboard
-            products={products}
-            onAddProduct={handleAddProduct}
-            onUpdateProduct={handleUpdateProduct}
-            onDeleteProduct={handleDeleteProduct}
-            refreshCatalog={fetchProducts}
-          />
-        )}
-
         {activeTab === 'contact' && (
           <>
             <ContactHero onHomeClick={() => setActiveTab('home')} />
             <ContactMain onNavigate={handleFooterNavigation} />
             <ContactMap />
-            {/* <ContactTrustBar /> */}
           </>
         )}
 
-        {activeTab === 'gallery' && (
-          <Gallery onHomeClick={() => setActiveTab('home')} />
-        )}
+        {['calculator', 'admin', 'gallery', 'sitemap', 'terms', 'privacy', '404'].includes(activeTab) && (
+          <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
+            {activeTab === 'calculator' && (
+              <BrickCalculator
+                products={products}
+                preselectedProduct={calculatorPreselect}
+              />
+            )}
 
-        {activeTab === 'sitemap' && (
-          <Sitemap onNavigate={handleFooterNavigation} />
-        )}
+            {activeTab === 'admin' && (
+              <Dashboard
+                products={products}
+                onAddProduct={handleAddProduct}
+                onUpdateProduct={handleUpdateProduct}
+                onDeleteProduct={handleDeleteProduct}
+                refreshCatalog={fetchProducts}
+              />
+            )}
 
-        {activeTab === 'terms' && (
-          <TermsAndConditions
-            onHomeClick={() => setActiveTab('home')}
-            onNavigate={handleFooterNavigation}
-          />
-        )}
+            {activeTab === 'gallery' && (
+              <Gallery onHomeClick={() => setActiveTab('home')} />
+            )}
 
-        {activeTab === 'privacy' && (
-          <PrivacyPolicy
-            onHomeClick={() => setActiveTab('home')}
-            onNavigate={handleFooterNavigation}
-          />
-        )}
+            {activeTab === 'sitemap' && (
+              <Sitemap onNavigate={handleFooterNavigation} />
+            )}
 
-        {activeTab === '404' && (
-          <NotFound
-            onHomeClick={() => setActiveTab('home')}
-            onNavigate={handleFooterNavigation}
-          />
+            {activeTab === 'terms' && (
+              <TermsAndConditions
+                onHomeClick={() => setActiveTab('home')}
+                onNavigate={handleFooterNavigation}
+              />
+            )}
+
+            {activeTab === 'privacy' && (
+              <PrivacyPolicy
+                onHomeClick={() => setActiveTab('home')}
+                onNavigate={handleFooterNavigation}
+              />
+            )}
+
+            {activeTab === '404' && (
+              <NotFound
+                onHomeClick={() => setActiveTab('home')}
+                onNavigate={handleFooterNavigation}
+              />
+            )}
+          </Suspense>
         )}
       </main>
 

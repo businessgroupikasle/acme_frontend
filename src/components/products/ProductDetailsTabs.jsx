@@ -24,77 +24,73 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
 
   const descriptionData = isFlyAshBricks
     ? {
-        heading: 'High-Strength Fly Ash Bricks for Reliable Construction',
-        paragraphs: [
-          'ACME Fly Ash Bricks are manufactured using carefully selected fly ash, cement, sand and water to deliver strong, durable and dimensionally consistent building materials. Designed as an eco-friendly alternative to conventional clay bricks, our fly ash bricks offer excellent strength, low water absorption and a smooth, uniform finish.',
-          'Manufactured at our facility in Coimbatore, Tamil Nadu, ACME Fly Ash Bricks are suitable for residential, commercial and industrial construction projects across Coimbatore, Tamil Nadu and Kerala.'
-        ]
-      }
+      heading: 'Fly Ash Bricks for Residential, Commercial and Industrial Construction',
+      paragraphs: [
+        'ACME Bricks manufactures and supplies fly ash bricks in Coimbatore for residential buildings, commercial developments and industrial construction projects. We serve homeowners, builders, civil contractors, construction companies and developers looking for a reliable fly ash brick supplier for their projects.',
+        'Based in the Coimbatore market, ACME Bricks caters to individual orders and bulk requirements, with supply enquiries welcomed from across Coimbatore, Tamil Nadu and Kerala.'
+      ]
+    }
     : isFlyAshBlocks
       ? {
-          heading: 'Durable Fly Ash Blocks for Strong & Efficient Construction',
-          paragraphs: [
-            'ACME Fly Ash Blocks are manufactured using quality-controlled materials to provide a durable and efficient solution for modern masonry construction. Designed for consistent dimensions, good strength and reliable performance, these blocks are suitable for residential, commercial and industrial building projects.',
-            'Our fly ash blocks in Coimbatore are manufactured with a focus on dimensional accuracy, durability and efficient construction. They provide a practical alternative for wall construction and are supplied to projects across Coimbatore, Tamil Nadu and Kerala.'
-          ]
-        }
+        heading: 'Fly Ash Blocks for Residential, Commercial and Industrial Construction',
+        paragraphs: [
+          'ACME Bricks manufactures and supplies fly ash blocks in Coimbatore for residential buildings, commercial developments and industrial construction projects. We serve homeowners, builders, civil contractors, construction companies and developers looking for a reliable fly ash block supplier.',
+          'We cater to individual orders and bulk requirements, with supply enquiries welcomed from across Coimbatore, Tamil Nadu and Kerala.'
+        ]
+      }
       : isPaverBlocks
         ? {
-            heading: 'Durable Paver Blocks for Driveways, Pathways & Outdoor Spaces',
-            paragraphs: [
-              'ACME Paver Blocks are designed to provide a strong, attractive and practical surface solution for residential, commercial and infrastructure applications. Manufactured using quality cement, aggregates and colour pigments, our paver blocks offer durability, consistent dimensions and a range of applications.',
-              'Our paver blocks in Coimbatore are suitable for driveways, parking areas, pathways, gardens, commercial spaces and other outdoor surfaces. We supply paving products across Coimbatore, Tamil Nadu and Kerala.'
-            ]
-          }
+          heading: 'Durable Paver Blocks for Driveways, Pathways & Outdoor Spaces',
+          paragraphs: [
+            'ACME Paver Blocks are designed to provide a strong, attractive and practical surface solution for residential, commercial and infrastructure applications. Manufactured using quality cement, aggregates and colour pigments, our paver blocks offer durability, consistent dimensions and a range of applications.',
+            'Our paver blocks in Coimbatore are suitable for driveways, parking areas, pathways, gardens, commercial spaces and other outdoor surfaces. We supply paving products across Coimbatore, Tamil Nadu and Kerala.'
+          ]
+        }
         : isInterlockBricks
           ? {
-              heading: 'Strong Interlock Bricks for Durable & Attractive Paving',
-              paragraphs: [
-                'ACME Interlock Bricks are designed to create strong, stable and visually appealing paved surfaces. Their interlocking design helps individual units work together to form a durable surface suitable for residential, commercial and outdoor applications.',
-                'Our interlock bricks in Coimbatore are manufactured with consistent dimensions and are suitable for driveways, pathways, parking areas, landscaping and other paving requirements. We supply interlock paving products across Coimbatore, Tamil Nadu and Kerala.'
-              ]
-            }
+            heading: 'Strong Interlock Blocks for Durable Construction',
+            paragraphs: [
+              'ACME Bricks manufactures and supplies interlock bricks and Interlock blocks in Coimbatore for construction projects. Our product range includes 6-inch and 8-inch interlock blocks to meet different project requirements.',
+              'We cater to builders, civil contractors, construction companies and bulk buyers across Coimbatore, Tamil Nadu and Kerala.'
+            ]
+          }
           : isSolidBlocks
             ? {
-                heading: 'High-Strength Solid Blocks for Reliable Wall Construction',
-                paragraphs: [
-                  'ACME Solid Blocks are manufactured to provide strong and dependable masonry solutions for residential, commercial and industrial construction. With consistent dimensions and a solid concrete structure, these blocks are suitable for wall construction and other building applications where strength and durability are important.',
-                  'Our solid blocks in Coimbatore are available in multiple size options to suit different construction requirements. We supply solid concrete blocks across Coimbatore, Tamil Nadu and Kerala for builders, contractors and construction projects.'
-                ]
-              }
+              heading: 'High-Strength Solid Blocks for Durable Masonry Construction',
+              paragraphs: [
+                'ACME Bricks manufactures and supplies solid concrete blocks in Coimbatore for residential, commercial and industrial construction projects. Our solid blocks are available in different sizes to meet varied masonry requirements. They are suitable for walls, partitions and other construction applications, depending on the project specifications.',
+                'We supply solid blocks to builders, civil contractors, construction companies and bulk buyers across Coimbatore, with supply enquiries welcomed from Tamil Nadu and Kerala.'
+              ]
+            }
             : isAACBlocks
               ? {
-                  heading: 'Lightweight AAC Blocks for Faster & Efficient Construction',
-                  paragraphs: [
-                    'ACME AAC Blocks are lightweight building blocks designed for efficient wall construction. Their cellular structure provides lower weight compared with conventional dense masonry materials while also offering useful thermal insulation properties.',
-                    'Our AAC blocks in Coimbatore are suitable for residential, commercial and modern building projects where lightweight construction, thermal comfort and construction efficiency are important. We supply AAC blocks for projects across Coimbatore, Tamil Nadu and Kerala.'
-                  ]
-                }
+                heading: 'Lightweight AAC Blocks for Faster & Efficient Construction',
+                paragraphs: [
+                  'ACME AAC Blocks are lightweight building blocks designed for efficient wall construction. Their cellular structure provides lower weight compared with conventional dense masonry materials while also offering useful thermal insulation properties.',
+                  'Our AAC blocks in Coimbatore are suitable for residential, commercial and modern building projects where lightweight construction, thermal comfort and construction efficiency are important. We supply AAC blocks for projects across Coimbatore, Tamil Nadu and Kerala.'
+                ]
+              }
               : {
-                  heading: `ACME ${name}`,
-                  paragraphs: [
-                    product?.description || `ACME ${name}s are manufactured using high-quality raw materials and advanced technology to ensure superior strength, durability and consistency. Ideal for all types of construction.`
-                  ]
-                };
+                heading: `ACME ${name}`,
+                paragraphs: [
+                  product?.description || `ACME ${name}s are manufactured using high-quality raw materials and advanced technology to ensure superior strength, durability and consistency. Ideal for all types of construction.`
+                ]
+              };
 
   // Bullet points for description tab
   const bulletPoints = isFlyAshBricks
     ? [
-      'Manufactured using quality-controlled raw materials',
-      'Uniform dimensions and smooth surface finish',
-      'High compressive strength and long-term durability',
-      'Low water absorption',
-      'Environment-friendly building material',
-      'Suitable for a wide range of masonry applications'
+      'Consistent product dimensions',
+      'Suitable for a wide range of masonry applications',
+      'Options for individual and bulk orders',
+      'Supply enquiries for residential and commercial projects'
     ]
     : isFlyAshBlocks
       ? [
-        'Manufactured using quality-controlled raw materials',
-        'Uniform size and consistent shape',
-        'Good compressive strength and durability',
-        'Suitable for efficient masonry construction',
-        'Reduced construction time through larger block sizes',
-        'Suitable for residential, commercial and industrial projects'
+        'Consistent product dimensions',
+        'Suitable for masonry applications',
+        'Available for individual and bulk orders',
+        'Supply for residential and commercial projects'
       ]
       : isPaverBlocks
         ? [
@@ -107,21 +103,21 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
         ]
         : isInterlockBricks
           ? [
-            'Precision-manufactured interlocking design',
-            'Strong and durable paving solution',
-            'Uniform size and shape',
-            'Suitable for driveways and pathways',
-            'Available in different sizes and patterns',
-            'Practical for residential and commercial applications'
+            'Strong and Durable',
+            'Precision Dimensions',
+            'Interlock Design',
+            'Multiple Size Options',
+            'Easy Installation',
+            'Low Maintenance'
           ]
           : isSolidBlocks
             ? [
-              'High-strength solid concrete construction',
-              'Consistent size and shape',
-              'Suitable for masonry and wall construction',
-              'Available in multiple size options',
-              'Durable and reliable building material',
-              'Suitable for residential, commercial and industrial projects'
+              'High Strength',
+              'Uniform Dimensions',
+              'Durable Construction',
+              'Efficient Masonry',
+              'Multiple Size Options',
+              'Suitable for Construction Projects'
             ]
             : isAACBlocks
               ? [
@@ -142,35 +138,37 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
 
   const specRows = isFlyAshBricks
     ? [
-      { param: 'Size (L x B x H)', val: '9 x 4 x 3 inch' },
-      { param: 'Compressive Strength', val: '9.15 - 10.15 N/mm²' },
-      { param: 'Indian Standard', val: 'IS 12894:2002' },
-      { param: 'Dry Density', val: 'Approx. 1700–1850 kg/m³' },
-      { param: 'Water Absorption', val: '<10% (Conforms to IS 12894)' },
-      { param: 'Efflorescence', val: 'Nil' },
+      { param: 'Size (L × B × H)', val: '9 × 3 × 4 inches' },
+      { param: 'Compressive Strength', val: '9.15–10.15 N/mm²' },
+      { param: 'Dry Density', val: 'Approximately 1,700–1,850 kg/m³' },
       { param: 'Shape', val: 'Rectangular' },
-      { param: 'Color', val: 'Grey' },
-      { param: 'Eco Friendly', val: 'Yes' }
+      { param: 'Colour', val: 'Grey' },
+      { param: 'Eco-Friendly', val: 'Yes' }
     ]
     : isFlyAshBlocks
       ? [
-        { param: 'Size (L x B x H)', val: '230 mm x 230 mm x 70 mm (or 75 mm)' },
-        { param: 'Compressive Strength', val: '3.5 - 7.0 N/mm²' },
-        { param: 'Indian Standard', val: 'IS 2185 (PART 1) : 2005' },
-        { param: 'Dry Density', val: 'Approx. 1,600 - 1,850 kg/m³' },
-        { param: 'Water Absorption', val: '<10% (Conforms to IS 12894)' },
-        { param: 'Efflorescence', val: 'Nil' },
-        { param: 'Shape', val: 'Rectangular (Solid/Hollow)' },
-        { param: 'Color', val: 'Grey' },
-        { param: 'Eco Friendly', val: 'Yes' }
+        { param: 'Size (L × B × H)', val: '9 × 9 × 4 inches' },
+        { param: 'Weight', val: '9.5–10 kg' },
+        { param: 'Shape', val: 'Rectangular' },
+        { param: 'Colour', val: 'Grey' },
+        { param: 'Eco-Friendly', val: 'Yes' }
       ]
       : isPaverBlocks
         ? [
-          { param: 'Thickness Options', val: '60 mm, 80 mm (custom thickness on request)' },
-          { param: 'Material Composition', val: 'High-quality cement, fine aggregates, and colour pigments' },
+          { param: 'Thickness Options', val: '2.36 inches and 3.15 inches' },
+          { param: 'Material', val: 'Cement, fine aggregates and colour pigments' },
           { param: 'Manufacturing Process', val: 'Vibrocompaction and hydraulic pressing' },
-          { param: 'Key Benefits', val: 'Versatile Designs, High Durability, Slip-Resistant, Weatherproof, Eco-Drainage' },
-          { param: 'Eco Friendly', val: 'Yes' }
+          {
+            param: 'Key Benefits',
+            val: (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontWeight: 600 }}>
+                <span>• Multiple design options</span>
+                <span>• Durable construction</span>
+                <span>• Suitable for outdoor paving applications</span>
+                <span>• Ideal for residential and commercial projects</span>
+              </div>
+            )
+          }
         ]
         : isInterlockBricks
           ? [
@@ -180,7 +178,7 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
             { param: 'Dry Density', val: 'Approx. 1,600 kg/m³' },
             { param: 'Water Absorption', val: '06% to 20%' },
             { param: 'Efflorescence', val: 'Nil' },
-            { param: 'Shape', val: 'Interlocking Puzzle Shape' },
+            { param: 'Shape', val: 'Interlock Puzzle Shape' },
             { param: 'Color', val: 'Grey / Red' },
             { param: 'Eco Friendly', val: 'Yes (Compressed Stabilized Earth)' }
           ]
@@ -241,7 +239,7 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
         ]
         : isInterlockBricks
           ? [
-            'Interlocking Design: The specially shaped units fit together to create a stable and well-aligned paved surface.',
+            'Interlock Design: The specially shaped units fit together to create a stable and well-aligned paved surface.',
             'High Strength: Designed to provide dependable performance for suitable pedestrian and vehicle-use applications.',
             'Dimensional Accuracy: Uniform manufacturing helps achieve proper alignment and a neat finished surface.',
             'Attractive Finish: Available in different shapes, colours and laying patterns for visually appealing spaces.',
@@ -350,7 +348,7 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
         ]
         : isInterlockBricks
           ? [
-            'Stable Paved Surface: The interlocking design helps distribute loads across adjoining units.',
+            'Stable Paved Surface: The Interlock design helps distribute loads across adjoining units.',
             'Better Installation Efficiency: Uniform units and repeatable patterns can make laying and alignment easier.',
             'Attractive Designs: Multiple laying patterns and colour combinations provide design flexibility.',
             'Easy Repair: Individual damaged units can be replaced without disturbing the complete paved area.',
@@ -491,25 +489,98 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
 
             {activeTab === 'Specifications' && (
               <div style={{ padding: '5px 0' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '2px solid var(--border)' }}>
-                      <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>Parameter</th>
-                      <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {specRows.map((row, idx) => (
-                      <tr key={idx} style={{
-                        borderBottom: '1px solid var(--border)',
-                        background: idx % 2 === 0 ? 'rgba(0,0,0,0.015)' : 'transparent'
-                      }}>
-                        <td style={{ padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 600, width: '40%' }}>{row.param}</td>
-                        <td style={{ padding: '10px 12px', color: 'var(--text-primary)', fontWeight: 700 }}>{row.val}</td>
+                {(isFlyAshBlocks || isFlyAshBricks || isPaverBlocks || isInterlockBricks || isSolidBlocks) && (
+                  <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '14px' }}>
+                    {isFlyAshBlocks
+                      ? 'ACME Fly Ash Blocks – Technical Specifications'
+                      : isFlyAshBricks
+                        ? 'ACME Fly Ash Bricks – Technical Specifications'
+                        : isPaverBlocks
+                          ? 'Paver Blocks – Product Specifications'
+                          : isInterlockBricks
+                            ? 'ACME Interlock Blocks – Technical Specifications'
+                            : 'ACME Solid Blocks – Technical Specifications'}
+                  </h4>
+                )}
+                {isInterlockBricks ? (
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '2px solid var(--border)' }}>
+                        <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>Specification</th>
+                        <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>6-Inch Interlock</th>
+                        <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>8-Inch Interlock</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {[
+                        { spec: 'Length', six: '11 inches', eight: '11 inches' },
+                        { spec: 'Width', six: '6 inches', eight: '8 inches' },
+                        { spec: 'Height', six: '5 inches', eight: '5 inches' },
+                        { spec: 'Weight', six: '10–12 kg', eight: '10–12 kg' }
+                      ].map((row, idx) => (
+                        <tr key={idx} style={{
+                          borderBottom: '1px solid var(--border)',
+                          background: idx % 2 === 0 ? 'rgba(0,0,0,0.015)' : 'transparent'
+                        }}>
+                          <td style={{ padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 600, width: '34%' }}>{row.spec}</td>
+                          <td style={{ padding: '10px 12px', color: 'var(--text-primary)', fontWeight: 700, width: '33%' }}>{row.six}</td>
+                          <td style={{ padding: '10px 12px', color: 'var(--text-primary)', fontWeight: 700, width: '33%' }}>{row.eight}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : isSolidBlocks ? (
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '2px solid var(--border)' }}>
+                        <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>Specification</th>
+                        <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>4-Inch Solid Block</th>
+                        <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>6-Inch Solid Block</th>
+                        <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>8-Inch Solid Block</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { spec: 'Length', four: '15 inches', six: '15 inches', eight: '12 inches' },
+                        { spec: 'Width', four: '4 inches', six: '6 inches', eight: '8 inches' },
+                        { spec: 'Height', four: '8 inches', six: '8 inches', eight: '8 inches' },
+                        { spec: 'Weight', four: '15–16 kg', six: '15–16 kg', eight: '20–23 kg' }
+                      ].map((row, idx) => (
+                        <tr key={idx} style={{
+                          borderBottom: '1px solid var(--border)',
+                          background: idx % 2 === 0 ? 'rgba(0,0,0,0.015)' : 'transparent'
+                        }}>
+                          <td style={{ padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 600, width: '28%' }}>{row.spec}</td>
+                          <td style={{ padding: '10px 12px', color: 'var(--text-primary)', fontWeight: 700, width: '24%' }}>{row.four}</td>
+                          <td style={{ padding: '10px 12px', color: 'var(--text-primary)', fontWeight: 700, width: '24%' }}>{row.six}</td>
+                          <td style={{ padding: '10px 12px', color: 'var(--text-primary)', fontWeight: 700, width: '24%' }}>{row.eight}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '2px solid var(--border)' }}>
+                        <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>
+                          {isPaverBlocks ? 'Specification' : 'Parameter'}
+                        </th>
+                        <th style={{ textAlign: 'left', padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 700 }}>Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {specRows.map((row, idx) => (
+                        <tr key={idx} style={{
+                          borderBottom: '1px solid var(--border)',
+                          background: idx % 2 === 0 ? 'rgba(0,0,0,0.015)' : 'transparent'
+                        }}>
+                          <td style={{ padding: '10px 12px', color: 'var(--text-secondary)', fontWeight: 600, width: '40%' }}>{row.param}</td>
+                          <td style={{ padding: '10px 12px', color: 'var(--text-primary)', fontWeight: 700 }}>{row.val}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
               </div>
             )}
 
@@ -899,9 +970,22 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
               fontSize: '18px',
               fontWeight: 800,
               color: 'var(--text-primary)',
-              marginBottom: '10px'
+              marginBottom: '10px',
+              lineHeight: 1.3
             }}>
-              Need Bulk Order?
+              {isFlyAshBricks
+                ? 'Fly Ash Brick Supplier in Coimbatore, Tamil Nadu and Kerala'
+                : isFlyAshBlocks
+                  ? 'Fly Ash Block Supplier in Coimbatore, Tamil Nadu and Kerala'
+                  : isPaverBlocks
+                    ? 'Paver Blocks Manufacturer & Supplier in Coimbatore, Tamil Nadu and Kerala'
+                    : isInterlockBricks
+                      ? 'Interlock Bricks Supplier in Coimbatore'
+                      : isSolidBlocks
+                        ? 'Solid Blocks Supplier in Coimbatore'
+                        : isAACBlocks
+                          ? 'AAC Blocks Supplier in Coimbatore, Tamil Nadu and Kerala'
+                          : 'Need Bulk Order?'}
             </h3>
 
             <p style={{
@@ -910,7 +994,19 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
               lineHeight: '1.6',
               marginBottom: '24px'
             }}>
-              We supply bricks & blocks in bulk for construction projects of all sizes.
+              {isFlyAshBricks
+                ? 'Planning a new construction project? Contact ACME Bricks to enquire about fly ash brick pricing, bulk quantities, product availability and delivery arrangements for your location'
+                : isFlyAshBlocks
+                  ? 'Planning a construction project? Contact ACME Bricks for fly ash block pricing, bulk quantities, product availability and delivery enquiries.'
+                  : isPaverBlocks
+                    ? 'Planning a driveway, pathway, or parking area? Contact ACME Bricks to enquire about paver block prices, available designs, bulk orders, and delivery arrangements across Coimbatore, Tamil Nadu, and Kerala.'
+                    : isInterlockBricks
+                      ? 'Looking for interlock bricks in Coimbatore? ACME Bricks supplies interlock paving bricks for driveways, pathways, parking areas and outdoor spaces. Enquire for prices and bulk orders.'
+                      : isSolidBlocks
+                        ? 'Looking for solid concrete blocks in Coimbatore? ACME Bricks supplies 4-inch, 6-inch and 8-inch solid blocks for construction projects. Enquire about prices and bulk orders.'
+                        : isAACBlocks
+                          ? 'Planning a lightweight masonry project? Contact ACME Bricks for AAC block prices, specifications and bulk delivery.'
+                          : 'We supply bricks & blocks in bulk for construction projects of all sizes.'}
             </p>
 
             <button

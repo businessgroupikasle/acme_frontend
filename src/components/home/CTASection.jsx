@@ -30,7 +30,7 @@ export default function CTASection({ onQuoteClick }) {
             fontSize: '14px',
             color: '#94a3b8'
           }}>
-            Talk to ACME Bricks &amp; Blocks for Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlocking Bricks, Solid Blocks and AAC Blocks — product details, pricing and delivery on request.
+            Talk to ACME Bricks &amp; Blocks for Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlock Bricks, Solid Blocks and AAC Blocks — product details, pricing and delivery on request.
           </p>
         </div>
 
@@ -41,7 +41,7 @@ export default function CTASection({ onQuoteClick }) {
           gap: '14px',
           flexWrap: 'nowrap'
         }}>
-          <button 
+          <button
             onClick={onQuoteClick}
             className="btn btn-primary cta-btn"
             style={{
@@ -54,8 +54,8 @@ export default function CTASection({ onQuoteClick }) {
           >
             GET A QUOTE
           </button>
-          
-          <a 
+
+          <a
             href="tel:+919500851880"
             className="btn cta-btn"
             style={{
@@ -77,7 +77,7 @@ export default function CTASection({ onQuoteClick }) {
             <span>CALL NOW</span>
           </a>
 
-          <a 
+          <a
             href="https://wa.me/919500851880"
             target="_blank"
             rel="noopener noreferrer"

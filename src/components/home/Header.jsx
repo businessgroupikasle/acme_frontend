@@ -15,12 +15,12 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
 
   const getCategoryPath = (cat) => {
     const catMap = {
-      'Fly Ash Bricks': '/fly-ash-bricks/',
-      'Fly Ash Blocks': '/fly-ash-blocks/',
-      'Paver Blocks': '/paver-blocks/',
-      'Interlock Bricks': '/interlock-bricks/',
-      'Solid Blocks': '/solid-blocks/',
-      'AAC Blocks': '/aac-blocks/'
+      'Fly Ash Bricks': '/fly-ash-bricks-manufacturer-coimbatore',
+      'Fly Ash Blocks': '/fly-ash-blocks-manufacturer-coimbatore',
+      'Paver Blocks': '/paver-blocks-manufacturer-coimbatore',
+      'Interlock Bricks': '/interlock-bricks-manufacturer-coimbatore',
+      'Solid Blocks': '/solid-blocks-manufacturer-coimbatore',
+      'AAC Blocks': '/aac-blocks-manufacturer-coimbatore'
     };
     return catMap[cat] || '/products/';
   };

@@ -11,29 +11,24 @@ export default function ProductDetailsSpecsFeatures({ product }) {
   const isInterlockBricks = name.toLowerCase().includes('interlock brick');
   const isSolidBlocks = name.toLowerCase().includes('solid block');
 
+  // fly ash brick spec rows
   const specRows = isFlyAshBricks
     ? [
-      { param: 'Size (L x B x H)', val: '9 x 4 x 3 inch' },
-      { param: 'Compressive Strength', val: '9.15 - 10.15 N/mm²' },
-      { param: 'Indian Standard', val: 'IS 12894:2002' },
-      { param: 'Dry Density', val: 'Approx. 1700–1850 kg/m³' },
-      { param: 'Water Absorption', val: '<10% (Conforms to IS 12894)' },
-      { param: 'Efflorescence', val: 'Nil' },
+      { param: 'Size (L × B × H)', val: '9 × 3 × 4 inches' },
+      { param: 'Compressive Strength', val: '9.15–10.15 N/mm²' },
+      { param: 'Dry Density', val: 'Approximately 1,700–1,850 kg/m³' },
       { param: 'Shape', val: 'Rectangular' },
-      { param: 'Color', val: 'Grey' },
-      { param: 'Eco Friendly', val: 'Yes' }
+      { param: 'Colour', val: 'Grey' },
+      { param: 'Eco-Friendly', val: 'Yes' }
     ]
+
     : isFlyAshBlocks
       ? [
-        { param: 'Size (L x B x H)', val: '230 mm x 230 mm x 70 mm (or 75 mm)' },
-        { param: 'Compressive Strength', val: '3.5 - 7.0 N/mm²' },
-        { param: 'Indian Standard', val: 'IS 2185 (PART 1) : 2005' },
-        { param: 'Dry Density', val: 'Approx. 1,600 - 1,850 kg/m³' },
-        { param: 'Water Absorption', val: '<10% (Conforms to IS 12894)' },
-        { param: 'Efflorescence', val: 'Nil' },
-        { param: 'Shape', val: 'Rectangular (Solid/Hollow)' },
-        { param: 'Color', val: 'Grey' },
-        { param: 'Eco Friendly', val: 'Yes' }
+        { param: 'Size (L × B × H)', val: '9 × 9 × 4 inches' },
+        { param: 'Weight', val: '9.5–10 kg' },
+        { param: 'Shape', val: 'Rectangular' },
+        { param: 'Colour', val: 'Grey' },
+        { param: 'Eco-Friendly', val: 'Yes' }
       ]
       : isPaverBlocks
         ? [
@@ -51,7 +46,7 @@ export default function ProductDetailsSpecsFeatures({ product }) {
             { param: 'Dry Density', val: 'Approx. 1,600 kg/m³' },
             { param: 'Water Absorption', val: '06% to 20%' },
             { param: 'Efflorescence', val: 'Nil' },
-            { param: 'Shape', val: 'Interlocking Puzzle Shape' },
+            { param: 'Shape', val: 'Interlock Puzzle Shape' },
             { param: 'Color', val: 'Grey / Red' },
             { param: 'Eco Friendly', val: 'Yes (Compressed Stabilized Earth)' }
           ]
@@ -109,7 +104,11 @@ export default function ProductDetailsSpecsFeatures({ product }) {
               color: 'var(--text-primary)',
               marginBottom: '24px'
             }}>
-              Specifications
+              {isFlyAshBlocks
+                ? 'ACME Fly Ash Blocks – Technical Specifications'
+                : isFlyAshBricks
+                  ? 'ACME Fly Ash Bricks – Technical Specifications'
+                  : 'Specifications'}
             </h3>
 
             <table style={{

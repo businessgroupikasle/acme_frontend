@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { 
-  Home, 
-  Package, 
-  Search, 
-  HelpCircle, 
-  ArrowRight, 
-  Calculator, 
-  Compass, 
-  Phone, 
-  MessageSquare, 
+import {
+  Home,
+  Package,
+  Search,
+  HelpCircle,
+  ArrowRight,
+  Calculator,
+  Compass,
+  Phone,
+  MessageSquare,
   Image as ImageIcon,
   Sparkles,
   Layers
@@ -21,7 +21,7 @@ export default function NotFound({ onHomeClick, onNavigate }) {
     { name: 'Fly Ash Bricks', tab: 'products', categoryName: 'Fly Ash Bricks', icon: '🧱' },
     { name: 'Fly Ash Blocks', tab: 'products', categoryName: 'Fly Ash Blocks', icon: '🧱' },
     { name: 'Paver Blocks', tab: 'products', categoryName: 'Paver Blocks', icon: '🛣️' },
-    { name: 'Interlocking Bricks', tab: 'products', categoryName: 'Interlock Bricks', icon: '🧩' },
+    { name: 'Interlock Bricks', tab: 'products', categoryName: 'Interlock Bricks', icon: '🧩' },
     { name: 'Solid Concrete Blocks', tab: 'products', categoryName: 'Solid Blocks', icon: '🏗️' },
     { name: 'AAC Lightweight Blocks', tab: 'products', categoryName: 'AAC Blocks', icon: '🏢' },
     { name: 'Brick & Mortar Calculator', tab: 'calculator', icon: '🧮' },
@@ -29,7 +29,7 @@ export default function NotFound({ onHomeClick, onNavigate }) {
     { name: 'Contact & Quotation', tab: 'contact', icon: '📞' }
   ];
 
-  const filteredItems = searchQuery.trim() === '' ? [] : searchableItems.filter(item => 
+  const filteredItems = searchQuery.trim() === '' ? [] : searchableItems.filter(item =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -156,7 +156,7 @@ export default function NotFound({ onHomeClick, onNavigate }) {
         position: 'relative',
         zIndex: 1
       }}>
-        
+
         {/* 1. Brand Logo */}
         <div style={{ marginBottom: '32px', display: 'flex', justifyContent: 'center' }}>
           <img
@@ -322,7 +322,7 @@ export default function NotFound({ onHomeClick, onNavigate }) {
             transition: 'border-color 0.2s ease'
           }}>
             <Search size={16} color="#7ca13a" style={{ marginRight: '8px', flexShrink: 0 }} />
-            <input 
+            <input
               type="text"
               placeholder="Search bricks, pavers, calculator..."
               value={searchQuery}
