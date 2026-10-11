@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { getProductCardSpecs } from './ProductsGrid';
 
 const PRODUCT_IMAGES_CONFIG = {
   '1': {
@@ -294,15 +295,23 @@ export default function ProductDetailsRelated({ products, onProductClick, curren
                 {/* Specs */}
                 <div style={{
                   fontSize: '11px',
-                  color: 'var(--text-secondary)',
+                  color: 'var(--text-muted)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '4px',
                   marginBottom: '16px',
+                  background: '#f8faf5',
+                  borderRadius: '6px',
+                  padding: '8px 10px',
+                  lineHeight: 1.45,
                   flex: 1
                 }}>
-                  <span>Size: {length} x {width} x {height} mm</span>
-                  <span>Strength: {strengthVal}</span>
+                  {getProductCardSpecs(prod).map((spec, sIdx) => (
+                    <span key={sIdx} style={{ display: 'block', wordBreak: 'break-word' }}>
+                      <strong style={{ color: 'var(--text-primary)', fontWeight: 650 }}>{spec.label}:</strong>{' '}
+                      <span style={{ color: 'var(--text-secondary)' }}>{spec.val}</span>
+                    </span>
+                  ))}
                 </div>
 
                 {/* View Details Link */}

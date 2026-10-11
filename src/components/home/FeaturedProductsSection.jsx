@@ -1,4 +1,5 @@
 import React from 'react';
+import { getProductCardSpecs } from '../products/ProductsGrid';
 
 const PRODUCT_IMAGES_CONFIG = {
   '1': {
@@ -177,16 +178,24 @@ export default function FeaturedProductsSection({ products, onQuoteClick, onView
 
                 {/* Specs Column */}
                 <div style={{
-                  fontSize: '12px',
-                  color: 'var(--text-secondary)',
+                  fontSize: '11px',
+                  color: 'var(--text-muted)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '4px',
-                  marginBottom: '24px',
+                  marginBottom: '20px',
+                  background: '#f8faf5',
+                  borderRadius: '6px',
+                  padding: '8px 10px',
+                  lineHeight: 1.45,
                   flex: 1
                 }}>
-                  <span>{sizeStr}</span>
-                  <span>{strengthStr}</span>
+                  {getProductCardSpecs(prod).map((spec, sIdx) => (
+                    <span key={sIdx} style={{ display: 'block', wordBreak: 'break-word' }}>
+                      <strong style={{ color: 'var(--text-primary)', fontWeight: 650 }}>{spec.label}:</strong>{' '}
+                      <span style={{ color: 'var(--text-secondary)' }}>{spec.val}</span>
+                    </span>
+                  ))}
                 </div>
 
                 {/* Buttons Row */}

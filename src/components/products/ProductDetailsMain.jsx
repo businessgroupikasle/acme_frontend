@@ -198,27 +198,33 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
 
   const techSpecs = isFlyAshBricks
     ? [
-      { label: 'Size', val: '9 × 3 × 4 inches' },
+      { label: 'Size (L × B × H)', val: '9 × 3 × 4 inches' },
+      { label: 'Compressive Strength', val: '9.15–10.15 N/mm²' },
+      { label: 'Dry Density', val: 'Approximately 1,700–1,850 kg/m³' },
       { label: 'Shape', val: 'Rectangular' },
-      { label: 'Colour', val: 'Grey' }
+      { label: 'Colour', val: 'Grey' },
+      { label: 'Eco-Friendly', val: 'Yes' }
     ]
     : isFlyAshBlocks
       ? [
-        { label: 'Size', val: '9 × 9 × 4 inches' },
+        { label: 'Size (L × B × H)', val: '9 × 9 × 4 inches' },
         { label: 'Weight', val: '9.5–10 kg' },
+        { label: 'Compressive Strength', val: '3.5–7.0 N/mm²' },
         { label: 'Shape', val: 'Rectangular' },
-        { label: 'Colour', val: 'Grey' }
+        { label: 'Colour', val: 'Grey' },
+        { label: 'Eco-Friendly', val: 'Yes' }
       ]
       : isPaverBlocks
         ? [
-          { label: 'Thickness Options', val: '2.36 inches and 3.15 inches' },
+          { label: 'Thickness Options', val: '60 mm & 80 mm (2.36 inches & 3.15 inches)' },
           { label: 'Material', val: 'Cement, fine aggregates and colour pigments' },
           { label: 'Manufacturing Process', val: 'Vibrocompaction and hydraulic pressing' },
-          { label: 'Key Benefits', val: 'Multiple design options, Durable construction, Suitable for outdoor paving applications, Ideal for residential and commercial projects' }
+          { label: 'Key Benefits', val: 'Multiple design options, Durable construction, Suitable for outdoor paving applications' }
         ]
         : isInterlockBricks
           ? [
             { label: 'Available Sizes', val: '6-Inch & 8-Inch Interlock Blocks' },
+            { label: 'Compressive Strength', val: '5.5–11.77 N/mm²' },
             { label: '6-Inch Dimensions', val: '11 × 6 × 5 inches (L × W × H)' },
             { label: '8-Inch Dimensions', val: '11 × 8 × 5 inches (L × W × H)' },
             { label: 'Weight', val: '10–12 kg' }
@@ -226,6 +232,7 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
           : isSolidBlocks
             ? [
               { label: 'Available Sizes', val: '4-Inch, 6-Inch & 8-Inch Solid Blocks' },
+              { label: 'Compressive Strength', val: '4.0–5.0 N/mm²' },
               { label: '4-Inch Dimensions', val: '15 × 4 × 8 inches (Weight: 15–16 kg)' },
               { label: '6-Inch Dimensions', val: '15 × 6 × 8 inches (Weight: 15–16 kg)' },
               { label: '8-Inch Dimensions', val: '12 × 8 × 8 inches (Weight: 20–23 kg)' }
@@ -239,10 +246,9 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
                 { label: 'Features', val: 'Lightweight, Fire resistant, Thermal insulation, Soundproof' }
               ]
               : [
-                { label: 'Size', val: sizeStr },
-                { label: 'Strength', val: strengthStr },
+                { label: 'Size (L × B × H)', val: sizeStr },
+                { label: 'Compressive Strength', val: strengthStr },
                 { label: 'Water Absorption', val: '< 12%' },
-                { label: 'Compressive Strength', val: `>= ${strengthStr}` },
                 { label: 'Color', val: 'Grey' }
               ];
 

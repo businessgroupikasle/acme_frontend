@@ -19,6 +19,68 @@ const formatStrength = (strength) => {
   return `${str} N/mm²`;
 };
 
+export const getProductCardSpecs = (prod) => {
+  if (!prod) return [];
+  const idStr = String(prod.id || '');
+  const name = (prod.name || '').toLowerCase();
+  const type = (prod.type || '').toLowerCase();
+
+  // 1. Fly Ash Bricks (Matches details page specs)
+  if (idStr === '1' || name.includes('fly ash brick') || type.includes('fly ash brick')) {
+    return [
+      { label: 'Size (L × B × H)', val: '9 × 3 × 4 inches' },
+      { label: 'Compressive Strength', val: '9.15–10.15 N/mm²' }
+    ];
+  }
+
+  // 2. Fly Ash Blocks
+  if (idStr === '2' || name.includes('fly ash block') || type.includes('fly ash block')) {
+    return [
+      { label: 'Size (L × B × H)', val: '9 × 9 × 4 inches' },
+      { label: 'Weight', val: '9.5–10 kg' }
+    ];
+  }
+
+  // 3. Paver Blocks
+  if (idStr === '3' || name.includes('paver') || type.includes('paver')) {
+    return [
+      { label: 'Thickness Options', val: '60 mm & 80 mm' },
+      { label: 'Material', val: 'Cement & Colour Pigments' }
+    ];
+  }
+
+  // 4. Interlock Bricks
+  if (idStr === '4' || name.includes('interlock') || type.includes('interlock')) {
+    return [
+      { label: 'Available Sizes', val: '6-Inch & 8-Inch Blocks' },
+      { label: 'Compressive Strength', val: '5.5–11.77 N/mm²' }
+    ];
+  }
+
+  // 5. Solid Blocks
+  if (idStr === '5' || name.includes('solid') || type.includes('solid')) {
+    return [
+      { label: 'Available Sizes', val: '4-Inch, 6-Inch & 8-Inch Blocks' },
+      { label: 'Compressive Strength', val: '4.0–5.0 N/mm²' }
+    ];
+  }
+
+  // 6. AAC Blocks
+  if (idStr === '6' || name.includes('aac') || type.includes('aac')) {
+    return [
+      { label: 'Size Options', val: '600 × 200 × 100/150/200/230 mm' },
+      { label: 'Compressive Strength', val: '3.0–4.5 N/mm²' }
+    ];
+  }
+
+  // Default fallback
+  return [
+    { label: 'Size (L × B × H)', val: prod.dimensions ? `${prod.dimensions.length} × ${prod.dimensions.width} × ${prod.dimensions.height} mm` : '9 × 3 × 4 inches' },
+    { label: 'Compressive Strength', val: formatStrength(prod.strength) }
+  ];
+};
+
+
 const getHighlights = (prod) => {
   if (PRODUCT_HIGHLIGHTS[String(prod.id)]) {
     return PRODUCT_HIGHLIGHTS[String(prod.id)];
@@ -310,14 +372,19 @@ export default function ProductsGrid({
                 color: 'var(--text-muted)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '3px',
+                gap: '4px',
                 marginBottom: '10px',
                 background: '#f8faf5',
                 borderRadius: '6px',
-                padding: '8px 10px'
+                padding: '8px 10px',
+                lineHeight: 1.45
               }}>
-                <span>Size: {prod.dimensions ? `${prod.dimensions.length} × ${prod.dimensions.width} × ${prod.dimensions.height}` : '190 × 90 × 90'} mm</span>
-                <span>Strength: {formatStrength(prod.strength)}</span>
+                {getProductCardSpecs(prod).map((spec, sIdx) => (
+                  <span key={sIdx} style={{ display: 'block', wordBreak: 'break-word' }}>
+                    <strong style={{ color: 'var(--text-primary)', fontWeight: 650 }}>{spec.label}:</strong>{' '}
+                    <span style={{ color: 'var(--text-secondary)' }}>{spec.val}</span>
+                  </span>
+                ))}
               </div>
 
               {/* Green Checks Highlights */}

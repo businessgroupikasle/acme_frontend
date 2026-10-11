@@ -26,6 +26,7 @@ export default function ProductDetailsSpecsFeatures({ product }) {
       ? [
         { param: 'Size (L × B × H)', val: '9 × 9 × 4 inches' },
         { param: 'Weight', val: '9.5–10 kg' },
+        { param: 'Compressive Strength', val: '3.5–7.0 N/mm²' },
         { param: 'Shape', val: 'Rectangular' },
         { param: 'Colour', val: 'Grey' },
         { param: 'Eco-Friendly', val: 'Yes' }

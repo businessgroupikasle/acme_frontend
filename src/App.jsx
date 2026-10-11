@@ -68,7 +68,7 @@ const MOCK_CATALOG = [
     "dimensions": { "length": 230, "width": 230, "height": 100 },
     "strength": "3.5-7.0",
     "application": ["infrastructure", "industrial", "residential", "commercial"],
-    "characteristics": ["Size: 9 × 9 × 4 inches", "Weight: 9.5–10 kg", "Shape: Rectangular", "Colour: Grey", "Eco-Friendly: Yes"],
+    "characteristics": ["Size: 9 × 9 × 4 inches", "Weight: 9.5–10 kg", "Compressive Strength: 3.5–7.0 N/mm²", "Shape: Rectangular", "Colour: Grey", "Eco-Friendly: Yes"],
     "image": "/images/products/fly-ash-block-manufacturer-coimbatore-acme.webp",
     "alt": "ACME fly ash block supplier in Coimbatore",
     "description": "ACME Bricks manufactures and supplies fly ash blocks in Coimbatore for residential buildings, commercial developments and industrial construction projects. We serve homeowners, builders, civil contractors, construction companies and developers looking for a reliable fly ash block supplier.\n\nWe cater to individual orders and bulk requirements, with supply enquiries welcomed from across Coimbatore, Tamil Nadu and Kerala.",
