@@ -35,6 +35,7 @@ export default function AboutUs({ onKnowMoreClick }) {
               <picture>
                 <source
                   srcSet="/images/about-page/acme-bricks-manufacturer-coimbatore.webp"
+
                   type="image/webp"
                 />
                 <img

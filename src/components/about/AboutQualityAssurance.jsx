@@ -170,8 +170,7 @@ export default function AboutQualityAssurance() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: '22px',
-          marginBottom: '50px'
+          gap: '22px'
         }}>
           {qualityPillars.map((item, idx) => (
             <div key={idx} className="qa-card-item">
@@ -240,7 +239,8 @@ export default function AboutQualityAssurance() {
           ))}
         </div>
 
-        {/* Official Accreditations / Certifications Bar */}
+        {/* Official Accreditations / Certifications Bar (Hidden) */}
+        {/*
         <div style={{
           background: 'linear-gradient(135deg, #f7faf3 0%, #edf5e6 100%)',
           border: '1px solid rgba(124, 161, 58, 0.25)',
@@ -328,6 +328,7 @@ export default function AboutQualityAssurance() {
             <span>Third-Party Lab Test Certificates &amp; Batch Reports available upon request for commercial projects.</span>
           </div>
         </div>
+        */}
       </div>
     </section>
   );
