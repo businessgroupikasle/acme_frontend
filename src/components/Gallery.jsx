@@ -77,6 +77,16 @@ export default function Gallery({ onHomeClick }) {
       colSpan: 'span-6',
       rowSpan: 'span-1',
       height: '240px'
+    },
+    {
+      id: 10,
+      image: '/images/products/aac-blocks.webp',
+      category: 'AAC Blocks',
+      title: 'Autoclaved Aerated Concrete Blocks',
+      desc: 'Lightweight high-insulation AAC blocks stacked ready for precision masonry construction.',
+      colSpan: 'span-6',
+      rowSpan: 'span-1',
+      height: '240px'
     }
   ];
 
@@ -112,20 +122,20 @@ export default function Gallery({ onHomeClick }) {
     ...[
       'acme-interlock-bricks-manufacturer-coimbatore-01.webp',
       'interlock-bricks-manufacturing-in-coimbatore-02.webp',
-      'acme-bricks-Interlock-blocks-coimbatore-03.webp',
+      'acme-bricks-interlocking-blocks-coimbatore-03.webp',
       'premium-interlock-bricks-coimbatore-04.webp',
-      'high-strength-Interlock-bricks-coimbatore-05.webp',
+      'high-strength-interlocking-bricks-coimbatore-05.webp',
       'eco-friendly-interlock-bricks-manufacturing-06.webp',
       'dry-stack-interlock-bricks-coimbatore-07.webp',
-      'acme-Interlock-wall-bricks-coimbatore-08.webp',
+      'acme-interlocking-wall-bricks-coimbatore-08.webp',
       'cost-effective-interlock-bricks-manufacturing-09.webp',
-      'heavy-duty-Interlock-bricks-coimbatore-10.webp',
+      'heavy-duty-interlocking-bricks-coimbatore-10.webp',
       'precision-molded-interlock-bricks-coimbatore-11.webp',
       'interlock-cement-bricks-manufacturing-coimbatore-12.webp',
       'residential-building-interlock-bricks-13.webp',
       'commercial-construction-interlock-bricks-coimbatore-14.webp',
       'acme-bricks-interlock-stockyard-coimbatore-15.webp',
-      'quality-tested-Interlock-bricks-coimbatore-16.webp',
+      'quality-tested-interlocking-bricks-coimbatore-16.webp',
       'best-interlock-bricks-manufacturer-coimbatore-17.webp'
     ].map((file, idx) => ({
       path: `/images/gallery/interlock/${file}`,
