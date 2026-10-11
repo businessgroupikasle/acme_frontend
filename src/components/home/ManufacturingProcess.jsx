@@ -120,9 +120,11 @@ export default function ManufacturingProcess() {
         padding: '90px 0 100px 0',
         position: 'relative',
         overflow: 'hidden',
-        borderBottom: '1px solid var(--border)'
+        borderBottom: '1px solid var(--border)',
+        scrollMarginTop: '100px'
       }}
     >
+      <div id="manufacturing-process-section" style={{ position: 'absolute', top: 0, left: 0 }} />
       <style>{`
         /* --- Circular Process Styling --- */
         .circle-pipeline-container {

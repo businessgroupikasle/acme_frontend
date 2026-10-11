@@ -1,46 +1,98 @@
 import React, { useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
+const PRODUCT_IMAGES_CONFIG = {
+  '1': {
+    src: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+    alt: 'ACME fly ash brick manufacturer in Coimbatore'
+  },
+  '2': {
+    src: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME fly ash block supplier in Coimbatore'
+  },
+  '3': {
+    src: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME paver blocks in Coimbatore'
+  },
+  '4': {
+    src: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+    alt: 'ACME interlock bricks in Coimbatore'
+  },
+  '5': {
+    src: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME solid concrete blocks in Coimbatore'
+  },
+  '6': {
+    src: '/images/products/aac-blocks-manufacturer-coimbatore-acme.png',
+    alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks'
+  }
+};
+
+const getProductImage = (prod) => {
+  const idStr = String(prod.id);
+  if (PRODUCT_IMAGES_CONFIG[idStr]) {
+    return PRODUCT_IMAGES_CONFIG[idStr];
+  }
+  const name = (prod.name || '').toLowerCase();
+  if (name.includes('fly ash brick')) return PRODUCT_IMAGES_CONFIG['1'];
+  if (name.includes('fly ash block')) return PRODUCT_IMAGES_CONFIG['2'];
+  if (name.includes('paver')) return PRODUCT_IMAGES_CONFIG['3'];
+  if (name.includes('interlock')) return PRODUCT_IMAGES_CONFIG['4'];
+  if (name.includes('solid')) return PRODUCT_IMAGES_CONFIG['5'];
+  if (name.includes('aac')) return PRODUCT_IMAGES_CONFIG['6'];
+
+  return {
+    src: prod.image || '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+    alt: prod.alt || `${prod.name || 'Product'} | ACME Bricks & Blocks`
+  };
+};
+
 const DEFAULT_PRODUCTS = [
   {
     id: '1',
     name: 'Fly Ash Bricks',
-    image: '/images/products/flyash-bricks.png',
+    image: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+    alt: 'ACME fly ash brick manufacturer in Coimbatore',
     dimensions: { length: 230, width: 100, height: 75 },
     strength: '9.15 - 10.15 N/mm²'
   },
   {
     id: '2',
     name: 'Fly Ash Blocks',
-    image: '/images/products/ash-blocks.png',
+    image: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME fly ash block supplier in Coimbatore',
     dimensions: { length: 230, width: 230, height: 75 },
     strength: '3.5 - 7.0 N/mm²'
   },
   {
     id: '3',
     name: 'Paver Blocks',
-    image: '/images/products/paver-block.png',
+    image: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME paver blocks in Coimbatore',
     dimensions: { length: 230, width: 230, height: 60 },
     strength: '5.5 - 11.77 N/mm²'
   },
   {
     id: '4',
     name: 'Interlock Bricks',
-    image: '/images/products/interlock.png',
+    image: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+    alt: 'ACME interlock bricks in Coimbatore',
     dimensions: { length: 230, width: 230, height: 115 },
     strength: '5.5 - 11.77 N/mm²'
   },
   {
     id: '5',
     name: 'Solid Blocks',
-    image: '/images/products/solid-blocks.png',
+    image: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME solid concrete blocks in Coimbatore',
     dimensions: { length: 400, width: 200, height: 200 },
     strength: '4.0 - 5.0 N/mm²'
   },
   {
     id: '6',
     name: 'AAC Blocks',
-    image: '/images/products/aac-blocks.png',
+    image: '/images/products/aac-blocks-manufacturer-coimbatore-acme.png',
+    alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks',
     dimensions: { length: 600, width: 200, height: 200 },
     strength: '3.0 - 4.5 N/mm²'
   }
@@ -216,11 +268,16 @@ export default function ProductDetailsRelated({ products, onProductClick, curren
                   padding: '8px',
                   overflow: 'hidden'
                 }}>
-                  <img
-                    src={prod.image}
-                    alt={prod.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                  />
+                  {(() => {
+                    const imgData = getProductImage(prod);
+                    return (
+                      <img
+                        src={imgData.src}
+                        alt={imgData.alt}
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      />
+                    );
+                  })()}
                 </div>
 
                 {/* Product Title */}

@@ -19,6 +19,7 @@ import AboutMissionVision from './components/about/AboutMissionVision.jsx';
 import AboutWhyChoose from './components/about/AboutWhyChoose.jsx';
 import AboutHero from './components/about/AboutHero.jsx';
 import ManufacturingProcess from './components/home/ManufacturingProcess.jsx';
+import AboutQualityAssurance from './components/about/AboutQualityAssurance.jsx';
 
 import ProductsHero from './components/products/ProductsHero.jsx';
 import ProductsGrid from './components/products/ProductsGrid.jsx';
@@ -53,7 +54,8 @@ const MOCK_CATALOG = [
     "strength": "9.15-10.15",
     "application": ["residential", "commercial"],
     "characteristics": ["Size: 9 × 3 × 4 inches", "Compressive Strength: 9.15–10.15 N/mm²", "Dry Density: Approximately 1,700–1,850 kg/m³", "Shape: Rectangular", "Colour: Grey", "Eco-Friendly: Yes"],
-    "image": "/images/products/flyash-bricks.webp",
+    "image": "/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png",
+    "alt": "ACME fly ash brick manufacturer in Coimbatore",
     "description": "ACME Bricks manufactures and supplies fly ash bricks in Coimbatore for residential buildings, commercial developments and industrial construction projects. We serve homeowners, builders, civil contractors, construction companies and developers looking for a reliable fly ash brick supplier for their projects.\n\nBased in the Coimbatore market, ACME Bricks caters to individual orders and bulk requirements, with supply enquiries welcomed from across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 25000,
     "popularity": 95
@@ -67,7 +69,8 @@ const MOCK_CATALOG = [
     "strength": "3.5-7.0",
     "application": ["infrastructure", "industrial", "residential", "commercial"],
     "characteristics": ["Size: 9 × 9 × 4 inches", "Weight: 9.5–10 kg", "Shape: Rectangular", "Colour: Grey", "Eco-Friendly: Yes"],
-    "image": "/images/products/ash-blocks.webp",
+    "image": "/images/products/fly-ash-block-manufacturer-coimbatore-acme.png",
+    "alt": "ACME fly ash block supplier in Coimbatore",
     "description": "ACME Bricks manufactures and supplies fly ash blocks in Coimbatore for residential buildings, commercial developments and industrial construction projects. We serve homeowners, builders, civil contractors, construction companies and developers looking for a reliable fly ash block supplier.\n\nWe cater to individual orders and bulk requirements, with supply enquiries welcomed from across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 8000,
     "popularity": 80
@@ -87,7 +90,8 @@ const MOCK_CATALOG = [
       "Key Benefits: Versatile Designs, High Durability, Slip-Resistant, Weatherproof, Eco-Drainage",
       "Eco Friendly: Yes"
     ],
-    "image": "/images/products/paver-block.webp",
+    "image": "/images/products/paver-block-manufacturer-coimbatore-acme.png",
+    "alt": "ACME paver blocks in Coimbatore",
     "description": "ACME Bricks manufactures and supplies paver blocks in Coimbatore for residential, commercial, industrial and landscaping applications. Our paver blocks are available in different colours and thickness options to suit a variety of outdoor paving requirements. We cater to driveways, pathways, parking areas, courtyards and other paving projects across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 3500,
     "popularity": 92
@@ -107,7 +111,8 @@ const MOCK_CATALOG = [
       "Weight: 10–12 kg",
       "Key Benefits: Strong & Durable, Precision Dimensions, Interlock Design, Easy Installation"
     ],
-    "image": "/images/products/interlock.webp",
+    "image": "/images/products/interlock-brick-manufacturer-coimbatore-acme.png",
+    "alt": "ACME interlock bricks in Coimbatore",
     "description": "ACME Bricks manufactures and supplies interlock bricks and Interlock blocks in Coimbatore for construction projects. Our product range includes 6-inch and 8-inch interlock blocks to meet different project requirements. We cater to builders, civil contractors, construction companies and bulk buyers across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 1200,
     "popularity": 85
@@ -127,7 +132,8 @@ const MOCK_CATALOG = [
       "8-Inch Dimensions: 12 x 8 x 8 inches (20–23 kg)",
       "High Strength & Uniform Dimensions"
     ],
-    "image": "/images/products/solid-blocks.webp",
+    "image": "/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png",
+    "alt": "ACME solid concrete blocks in Coimbatore",
     "description": "ACME Bricks manufactures and supplies solid concrete blocks in Coimbatore for residential, commercial and industrial construction projects. Our solid blocks are available in different sizes to meet varied masonry requirements. They are suitable for walls, partitions and other construction applications, depending on the project specifications.\n\nWe supply solid blocks to builders, civil contractors, construction companies and bulk buyers across Coimbatore, with supply enquiries welcomed from Tamil Nadu and Kerala.",
     "stock": 14000,
     "popularity": 88
@@ -141,7 +147,8 @@ const MOCK_CATALOG = [
     "strength": "3.0-4.5",
     "application": ["residential", "commercial"],
     "characteristics": ["Size Options: 600 x 200 x 100/150/200/230 mm", "Compressive Strength: 3.0 - 4.5 N/mm²", "Indian Standard: IS 2185", "Density: Approx. 550 - 650 kg/m³", "Water Absorption: <15%"],
-    "image": "/images/products/aac-blocks.webp",
+    "image": "/images/products/aac-blocks-manufacturer-coimbatore-acme.png",
+    "alt": "AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks",
     "description": "ACME AAC Blocks are lightweight building blocks designed for efficient wall construction. Their cellular structure provides lower weight compared with conventional dense masonry materials while also offering useful thermal insulation properties.\n\nOur AAC blocks in Coimbatore are suitable for residential, commercial and modern building projects where lightweight construction, thermal comfort and construction efficiency are important. We supply AAC blocks for projects across Coimbatore, Tamil Nadu and Kerala.",
     "stock": 6000,
     "popularity": 90
@@ -291,10 +298,30 @@ export default function App() {
       targetPath = `/${activeTab}/`;
     }
 
+    const currentHash = window.location.hash || '';
+    const fullTarget = `${targetPath}${currentHash}`;
+
     if (window.location.pathname !== targetPath) {
-      window.history.pushState({ activeTab, productId: selectedProductDetail?.id }, '', targetPath);
+      window.history.pushState({ activeTab, productId: selectedProductDetail?.id }, '', fullTarget);
     }
   }, [activeTab, selectedProductDetail]);
+
+  // Effect to scroll to section hash on initial load if present
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash ? window.location.hash.replace('#', '') : null;
+    if (hash) {
+      const scrollHelper = () => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+      setTimeout(scrollHelper, 120);
+      setTimeout(scrollHelper, 350);
+      setTimeout(scrollHelper, 700);
+    }
+  }, []);
 
   // Effect to handle browser back/forward buttons (popstate changes)
   useEffect(() => {
@@ -306,6 +333,13 @@ export default function App() {
       } else {
         setSelectedProductDetail(null);
         setActiveTab(route.tab);
+      }
+      const hash = window.location.hash ? window.location.hash.replace('#', '') : null;
+      if (hash) {
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
       }
     };
 
@@ -883,13 +917,32 @@ export default function App() {
         return;
       }
       setSelectedCategory(categoryName);
+    } else {
+      setSelectedProductDetail(null);
+      setSelectedCategory(null);
+      setActiveFilters({});
     }
     setActiveTab(tab);
     if (sectionId) {
-      setTimeout(() => {
+      const targetPath = PAGE_SLUGS[tab] || (tab === 'home' ? '/' : `/${tab}/`);
+      window.history.pushState({ activeTab: tab, sectionId }, '', `${targetPath}#${sectionId}`);
+
+      const scrollToTarget = () => {
         const el = document.getElementById(sectionId);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return true;
+        }
+        return false;
+      };
+
+      // Try multiple times to account for tab mounting, images and layout recalculations
+      scrollToTarget();
+      setTimeout(scrollToTarget, 60);
+      setTimeout(scrollToTarget, 180);
+      setTimeout(scrollToTarget, 360);
+      setTimeout(scrollToTarget, 600);
+      setTimeout(scrollToTarget, 900);
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -1040,6 +1093,7 @@ export default function App() {
             <AboutCompany />
             {/* <AboutJourney /> */}
             <ManufacturingProcess />
+            <AboutQualityAssurance />
             <AboutMissionVision />
             <AboutWhyChoose />
             {/* <AboutCredentials /> */}

@@ -1,6 +1,84 @@
 import React from 'react';
 import { ArrowRight, Check, Grid as GridIcon, List } from 'lucide-react';
 
+const PRODUCT_HIGHLIGHTS = {
+  '1': ['High Compressive Strength (IS 12894)', 'Low Water Absorption & Eco-Friendly'],
+  '2': ['Uniform Dimensions & Sharp Edges', 'High Load-Bearing Masonry Block'],
+  '3': ['Heavy-Duty & Weather Resistant', 'Slip-Resistant Outdoor Paving'],
+  '4': ['Precision Interlock Design', 'Fast Construction & High Durability'],
+  '5': ['High-Strength Solid Concrete', 'Available in 4", 6" & 8" Sizes'],
+  '6': ['Lightweight Thermal Insulation', 'Fire Resistant & Energy Efficient (IS 2185)']
+};
+
+const formatStrength = (strength) => {
+  if (!strength) return '7.5 N/mm²';
+  const str = String(strength).trim();
+  if (str.includes('N/mm²') || str.includes('MPa') || str.includes('kg') || str.includes('thickness')) {
+    return str;
+  }
+  return `${str} N/mm²`;
+};
+
+const getHighlights = (prod) => {
+  if (PRODUCT_HIGHLIGHTS[String(prod.id)]) {
+    return PRODUCT_HIGHLIGHTS[String(prod.id)];
+  }
+  const name = (prod.name || '').toLowerCase();
+  if (name.includes('fly ash brick')) return ['High Compressive Strength', 'Eco-Friendly & Durable'];
+  if (name.includes('fly ash block')) return ['Uniform Dimensions & Finish', 'High Load-Bearing Block'];
+  if (name.includes('paver')) return ['Heavy-Duty & Weather Resistant', 'Slip-Resistant Paving'];
+  if (name.includes('interlock')) return ['Interlock Self-Aligning Design', 'Fast & Sturdy Construction'];
+  if (name.includes('solid')) return ['High-Strength Solid Concrete', 'Uniform Size & Finish'];
+  if (name.includes('aac')) return ['Lightweight Thermal Insulation', 'Fire Resistant & Energy Efficient'];
+  return (prod.characteristics || ['High Durability', 'Eco Friendly']).slice(0, 2);
+};
+
+const PRODUCT_IMAGES_CONFIG = {
+  '1': {
+    src: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+    alt: 'ACME fly ash brick manufacturer in Coimbatore'
+  },
+  '2': {
+    src: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME fly ash block supplier in Coimbatore'
+  },
+  '3': {
+    src: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME paver blocks in Coimbatore'
+  },
+  '4': {
+    src: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+    alt: 'ACME interlock bricks in Coimbatore'
+  },
+  '5': {
+    src: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME solid concrete blocks in Coimbatore'
+  },
+  '6': {
+    src: '/images/products/aac-blocks-manufacturer-coimbatore-acme.png',
+    alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks'
+  }
+};
+
+const getProductImage = (prod) => {
+  const idStr = String(prod.id);
+  if (PRODUCT_IMAGES_CONFIG[idStr]) {
+    return PRODUCT_IMAGES_CONFIG[idStr];
+  }
+  const name = (prod.name || '').toLowerCase();
+  if (name.includes('fly ash brick')) return PRODUCT_IMAGES_CONFIG['1'];
+  if (name.includes('fly ash block')) return PRODUCT_IMAGES_CONFIG['2'];
+  if (name.includes('paver')) return PRODUCT_IMAGES_CONFIG['3'];
+  if (name.includes('interlock')) return PRODUCT_IMAGES_CONFIG['4'];
+  if (name.includes('solid')) return PRODUCT_IMAGES_CONFIG['5'];
+  if (name.includes('aac')) return PRODUCT_IMAGES_CONFIG['6'];
+
+  return {
+    src: prod.image || '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+    alt: prod.alt || `${prod.name || 'Product'} | ACME Bricks & Blocks`
+  };
+};
+
 export default function ProductsGrid({
   products = [],
   onViewDetails,
@@ -12,7 +90,8 @@ export default function ProductsGrid({
     {
       id: '1',
       name: 'Fly Ash Bricks',
-      image: '/images/products/flyash-bricks.png',
+      image: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+      alt: 'ACME fly ash brick manufacturer in Coimbatore',
       dimensions: { length: 230, width: 100, height: 75 },
       strength: '9.15–10.15 N/mm²',
       shortDesc: 'High-strength and durable fly ash bricks suitable for residential, commercial and industrial wall construction.',
@@ -21,7 +100,8 @@ export default function ProductsGrid({
     {
       id: '2',
       name: 'Fly Ash Blocks',
-      image: '/images/products/ash-blocks.png',
+      image: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.png',
+      alt: 'ACME fly ash block supplier in Coimbatore',
       dimensions: { length: 230, width: 230, height: 100 },
       strength: '9.5–10 kg',
       shortDesc: 'Durable fly ash blocks for residential, commercial and industrial construction.',
@@ -30,7 +110,8 @@ export default function ProductsGrid({
     {
       id: '3',
       name: 'Paver Blocks',
-      image: '/images/products/paver-block.png',
+      image: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+      alt: 'ACME paver blocks in Coimbatore',
       dimensions: { length: 230, width: 230, height: 60 },
       strength: '60 mm / 80 mm thickness',
       shortDesc: 'Strong and attractive paver blocks for driveways, pathways, parking areas, gardens and commercial spaces.',
@@ -39,7 +120,8 @@ export default function ProductsGrid({
     {
       id: '4',
       name: 'Interlock Bricks',
-      image: '/images/products/interlock.png',
+      image: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+      alt: 'ACME interlock bricks in Coimbatore',
       dimensions: { length: 230, width: 230, height: 115 },
       strength: '5.5–11.77 N/mm²',
       shortDesc: 'Precision-made interlock bricks for durable, attractive and low-maintenance paving applications.',
@@ -48,7 +130,8 @@ export default function ProductsGrid({
     {
       id: '5',
       name: 'Solid Blocks',
-      image: '/images/products/solid-blocks.png',
+      image: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+      alt: 'ACME solid concrete blocks in Coimbatore',
       dimensions: { length: 400, width: 200, height: 150 },
       strength: '4.0–5.0 N/mm²',
       shortDesc: 'High-strength concrete solid blocks suitable for walls and structural construction applications.',
@@ -57,7 +140,8 @@ export default function ProductsGrid({
     {
       id: '6',
       name: 'AAC Blocks',
-      image: '/images/products/aac-blocks.png',
+      image: '/images/products/aac-blocks-manufacturer-coimbatore-acme.png',
+      alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks',
       dimensions: { length: 600, width: 200, height: 200 },
       strength: '3.5 MPa',
       shortDesc: 'Lightweight AAC blocks designed for efficient wall construction with excellent thermal insulation.',
@@ -146,23 +230,18 @@ export default function ProductsGrid({
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
         gap: '24px'
       }}>
-        {displayProducts.map((prod) => {
-          const isProminent = String(prod.id) === '1' || String(prod.id) === '3' || String(prod.id) === '4' ||
-            prod.name.toLowerCase().includes('fly ash brick') ||
-            prod.name.toLowerCase().includes('paver') ||
-            prod.name.toLowerCase().includes('interlock');
-
+        {displayProducts.map((prod, index) => {
           return (
             <div
               key={prod.id}
               style={{
                 background: '#ffffff',
-                border: isProminent ? '1.5px solid var(--accent)' : '1px solid var(--border)',
+                border: '1px solid var(--border)',
                 borderRadius: '10px',
                 padding: '20px',
                 display: 'flex',
                 flexDirection: 'column',
-                boxShadow: isProminent ? '0 6px 20px rgba(124, 161, 58, 0.12)' : '0 2px 12px rgba(0,0,0,0.04)',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
                 transition: 'var(--transition)',
                 position: 'relative',
                 overflow: 'hidden'
@@ -170,27 +249,7 @@ export default function ProductsGrid({
               className="products-catalog-card"
             >
               {/* Top accent bar */}
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: isProminent ? '4px' : '3px', background: 'var(--accent)', borderRadius: '10px 10px 0 0' }} />
-
-              {/* Prominent badge for Key Products */}
-              {isProminent && (
-                <div style={{
-                  position: 'absolute',
-                  top: '10px',
-                  right: '10px',
-                  background: 'var(--accent)',
-                  color: '#ffffff',
-                  fontSize: '9.5px',
-                  fontWeight: 800,
-                  padding: '3px 8px',
-                  borderRadius: '12px',
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                  zIndex: 2
-                }}>
-                  Top Pick
-                </div>
-              )}
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: 'var(--accent)', borderRadius: '10px 10px 0 0' }} />
 
               {/* Card Image */}
               <div style={{
@@ -207,20 +266,25 @@ export default function ProductsGrid({
               }}
                 onClick={() => onViewDetails(prod)}
               >
-                <img
-                  src={(prod.image || '/images/products/flyash-bricks.webp').replace(/\.png$/, '-thumb.webp')}
-                  alt={prod.name}
-                  loading={index < 3 ? 'eager' : 'lazy'}
-                  decoding="async"
-                  width="240"
-                  height="140"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    mixBlendMode: 'multiply'
-                  }}
-                />
+                {(() => {
+                  const imgData = getProductImage(prod);
+                  return (
+                    <img
+                      src={imgData.src}
+                      alt={imgData.alt}
+                      loading={index < 3 ? 'eager' : 'lazy'}
+                      decoding="async"
+                      width="240"
+                      height="140"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        mixBlendMode: 'multiply'
+                      }}
+                    />
+                  );
+                })()}
               </div>
 
               {/* Product Title */}
@@ -253,23 +317,23 @@ export default function ProductsGrid({
                 padding: '8px 10px'
               }}>
                 <span>Size: {prod.dimensions ? `${prod.dimensions.length} × ${prod.dimensions.width} × ${prod.dimensions.height}` : '190 × 90 × 90'} mm</span>
-                <span>Strength: {prod.strength || '7.5 N/mm²'}</span>
+                <span>Strength: {formatStrength(prod.strength)}</span>
               </div>
 
               {/* Green Checks Highlights */}
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '5px',
-                fontSize: '11px',
-                color: '#16a34a',
-                fontWeight: 600,
-                marginBottom: '16px'
+                gap: '8px',
+                marginBottom: '16px',
+                minHeight: '44px'
               }}>
-                {(prod.characteristics || ['High Durability', 'Eco Friendly']).slice(0, 2).map((char, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <Check size={11} strokeWidth={3} />
-                    <span>{char}</span>
+                {getHighlights(prod).map((char, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
+                    <Check size={13} strokeWidth={2.5} style={{ color: '#16a34a', flexShrink: 0, marginTop: '2px' }} />
+                    <span style={{ fontSize: '11.5px', color: '#16a34a', fontWeight: 600, lineHeight: 1.4 }}>
+                      {char}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -280,6 +344,7 @@ export default function ProductsGrid({
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 paddingTop: '12px',
+                marginTop: 'auto',
                 borderTop: '1px solid var(--border)'
               }}>
                 <button
@@ -287,15 +352,15 @@ export default function ProductsGrid({
                   style={{
                     background: 'none',
                     border: 'none',
-                    fontSize: '11.5px',
+                    fontSize: '12px',
                     fontWeight: 700,
                     color: 'var(--text-primary)',
                     cursor: 'pointer',
                     padding: 0,
-                    letterSpacing: '0.04em'
+                    whiteSpace: 'nowrap'
                   }}
                 >
-                  VIEW DETAILS
+                  View Details
                 </button>
 
                 <button
@@ -304,6 +369,7 @@ export default function ProductsGrid({
                     background: 'var(--accent)',
                     width: '28px',
                     height: '28px',
+                    minWidth: '28px',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',

@@ -1,33 +1,83 @@
 import React from 'react';
 
+const PRODUCT_IMAGES_CONFIG = {
+  '1': {
+    src: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+    alt: 'ACME fly ash brick manufacturer in Coimbatore'
+  },
+  '2': {
+    src: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME fly ash block supplier in Coimbatore'
+  },
+  '3': {
+    src: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME paver blocks in Coimbatore'
+  },
+  '4': {
+    src: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+    alt: 'ACME interlock bricks in Coimbatore'
+  },
+  '5': {
+    src: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+    alt: 'ACME solid concrete blocks in Coimbatore'
+  },
+  '6': {
+    src: '/images/products/aac-blocks-manufacturer-coimbatore-acme.png',
+    alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks'
+  }
+};
+
+const getProductImage = (prod) => {
+  const idStr = String(prod.id);
+  if (PRODUCT_IMAGES_CONFIG[idStr]) {
+    return PRODUCT_IMAGES_CONFIG[idStr];
+  }
+  const name = (prod.name || '').toLowerCase();
+  if (name.includes('fly ash brick')) return PRODUCT_IMAGES_CONFIG['1'];
+  if (name.includes('fly ash block')) return PRODUCT_IMAGES_CONFIG['2'];
+  if (name.includes('paver')) return PRODUCT_IMAGES_CONFIG['3'];
+  if (name.includes('interlock')) return PRODUCT_IMAGES_CONFIG['4'];
+  if (name.includes('solid')) return PRODUCT_IMAGES_CONFIG['5'];
+  if (name.includes('aac')) return PRODUCT_IMAGES_CONFIG['6'];
+
+  return {
+    src: prod.image || '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+    alt: prod.alt || `${prod.name || 'Product'} | ACME Bricks & Blocks`
+  };
+};
+
 export default function FeaturedProductsSection({ products, onQuoteClick, onViewDetails }) {
   // Use first 4 products from backend if loaded, otherwise fall back to matching image specs
   const displayProducts = (products && products.length >= 4) ? products.slice(0, 4) : [
     {
       id: '1',
       name: 'Fly Ash Brick',
-      image: '/images/products/flyash-bricks.png',
+      image: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+      alt: 'ACME fly ash brick manufacturer in Coimbatore',
       dimensions: { length: 230, width: 110, height: 75 },
       strength: '>= 7.5 N/mm²'
     },
     {
-      id: '2',
+      id: '5',
       name: 'Solid Block',
-      image: '/images/products/solid-blocks.png',
+      image: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+      alt: 'ACME solid concrete blocks in Coimbatore',
       dimensions: { length: 290, width: 190, height: 190 },
       strength: '>= 5 N/mm²'
     },
     {
       id: '3',
       name: 'Paver Block',
-      image: '/images/products/paver-block.png',
+      image: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+      alt: 'ACME paver blocks in Coimbatore',
       dimensions: { length: 200, width: 100, height: 60 },
       strength: '>= 35 N/mm²'
     },
     {
       id: '4',
       name: 'Interlock Block',
-      image: '/images/products/interlock.png',
+      image: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+      alt: 'ACME interlock bricks in Coimbatore',
       dimensions: { length: 225, width: 112.5, height: 80 },
       strength: '>= 7.5 N/mm²'
     }
@@ -95,19 +145,24 @@ export default function FeaturedProductsSection({ products, onQuoteClick, onView
                   padding: '4px',
                   overflow: 'hidden'
                 }}>
-                  <img 
-                    src={(prod.image || '/images/products/flyash-bricks.webp').replace(/\.png$/, '-thumb.webp')} 
-                    alt={prod.name} 
-                    loading="lazy"
-                    decoding="async"
-                    width="240"
-                    height="130"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'contain'
-                    }}
-                  />
+                  {(() => {
+                    const imgData = getProductImage(prod);
+                    return (
+                      <img 
+                        src={imgData.src} 
+                        alt={imgData.alt} 
+                        loading="lazy"
+                        decoding="async"
+                        width="240"
+                        height="130"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain'
+                        }}
+                      />
+                    );
+                  })()}
                 </div>
 
                 {/* Product Name */}

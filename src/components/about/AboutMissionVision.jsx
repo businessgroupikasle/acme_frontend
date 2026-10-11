@@ -193,15 +193,22 @@ export default function AboutMissionVision() {
           {/* Right Column: Warehouse Stockyard Image */}
           <div>
             <div className="mv-image-container">
-              <img
-                src="/images/about-page/oru-mission.webp"
-                alt="ACME Bricks Stacking Warehouse"
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="400"
-                style={{ width: '100%', height: 'auto', display: 'block', transition: 'all 0.5s ease' }}
-              />
+              <picture>
+                <source srcSet="/images/about-page/oru-mission.webp" type="image/webp" />
+                <img
+                  src="/images/about-page/oru-mission.png"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = '/images/about-page/about.png';
+                  }}
+                  alt="ACME Bricks Stacking Warehouse"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="400"
+                  style={{ width: '100%', height: 'auto', display: 'block', transition: 'all 0.5s ease' }}
+                />
+              </picture>
             </div>
           </div>
 

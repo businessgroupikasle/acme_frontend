@@ -80,7 +80,13 @@ export default function AboutWhyChoose() {
   ];
 
   return (
-    <section ref={sectionRef} className={`why-choose-section-custom ${isVisible ? 'active' : ''}`}>
+    <section
+      id="why-choose-section"
+      ref={sectionRef}
+      className={`why-choose-section-custom ${isVisible ? 'active' : ''}`}
+      style={{ scrollMarginTop: '100px', position: 'relative' }}
+    >
+      <div id="why-choose-us" style={{ position: 'absolute', top: 0, left: 0 }} />
       <div className="container">
         {/* Section Title */}
         <div style={{ textAlign: 'center' }}>

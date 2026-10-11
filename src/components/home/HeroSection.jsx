@@ -4,7 +4,8 @@ import { ShieldCheck, Leaf, Clock, ChevronLeft, ChevronRight } from 'lucide-reac
 const bannerImages = [
   {
     url: '/images/brick-manufacturer-coimbatore-acme-bricks.png',
-    caption: 'Built Strong. Built to Last. - Premium Blocks & Bricks'
+    alt: 'ACME Bricks, brick manufacturer in Coimbatore',
+    caption: 'ACME Bricks, brick manufacturer in Coimbatore'
   }
 ];
 
@@ -141,27 +142,24 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
       `}</style>
 
       {/* High-Performance Responsive Hero Banner with fetchpriority high */}
-      <picture style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 1 }}>
-        <source media="(max-width: 768px)" srcSet="/images/brick-manufacturer-coimbatore-acme-bricks-mobile.webp" type="image/webp" />
-        <source media="(min-width: 769px)" srcSet="/images/brick-manufacturer-coimbatore-acme-bricks.webp" type="image/webp" />
-        <img
-          src="/images/brick-manufacturer-coimbatore-acme-bricks.png"
-          alt="ACME Bricks, brick manufacturer in Coimbatore"
-          fetchPriority="high"
-          decoding="async"
-          loading="eager"
-          width="1920"
-          height="800"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center'
-          }}
-        />
-      </picture>
+      <img
+        src="/images/brick-manufacturer-coimbatore-acme-bricks.png"
+        alt="ACME Bricks, brick manufacturer in Coimbatore"
+        fetchPriority="high"
+        decoding="async"
+        loading="eager"
+        width="1920"
+        height="800"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center',
+          zIndex: 1
+        }}
+      />
       <div
         style={{
           position: 'absolute',

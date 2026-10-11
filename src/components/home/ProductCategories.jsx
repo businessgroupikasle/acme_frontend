@@ -14,42 +14,48 @@ export default function ProductCategories({ onCategorySelect }) {
       name: 'Fly Ash Bricks',
       tagline: 'Durable Bricks for Modern Construction',
       desc: 'Manufactured for consistent strength, dimensional accuracy and durability, our fly ash bricks are suitable for residential, commercial and industrial construction.',
-      image: '/images/products/flyash-bricks-thumb.webp',
+      image: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+      alt: 'ACME fly ash brick manufacturer in Coimbatore',
       btnText: 'VIEW FLY ASH BRICKS'
     },
     {
       name: 'Fly Ash Blocks',
       tagline: 'Reliable Blocks for Efficient Masonry',
       desc: 'Fly ash blocks designed for durable masonry construction, offering consistent dimensions and dependable performance across a range of building applications.',
-      image: '/images/products/ash-blocks-thumb.webp',
+      image: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.png',
+      alt: 'ACME fly ash block supplier in Coimbatore',
       btnText: 'VIEW FLY ASH BLOCKS'
     },
     {
       name: 'Paver Blocks',
       tagline: 'Durable Paving for Outdoor Spaces',
       desc: 'Paver blocks designed for driveways, walkways, pathways, parking areas and other residential and commercial paving applications.',
-      image: '/images/products/paver-block-thumb.webp',
+      image: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+      alt: 'ACME paver blocks in Coimbatore',
       btnText: 'VIEW PAVER BLOCKS'
     },
     {
       name: 'Interlock Bricks',
       tagline: 'Precision-Made for Efficient Construction',
       desc: 'Interlock bricks manufactured with consistent dimensions for efficient installation and durable performance in suitable construction applications.',
-      image: '/images/products/interlock-thumb.webp',
+      image: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+      alt: 'ACME interlock bricks in Coimbatore',
       btnText: 'VIEW Interlock BRICKS'
     },
     {
       name: 'Solid Blocks',
       tagline: 'Strong Blocks for Durable Structures',
       desc: 'Solid concrete blocks manufactured for consistent strength and dimensions, suitable for masonry and structural construction applications.',
-      image: '/images/products/solid-blocks-thumb.webp',
+      image: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+      alt: 'ACME solid concrete blocks in Coimbatore',
       btnText: 'VIEW SOLID BLOCKS'
     },
     {
       name: 'AAC Blocks',
       tagline: 'Lightweight Blocks for Modern Building',
       desc: 'Lightweight Autoclaved Aerated Concrete blocks designed to help reduce structural load while supporting efficient construction and thermal performance.',
-      image: '/images/products/aac-blocks-thumb.webp',
+      image: '/images/products/aac-blocks-manufacturer-coimbatore-acme.png',
+      alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks',
       btnText: 'VIEW AAC BLOCKS'
     }
   ];
@@ -223,7 +229,7 @@ export default function ProductCategories({ onCategorySelect }) {
                   }}>
                     <img
                       src={cat.image}
-                      alt={cat.name}
+                      alt={cat.alt || cat.name}
                       loading="lazy"
                       decoding="async"
                       width="200"

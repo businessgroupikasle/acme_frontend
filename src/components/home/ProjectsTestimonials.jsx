@@ -88,8 +88,12 @@ export default function ProjectsTestimonials() {
       background: '#ffffff',
       padding: '85px 0',
       borderBottom: '1px solid var(--border)',
-      position: 'relative'
+      position: 'relative',
+      scrollMarginTop: '100px'
     }}>
+      <div id="projects-section" style={{ position: 'absolute', top: 0, left: 0 }} />
+      <div id="client-testimonials-section" style={{ position: 'absolute', top: 0, left: 0 }} />
+      <div id="testimonials" style={{ position: 'absolute', top: 0, left: 0 }} />
       <style>{`
         .testimonials-carousel-wrapper {
           position: relative;

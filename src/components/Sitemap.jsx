@@ -4,7 +4,6 @@ import {
   Info,
   Package,
   Image as ImageIcon,
-  Calculator,
   Phone,
   MapPin,
   FileCode,
@@ -47,9 +46,9 @@ export default function Sitemap({ onNavigate }) {
           action: () => onNavigate && onNavigate('about')
         },
         {
-          name: 'Products Catalog',
+          name: 'Products',
           url: '/products/',
-          description: 'Full range of eco-friendly bricks, blocks, and Interlock pavers manufactured in Coimbatore.',
+          description: 'Explore our complete range of Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlock Bricks, Solid Blocks and AAC Blocks manufactured in Coimbatore.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products')
         },
@@ -59,13 +58,6 @@ export default function Sitemap({ onNavigate }) {
           description: 'High-resolution images of our factory, manufacturing equipment, and finished projects.',
           icon: <ImageIcon size={16} />,
           action: () => onNavigate && onNavigate('gallery')
-        },
-        {
-          name: 'Brick & Block Calculator',
-          url: '/calculator/',
-          description: 'Interactive construction estimator to calculate bricks, blocks, and mortar volume needed.',
-          icon: <Calculator size={16} />,
-          action: () => onNavigate && onNavigate('calculator')
         },
         {
           name: 'Contact Us',
@@ -98,21 +90,21 @@ export default function Sitemap({ onNavigate }) {
         {
           name: 'Paver Blocks',
           url: '/paver-blocks-manufacturer-coimbatore',
-          description: 'Looking for paver blocks in Coimbatore? ACME Bricks supplies paver blocks for driveways, pathways, parking areas and landscaping. Enquire about prices and bulk orders.',
+          description: 'Durable concrete paver blocks for driveways, pathways, parking areas, and landscaping.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products', null, 'Paver Blocks')
         },
         {
           name: 'Interlock Bricks',
           url: '/interlock-bricks-manufacturer-coimbatore',
-          description: 'Self-locking masonry bricks engineered for high structural strength (IS 15658).',
+          description: 'High-strength interlocking blocks in 6-inch and 8-inch sizes designed for fast, durable construction.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products', null, 'Interlock Bricks')
         },
         {
           name: 'Solid Blocks',
           url: '/solid-blocks-manufacturer-coimbatore',
-          description: 'Solid concrete building blocks (400x200x150/200mm) for heavy-load bearing walls.',
+          description: 'Heavy-duty solid concrete blocks available in 4-inch, 6-inch, and 8-inch dimensions for load-bearing walls.',
           icon: <Package size={16} />,
           action: () => onNavigate && onNavigate('products', null, 'Solid Blocks')
         },
@@ -132,31 +124,31 @@ export default function Sitemap({ onNavigate }) {
       links: [
         {
           name: 'Manufacturing Process',
-          url: '/about/',
+          url: '/about/#process-section',
           description: 'Modern automated hydraulic batching, vibro-compaction, and scientific curing process.',
           icon: <Factory size={16} />,
-          action: () => onNavigate && onNavigate('about')
+          action: () => onNavigate && onNavigate('about', 'process-section')
         },
         {
           name: 'Quality Assurance & Standards',
-          url: '/about/',
+          url: '/about/#quality-assurance-section',
           description: 'IS 12894:2002 & IS 2185 compliance with strict compressive and water absorption tests.',
           icon: <ShieldCheck size={16} />,
-          action: () => onNavigate && onNavigate('about')
+          action: () => onNavigate && onNavigate('about', 'quality-assurance-section')
         },
         {
           name: 'Why Choose ACME',
-          url: '/about/',
+          url: '/about/#why-choose-section',
           description: 'Direct factory pricing, on-time delivery across Tamil Nadu & Kerala, high dimensional consistency.',
           icon: <Sparkles size={16} />,
-          action: () => onNavigate && onNavigate('about')
+          action: () => onNavigate && onNavigate('about', 'why-choose-section')
         },
         {
           name: 'Client Testimonials & Projects',
-          url: '/',
+          url: '/#testimonials-section',
           description: 'Proven track record of supplying builders, contractors, and home builders since 2015.',
           icon: <CheckCircle2 size={16} />,
-          action: () => onNavigate && onNavigate('home', 'projects-section')
+          action: () => onNavigate && onNavigate('home', 'testimonials-section')
         }
       ]
     },
@@ -478,7 +470,13 @@ export default function Sitemap({ onNavigate }) {
                         onClick={(e) => {
                           if (isDirectAction) {
                             e.preventDefault();
-                            if (link.action) link.action();
+                            if (link.action) {
+                              link.action();
+                            } else if (onNavigate) {
+                              onNavigate(link.url.replace(/^\/+|\/+$/g, '') || 'home');
+                            } else {
+                              window.location.href = link.url;
+                            }
                           }
                         }}
                         style={{
