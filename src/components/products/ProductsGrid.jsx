@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Check, Grid as GridIcon, List } from 'lucide-react';
+import { ArrowRight, Grid as GridIcon, List } from 'lucide-react';
 
 const PRODUCT_HIGHLIGHTS = {
   '1': ['High Compressive Strength (IS 12894)', 'Low Water Absorption & Eco-Friendly'],
@@ -329,9 +329,17 @@ export default function ProductsGrid({
                 minHeight: '44px'
               }}>
                 {getHighlights(prod).map((char, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
-                    <Check size={13} strokeWidth={2.5} style={{ color: '#16a34a', flexShrink: 0, marginTop: '2px' }} />
-                    <span style={{ fontSize: '11.5px', color: '#16a34a', fontWeight: 600, lineHeight: 1.4 }}>
+                  <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                    <span style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--accent)',
+                      display: 'inline-block',
+                      flexShrink: 0,
+                      marginTop: '5px'
+                    }} />
+                    <span style={{ fontSize: '11.5px', color: 'var(--accent)', fontWeight: 600, lineHeight: 1.4 }}>
                       {char}
                     </span>
                   </div>

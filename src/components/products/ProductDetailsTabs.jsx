@@ -468,18 +468,14 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   {bulletPoints.map((pt, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '13px', color: 'var(--text-primary)', fontWeight: 550 }}>
-                      <div style={{
-                        width: '20px',
-                        height: '20px',
+                      <span style={{
+                        width: '6px',
+                        height: '6px',
                         borderRadius: '50%',
-                        background: 'rgba(124, 161, 58, 0.1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        backgroundColor: 'var(--accent)',
+                        display: 'inline-block',
                         flexShrink: 0
-                      }}>
-                        <Check size={12} color="var(--accent)" strokeWidth={3} />
-                      </div>
+                      }} />
                       <span>{pt}</span>
                     </div>
                   ))}
@@ -592,19 +588,15 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
                   const desc = parts.slice(1).join(':')?.trim();
                   return (
                     <div key={i} style={{ display: 'flex', alignItems: 'start', gap: '12px' }}>
-                      <div style={{
-                        width: '20px',
-                        height: '20px',
+                      <span style={{
+                        width: '6px',
+                        height: '6px',
                         borderRadius: '50%',
-                        background: 'rgba(124, 161, 58, 0.1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        backgroundColor: 'var(--accent)',
+                        display: 'inline-block',
                         flexShrink: 0,
-                        marginTop: '2px'
-                      }}>
-                        <Check size={12} color="var(--accent)" strokeWidth={3} />
-                      </div>
+                        marginTop: '6px'
+                      }} />
                       <div>
                         <h4 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)', margin: '0 0 4px 0' }}>{title}</h4>
                         {desc && <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: 0, lineHeight: '1.5' }}>{desc}</p>}
@@ -623,14 +615,15 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
                   const desc = parts.slice(1).join(':')?.trim();
                   return (
                     <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                      <div style={{
-                        width: '8px',
-                        height: '8px',
+                      <span style={{
+                        width: '6px',
+                        height: '6px',
                         borderRadius: '50%',
-                        background: 'var(--accent)',
+                        backgroundColor: 'var(--accent)',
                         marginTop: desc ? '6px' : '5px',
+                        display: 'inline-block',
                         flexShrink: 0
-                      }}></div>
+                      }} />
                       <div>
                         {desc ? (
                           <>
@@ -655,19 +648,15 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
                   const desc = parts.slice(1).join(':')?.trim();
                   return (
                     <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                      <div style={{
-                        width: '20px',
-                        height: '20px',
+                      <span style={{
+                        width: '6px',
+                        height: '6px',
                         borderRadius: '50%',
-                        background: 'rgba(124, 161, 58, 0.1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        backgroundColor: 'var(--accent)',
+                        display: 'inline-block',
                         flexShrink: 0,
-                        marginTop: '1px'
-                      }}>
-                        <Check size={11} color="var(--accent)" strokeWidth={3} />
-                      </div>
+                        marginTop: '6px'
+                      }} />
                       <div>
                         {desc ? (
                           <>

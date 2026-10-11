@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, MessageSquare, Download, Share2, Shield, Leaf, Droplet, BadgeDollarSign, Maximize, ArrowRight } from 'lucide-react';
+import { Star, MessageSquare, Download, Share2 } from 'lucide-react';
 
 export default function ProductDetailsMain({ product, onQuoteClick }) {
   const [activeThumb, setActiveThumb] = useState(0);
@@ -96,48 +96,48 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
 
   const highlights = isFlyAshBricks
     ? [
-      { text: 'Consistent product dimensions', icon: <Maximize size={14} color="var(--accent)" /> },
-      { text: 'Suitable for a wide range of masonry applications', icon: <Shield size={14} color="var(--accent)" /> },
-      { text: 'Options for individual and bulk orders', icon: <BadgeDollarSign size={14} color="var(--accent)" /> },
-      { text: 'Supply enquiries for residential and commercial projects', icon: <Leaf size={14} color="var(--accent)" /> }
+      'Consistent product dimensions',
+      'Suitable for a wide range of masonry applications',
+      'Options for individual and bulk orders',
+      'Supply enquiries for residential and commercial projects'
     ]
     : isFlyAshBlocks
       ? [
-        { text: 'Consistent product dimensions', icon: <Maximize size={14} color="var(--accent)" /> },
-        { text: 'Suitable for masonry applications', icon: <Shield size={14} color="var(--accent)" /> },
-        { text: 'Available for individual and bulk orders', icon: <BadgeDollarSign size={14} color="var(--accent)" /> },
-        { text: 'Supply for residential and commercial projects', icon: <Leaf size={14} color="var(--accent)" /> }
+        'Consistent product dimensions',
+        'Suitable for masonry applications',
+        'Available for individual and bulk orders',
+        'Supply for residential and commercial projects'
       ]
       : isPaverBlocks
         ? [
-          { text: 'High Durability', icon: <Shield size={14} color="var(--accent)" /> },
-          { text: 'Consistent Dimensions', icon: <Maximize size={14} color="var(--accent)" /> },
-          { text: 'Suitable for Outdoor Applications', icon: <Leaf size={14} color="var(--accent)" /> },
-          { text: 'Versatile Designs', icon: <BadgeDollarSign size={14} color="var(--accent)" /> }
+          'High Durability',
+          'Consistent Dimensions',
+          'Suitable for Outdoor Applications',
+          'Versatile Designs'
         ]
         : isInterlockBricks
           ? [
-            { text: 'Strong and Durable', icon: <Shield size={14} color="var(--accent)" /> },
-            { text: 'Precision Dimensions', icon: <Maximize size={14} color="var(--accent)" /> },
-            { text: 'Interlock Design', icon: <Leaf size={14} color="var(--accent)" /> },
-            { text: 'Multiple Size Options', icon: <BadgeDollarSign size={14} color="var(--accent)" /> },
-            { text: 'Easy Installation', icon: <ArrowRight size={14} color="var(--accent)" /> },
-            { text: 'Low Maintenance', icon: <Shield size={14} color="var(--accent)" /> }
+            'Strong and Durable',
+            'Precision Dimensions',
+            'Interlock Design',
+            'Multiple Size Options',
+            'Easy Installation',
+            'Low Maintenance'
           ]
           : isSolidBlocks
             ? [
-              { text: 'High Strength', icon: <Shield size={14} color="var(--accent)" /> },
-              { text: 'Uniform Dimensions', icon: <Maximize size={14} color="var(--accent)" /> },
-              { text: 'Durable Construction', icon: <Leaf size={14} color="var(--accent)" /> },
-              { text: 'Efficient Masonry', icon: <BadgeDollarSign size={14} color="var(--accent)" /> },
-              { text: 'Multiple Size Options', icon: <Maximize size={14} color="var(--accent)" /> },
-              { text: 'Suitable for Construction Projects', icon: <Shield size={14} color="var(--accent)" /> }
+              'High Strength',
+              'Uniform Dimensions',
+              'Durable Construction',
+              'Efficient Masonry',
+              'Multiple Size Options',
+              'Suitable for Construction Projects'
             ]
             : [
-              { text: 'Lightweight Construction', icon: <Shield size={14} color="var(--accent)" /> },
-              { text: 'Thermal Insulation', icon: <Leaf size={14} color="var(--accent)" /> },
-              { text: 'Faster Installation', icon: <Maximize size={14} color="var(--accent)" /> },
-              { text: 'Uniform Dimensions', icon: <BadgeDollarSign size={14} color="var(--accent)" /> }
+              'Lightweight Construction',
+              'Thermal Insulation',
+              'Faster Installation',
+              'Uniform Dimensions'
             ];
 
   const displayCategoryLabel = isFlyAshBricks
@@ -275,27 +275,6 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
               height: '380px'
             }}>
 
-
-              {/* Maximize Icon */}
-              <button style={{
-                position: 'absolute',
-                top: '16px',
-                right: '16px',
-                background: '#ffffff',
-                border: '1px solid var(--border)',
-                borderRadius: '50%',
-                width: '32px',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-                zIndex: 2
-              }}>
-                <Maximize size={14} color="var(--text-primary)" />
-              </button>
-
               <img
                 src={imagesList[activeThumb].src}
                 alt={imagesList[activeThumb].alt}
@@ -417,8 +396,15 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
                   'Reduces structural load',
                   'Eco-friendly and energy efficient'
                 ].map((text, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', fontWeight: 650, color: 'var(--text-primary)' }}>
-                    <ArrowRight size={16} color="var(--accent)" strokeWidth={2.5} />
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 650, color: 'var(--text-primary)' }}>
+                    <span style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--accent)',
+                      display: 'inline-block',
+                      flexShrink: 0
+                    }} />
                     <span>{text}</span>
                   </div>
                 ))}
@@ -444,10 +430,15 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
                   }}>
                     {highlights.map((h, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', fontWeight: 600, color: 'var(--text-primary)' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          {h.icon}
-                        </div>
-                        <span>{h.text}</span>
+                        <span style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          backgroundColor: 'var(--accent)',
+                          display: 'inline-block',
+                          flexShrink: 0
+                        }} />
+                        <span>{typeof h === 'string' ? h : h.text}</span>
                       </div>
                     ))}
                   </div>
