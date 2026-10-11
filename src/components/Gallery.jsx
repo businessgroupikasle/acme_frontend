@@ -7,12 +7,12 @@ export default function Gallery({ onHomeClick }) {
 
   const getThumbPath = (p) => {
     if (!p) return '';
-    return p.replace(/\.(jpg|jpeg|png|JPG|PNG)$/, '-thumb.webp');
+    return p.replace(/(-thumb)?\.(jpg|jpeg|png|webp|JPG|PNG|WEBP)$/, '-thumb.webp');
   };
 
   const getDisplayPath = (p) => {
     if (!p) return '';
-    return p.replace(/\.(jpg|jpeg|png|JPG|PNG)$/, '.webp');
+    return p.replace(/-thumb\.(webp|jpg|jpeg|png)$/, '.webp').replace(/\.(jpg|jpeg|png|JPG|PNG)$/, '.webp');
   };
 
   const filters = ['All', 'Fly Ash Bricks', 'Fly Ash Blocks', 'Paver Blocks', 'Interlock Bricks', 'Solid Blocks', 'AAC Blocks'];
@@ -20,7 +20,7 @@ export default function Gallery({ onHomeClick }) {
   const originalItems = [
     {
       id: 3,
-      image: '/images/about-page/about.png',
+      image: '/images/acme-bricks-manufacturer-coimbatore.webp',
       category: 'Solid Blocks',
       title: 'Pre-curing Stacking Yard',
       desc: 'Cured solid blocks lined up in our secondary storage yard awaiting distribution.',
@@ -30,7 +30,7 @@ export default function Gallery({ onHomeClick }) {
     },
     {
       id: 4,
-      image: '/images/about-page/oru-mission.png',
+      image: '/images/about-page/oru-mission.webp',
       category: 'Fly Ash Blocks',
       title: 'Fly Ash Blocks Automated Production',
       desc: 'Precision computerized dosing equipment for batch fly ash block compounds.',
@@ -40,7 +40,7 @@ export default function Gallery({ onHomeClick }) {
     },
     {
       id: 6,
-      image: '/images/products/flyash-bricks.png',
+      image: '/images/products/flyash-bricks.webp',
       category: 'Fly Ash Bricks',
       title: 'Class 1 Fly Ash Bricks',
       desc: 'Precision-molded fly ash bricks showing consistent sharp edges and light grey coloring.',
@@ -50,7 +50,7 @@ export default function Gallery({ onHomeClick }) {
     },
     {
       id: 7,
-      image: '/images/products/solid-blocks.png',
+      image: '/images/products/solid-blocks.webp',
       category: 'Solid Blocks',
       title: 'Solid Concrete Blocks',
       desc: 'Heavy-duty 190mm solid blocks stacked for industrial partition walls.',
@@ -60,7 +60,7 @@ export default function Gallery({ onHomeClick }) {
     },
     {
       id: 8,
-      image: '/images/products/paver-block.png',
+      image: '/images/products/paver-block.webp',
       category: 'Paver Blocks',
       title: 'Designer Zig-Zag Paver',
       desc: '60mm red and grey zig-zag pavers curing on wooden palettes.',
@@ -70,7 +70,7 @@ export default function Gallery({ onHomeClick }) {
     },
     {
       id: 9,
-      image: '/images/products/interlock.png',
+      image: '/images/products/interlock.webp',
       category: 'Interlock Bricks',
       title: 'Interlock Wall Bricks',
       desc: 'Innovative dry-stack Interlock soil cement blocks showcasing high-precision locks.',
@@ -83,8 +83,8 @@ export default function Gallery({ onHomeClick }) {
   const folderImages = [
     // Fly Ash Blocks
     ...[
-      'IMG_0004.JPG', 'IMG_0005.JPG', 'IMG_0007.JPG', 'IMG_0008.JPG', 'IMG_0009.JPG',
-      'IMG_0063.JPG', 'IMG_0064.JPG', 'IMG_0065.JPG', 'IMG_0083.JPG', 'IMG_0092.JPG'
+      'IMG_0004.webp', 'IMG_0005.webp', 'IMG_0007.webp', 'IMG_0008.webp', 'IMG_0009.webp',
+      'IMG_0063.webp', 'IMG_0064.webp', 'IMG_0065.webp', 'IMG_0083.webp', 'IMG_0092.webp'
     ].map((file, idx) => ({
       path: `/images/gallery/flyash_blocks/images/${file}`,
       category: 'Fly Ash Blocks',
@@ -94,13 +94,13 @@ export default function Gallery({ onHomeClick }) {
 
     // Fly Ash Bricks
     ...[
-      'acme-flyash-bricks-manufacturer-coimbatore-01.jpg',
-      'flyash-bricks-manufacturing-in-coimbatore-02.jpg',
-      'acme-bricks-high-strength-flyash-bricks-03.jpg',
-      'premium-flyash-bricks-coimbatore-04.jpg',
-      'eco-friendly-flyash-bricks-manufacturing-05.jpg',
-      'construction-grade-flyash-bricks-coimbatore-06.jpg',
-      'quality-tested-flyash-bricks-stockyard-07.jpg'
+      'acme-flyash-bricks-manufacturer-coimbatore-01.webp',
+      'flyash-bricks-manufacturing-in-coimbatore-02.webp',
+      'acme-bricks-high-strength-flyash-bricks-03.webp',
+      'premium-flyash-bricks-coimbatore-04.webp',
+      'eco-friendly-flyash-bricks-manufacturing-05.webp',
+      'construction-grade-flyash-bricks-coimbatore-06.webp',
+      'quality-tested-flyash-bricks-stockyard-07.webp'
     ].map((file, idx) => ({
       path: `/images/gallery/flyash_bricks/${file}`,
       category: 'Fly Ash Bricks',
@@ -110,23 +110,23 @@ export default function Gallery({ onHomeClick }) {
 
     // Interlock Bricks
     ...[
-      'acme-interlock-bricks-manufacturer-coimbatore-01.jpg',
-      'interlock-bricks-manufacturing-in-coimbatore-02.jpg',
-      'acme-bricks-Interlock-blocks-coimbatore-03.jpg',
-      'premium-interlock-bricks-coimbatore-04.jpg',
-      'high-strength-Interlock-bricks-coimbatore-05.jpg',
-      'eco-friendly-interlock-bricks-manufacturing-06.jpg',
-      'dry-stack-interlock-bricks-coimbatore-07.jpg',
-      'acme-Interlock-wall-bricks-coimbatore-08.jpg',
-      'cost-effective-interlock-bricks-manufacturing-09.jpg',
-      'heavy-duty-Interlock-bricks-coimbatore-10.jpg',
-      'precision-molded-interlock-bricks-coimbatore-11.jpg',
-      'interlock-cement-bricks-manufacturing-coimbatore-12.jpg',
-      'residential-building-interlock-bricks-13.jpg',
-      'commercial-construction-interlock-bricks-coimbatore-14.jpg',
-      'acme-bricks-interlock-stockyard-coimbatore-15.jpg',
-      'quality-tested-Interlock-bricks-coimbatore-16.jpg',
-      'best-interlock-bricks-manufacturer-coimbatore-17.jpg'
+      'acme-interlock-bricks-manufacturer-coimbatore-01.webp',
+      'interlock-bricks-manufacturing-in-coimbatore-02.webp',
+      'acme-bricks-Interlock-blocks-coimbatore-03.webp',
+      'premium-interlock-bricks-coimbatore-04.webp',
+      'high-strength-Interlock-bricks-coimbatore-05.webp',
+      'eco-friendly-interlock-bricks-manufacturing-06.webp',
+      'dry-stack-interlock-bricks-coimbatore-07.webp',
+      'acme-Interlock-wall-bricks-coimbatore-08.webp',
+      'cost-effective-interlock-bricks-manufacturing-09.webp',
+      'heavy-duty-Interlock-bricks-coimbatore-10.webp',
+      'precision-molded-interlock-bricks-coimbatore-11.webp',
+      'interlock-cement-bricks-manufacturing-coimbatore-12.webp',
+      'residential-building-interlock-bricks-13.webp',
+      'commercial-construction-interlock-bricks-coimbatore-14.webp',
+      'acme-bricks-interlock-stockyard-coimbatore-15.webp',
+      'quality-tested-Interlock-bricks-coimbatore-16.webp',
+      'best-interlock-bricks-manufacturer-coimbatore-17.webp'
     ].map((file, idx) => ({
       path: `/images/gallery/interlock/${file}`,
       category: 'Interlock Bricks',
@@ -135,7 +135,7 @@ export default function Gallery({ onHomeClick }) {
     })),
 
     // Paver Blocks
-    ...Array.from({ length: 56 }, (_, i) => `acme-paver-${String(i + 1).padStart(2, '0')}.jpg`).map((file, idx) => ({
+    ...Array.from({ length: 56 }, (_, i) => `acme-paver-${String(i + 1).padStart(2, '0')}.webp`).map((file, idx) => ({
       path: `/images/gallery/pavers/${file}`,
       category: 'Paver Blocks',
       title: `Acme Paver Block ${idx + 1}`,
@@ -144,7 +144,7 @@ export default function Gallery({ onHomeClick }) {
 
     // Solid Blocks
     ...[
-      'IMG_20250611_153156.jpg'
+      'IMG_20250611_153156.webp'
     ].map((file, idx) => ({
       path: `/images/gallery/solid_blocks/${file}`,
       category: 'Solid Blocks',
@@ -535,7 +535,8 @@ export default function Gallery({ onHomeClick }) {
                   width="400"
                   height="300"
                   onError={(e) => {
-                    e.target.src = item.image;
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = getDisplayPath(item.image);
                   }}
                 />
               </div>
@@ -573,7 +574,7 @@ export default function Gallery({ onHomeClick }) {
               style={{
                 position: 'absolute',
                 inset: 0,
-                backgroundImage: `url(${filteredItems[lightboxIndex].image})`,
+                backgroundImage: `url(${getDisplayPath(filteredItems[lightboxIndex].image)})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 filter: 'blur(24px) brightness(0.4) saturate(1.2)',
@@ -589,7 +590,8 @@ export default function Gallery({ onHomeClick }) {
                 alt={filteredItems[lightboxIndex].title}
                 decoding="async"
                 onError={(e) => {
-                  e.target.src = filteredItems[lightboxIndex].image;
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = getDisplayPath(filteredItems[lightboxIndex].image);
                 }}
                 style={{
                   maxHeight: '92%',

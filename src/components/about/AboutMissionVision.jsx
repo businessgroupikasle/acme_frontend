@@ -194,12 +194,12 @@ export default function AboutMissionVision() {
           <div>
             <div className="mv-image-container">
               <picture>
-                <source srcSet="/images/about-page/acme-bricks-manufacturer-coimbatore.webp" type="image/webp" />
+                <source srcSet="/images/about-page/acme-bricks-manufacturing-facility-coimbatore.webp" type="image/webp" />
                 <img
-                  src="/images/about-page/acme-bricks-manufacturer-coimbatore.png"
+                  src="/images/about-page/acme-bricks-manufacturing-facility-coimbatore.webp"
                   onError={(e) => {
                     e.currentTarget.onerror = null;
-                    e.currentTarget.src = '/images/about-page/about.png';
+                    e.currentTarget.src = '/images/about.webp';
                   }}
                   alt="ACME Bricks manufacturer in Coimbatore"
                   loading="lazy"

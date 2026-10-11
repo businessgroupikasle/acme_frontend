@@ -31,55 +31,55 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
     : isFlyAshBlocks
       ? [
         {
-          src: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.png',
+          src: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.webp',
           alt: 'ACME fly ash block supplier in Coimbatore'
         },
         {
-          src: '/images/products/fly-ash-block-sizes-and-specifications-acme.png',
+          src: '/images/products/fly-ash-block-sizes-and-specifications-acme.webp',
           alt: 'ACME fly ash block sizes and specifications'
         }
       ]
       : isPaverBlocks
         ? [
           {
-            src: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+            src: '/images/products/paver-block-manufacturer-coimbatore-acme.webp',
             alt: 'ACME paver blocks in Coimbatore'
           },
           {
-            src: '/images/products/concrete-paver-block-designs-and-colours-acme.png',
+            src: '/images/products/concrete-paver-block-designs-and-colours-acme.webp',
             alt: 'ACME concrete paver block designs and colours'
           }
         ]
         : isInterlockBricks
           ? [
             {
-              src: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+              src: '/images/products/interlock-brick-manufacturer-coimbatore-acme.webp',
               alt: 'ACME interlock bricks in Coimbatore'
             },
             {
-              src: '/images/products/6-inch-8-inch-interlock-block-sizes-acme.png',
+              src: '/images/products/6-inch-8-inch-interlock-block-sizes-acme.webp',
               alt: 'ACME 6-inch and 8-inch interlock block sizes'
             }
           ]
           : isSolidBlocks
             ? [
               {
-                src: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+                src: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.webp',
                 alt: 'ACME solid concrete blocks in Coimbatore'
               },
               {
-                src: '/images/products/4-inch-6-inch-8-inch-solid-block-sizes-acme.png',
+                src: '/images/products/4-inch-6-inch-8-inch-solid-block-sizes-acme.webp',
                 alt: 'ACME solid blocks in 4-inch, 6-inch and 8-inch sizes'
               }
             ]
           : isAACBlocks
           ? [
             {
-              src: '/images/products/aac-blocks-manufacturer-coimbatore-acme.png',
+              src: '/images/products/aac-blocks-manufacturer-coimbatore-acme.webp',
               alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks'
             },
             {
-              src: '/images/products/aac-concrete-blocks-supplier-coimbatore-acme.png',
+              src: '/images/products/aac-concrete-blocks-supplier-coimbatore-acme.webp',
               alt: 'AAC concrete blocks supplied by ACME Bricks & Blocks in Coimbatore'
             }
           ]

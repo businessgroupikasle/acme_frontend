@@ -3,7 +3,7 @@ import { ShieldCheck, Leaf, Clock, ChevronLeft, ChevronRight } from 'lucide-reac
 
 const bannerImages = [
   {
-    url: '/images/brick-manufacturer-coimbatore-acme-bricks.png',
+    url: '/images/brick-manufacturer-coimbatore-acme-bricks.webp',
     alt: 'ACME Bricks, brick manufacturer in Coimbatore',
     caption: 'ACME Bricks, brick manufacturer in Coimbatore'
   }
@@ -143,7 +143,7 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
 
       {/* High-Performance Responsive Hero Banner with fetchpriority high */}
       <img
-        src="/images/brick-manufacturer-coimbatore-acme-bricks.png"
+        src="/images/brick-manufacturer-coimbatore-acme-bricks.webp"
         alt="ACME Bricks, brick manufacturer in Coimbatore"
         fetchPriority="high"
         decoding="async"

@@ -155,7 +155,7 @@ export default function ContactForm() {
                   <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)', margin: '4px 0 0 0', lineHeight: 1.4 }}>
                     D No 1, SF NO 517/A, Thennampalayam Road,<br />
                     Serayampalayam, Vellanaipatti,<br />
-                    Coimbatore, Tamil Nadu 641048
+                    Coimbatore, Tamil Nadu 641062
                   </p>
                 </div>
               </div>
@@ -234,15 +234,15 @@ export default function ContactForm() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="input-group">
                     <label className="input-label">Full Name</label>
-                    <input 
-                      type="text" required value={form.name} 
+                    <input
+                      type="text" required value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="form-input" placeholder="e.g. Jane Doe" 
+                      className="form-input" placeholder="e.g. Jane Doe"
                     />
                   </div>
                   <div className="input-group">
                     <label className="input-label">Email Address *</label>
-                    <input 
+                    <input
                       type="email" required value={form.email}
                       onChange={(e) => {
                         const val = e.target.value;
@@ -255,12 +255,12 @@ export default function ContactForm() {
                         setTouched((prev) => ({ ...prev, email: true }));
                         setErrors((prev) => ({ ...prev, email: validateEmail(form.email) }));
                       }}
-                      className="form-input" 
+                      className="form-input"
                       style={{
                         borderColor: touched.email && errors.email ? '#ef4444' : undefined,
                         backgroundColor: touched.email && errors.email ? '#fff5f5' : undefined
                       }}
-                      placeholder="e.g. jane@domain.com" 
+                      placeholder="e.g. jane@domain.com"
                     />
                     {touched.email && errors.email && (
                       <span style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px', display: 'block', fontWeight: 600 }}>
@@ -272,9 +272,9 @@ export default function ContactForm() {
 
                 <div className="input-group">
                   <label className="input-label">Phone Number (10 to 12 digits) *</label>
-                  <input 
-                    type="tel" 
-                    required 
+                  <input
+                    type="tel"
+                    required
                     maxLength={16}
                     value={form.phone}
                     onChange={(e) => {
@@ -303,12 +303,12 @@ export default function ContactForm() {
                       setTouched((prev) => ({ ...prev, phone: true }));
                       setErrors((prev) => ({ ...prev, phone: validatePhone(form.phone) }));
                     }}
-                    className="form-input" 
+                    className="form-input"
                     style={{
                       borderColor: touched.phone && errors.phone ? '#ef4444' : undefined,
                       backgroundColor: touched.phone && errors.phone ? '#fff5f5' : undefined
                     }}
-                    placeholder="e.g. +91 95008 51880" 
+                    placeholder="e.g. +91 95008 51880"
                   />
                   {touched.phone && errors.phone && (
                     <span style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px', display: 'block', fontWeight: 600 }}>
@@ -319,10 +319,10 @@ export default function ContactForm() {
 
                 <div className="input-group">
                   <label className="input-label">Project Details / Message</label>
-                  <textarea 
+                  <textarea
                     rows="4" required value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="form-textarea" placeholder="Tell us about your build..." 
+                    className="form-textarea" placeholder="Tell us about your build..."
                   ></textarea>
                 </div>
 
@@ -344,10 +344,10 @@ export default function ContactForm() {
                   </div>
                 )}
 
-                <button 
-                  type="submit" 
-                  disabled={loading} 
-                  className="btn btn-primary" 
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn btn-primary"
                   style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
                 >
                   {loading ? (

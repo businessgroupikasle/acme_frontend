@@ -14,7 +14,7 @@ export default function ProductCategories({ onCategorySelect }) {
       name: 'Fly Ash Bricks',
       tagline: 'Durable Bricks for Modern Construction',
       desc: 'Manufactured for consistent strength, dimensional accuracy and durability, our fly ash bricks are suitable for residential, commercial and industrial construction.',
-      image: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+      image: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.webp',
       alt: 'ACME fly ash brick manufacturer in Coimbatore',
       btnText: 'VIEW FLY ASH BRICKS'
     },
@@ -22,7 +22,7 @@ export default function ProductCategories({ onCategorySelect }) {
       name: 'Fly Ash Blocks',
       tagline: 'Reliable Blocks for Efficient Masonry',
       desc: 'Fly ash blocks designed for durable masonry construction, offering consistent dimensions and dependable performance across a range of building applications.',
-      image: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.png',
+      image: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.webp',
       alt: 'ACME fly ash block supplier in Coimbatore',
       btnText: 'VIEW FLY ASH BLOCKS'
     },
@@ -30,7 +30,7 @@ export default function ProductCategories({ onCategorySelect }) {
       name: 'Paver Blocks',
       tagline: 'Durable Paving for Outdoor Spaces',
       desc: 'Paver blocks designed for driveways, walkways, pathways, parking areas and other residential and commercial paving applications.',
-      image: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+      image: '/images/products/paver-block-manufacturer-coimbatore-acme.webp',
       alt: 'ACME paver blocks in Coimbatore',
       btnText: 'VIEW PAVER BLOCKS'
     },
@@ -38,7 +38,7 @@ export default function ProductCategories({ onCategorySelect }) {
       name: 'Interlock Bricks',
       tagline: 'Precision-Made for Efficient Construction',
       desc: 'Interlock bricks manufactured with consistent dimensions for efficient installation and durable performance in suitable construction applications.',
-      image: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+      image: '/images/products/interlock-brick-manufacturer-coimbatore-acme.webp',
       alt: 'ACME interlock bricks in Coimbatore',
       btnText: 'VIEW Interlock BRICKS'
     },
@@ -46,7 +46,7 @@ export default function ProductCategories({ onCategorySelect }) {
       name: 'Solid Blocks',
       tagline: 'Strong Blocks for Durable Structures',
       desc: 'Solid concrete blocks manufactured for consistent strength and dimensions, suitable for masonry and structural construction applications.',
-      image: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+      image: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.webp',
       alt: 'ACME solid concrete blocks in Coimbatore',
       btnText: 'VIEW SOLID BLOCKS'
     },
@@ -54,7 +54,7 @@ export default function ProductCategories({ onCategorySelect }) {
       name: 'AAC Blocks',
       tagline: 'Lightweight Blocks for Modern Building',
       desc: 'Lightweight Autoclaved Aerated Concrete blocks designed to help reduce structural load while supporting efficient construction and thermal performance.',
-      image: '/images/products/aac-blocks-manufacturer-coimbatore-acme.png',
+      image: '/images/products/aac-blocks-manufacturer-coimbatore-acme.webp',
       alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks',
       btnText: 'VIEW AAC BLOCKS'
     }

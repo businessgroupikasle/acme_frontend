@@ -250,14 +250,15 @@ export default function AboutCompany() {
                 type="image/webp"
               />
               <img
-                src="/images/about-page/acme-bricks-manufacturing-facility-tamil-nadu.png"
+                src="/images/about-page/acme-bricks-manufacturing-facility-tamil-nadu.webp"
                 alt="ACME Bricks production facility in Tamil Nadu"
                 loading="eager"
                 decoding="async"
                 width="600"
                 height="400"
                 onError={(e) => {
-                  e.target.src = '/images/about-page/acme-bricks-manufacturer-coimbatore.png';
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = '/images/about-page/acme-bricks-manufacturer-coimbatore.webp';
                 }}
               />
             </picture>

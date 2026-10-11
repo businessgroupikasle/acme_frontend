@@ -2,27 +2,27 @@ import React from 'react';
 
 const PRODUCT_IMAGES_CONFIG = {
   '1': {
-    src: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+    src: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.webp',
     alt: 'ACME fly ash brick manufacturer in Coimbatore'
   },
   '2': {
-    src: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.png',
+    src: '/images/products/fly-ash-block-manufacturer-coimbatore-acme.webp',
     alt: 'ACME fly ash block supplier in Coimbatore'
   },
   '3': {
-    src: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+    src: '/images/products/paver-block-manufacturer-coimbatore-acme.webp',
     alt: 'ACME paver blocks in Coimbatore'
   },
   '4': {
-    src: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+    src: '/images/products/interlock-brick-manufacturer-coimbatore-acme.webp',
     alt: 'ACME interlock bricks in Coimbatore'
   },
   '5': {
-    src: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+    src: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.webp',
     alt: 'ACME solid concrete blocks in Coimbatore'
   },
   '6': {
-    src: '/images/products/aac-blocks-manufacturer-coimbatore-acme.png',
+    src: '/images/products/aac-blocks-manufacturer-coimbatore-acme.webp',
     alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks'
   }
 };
@@ -41,7 +41,7 @@ const getProductImage = (prod) => {
   if (name.includes('aac')) return PRODUCT_IMAGES_CONFIG['6'];
 
   return {
-    src: prod.image || '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+    src: (prod.image || '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.webp').replace(/\.png$/, '.webp'),
     alt: prod.alt || `${prod.name || 'Product'} | ACME Bricks & Blocks`
   };
 };
@@ -52,7 +52,7 @@ export default function FeaturedProductsSection({ products, onQuoteClick, onView
     {
       id: '1',
       name: 'Fly Ash Brick',
-      image: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.png',
+      image: '/images/products/fly-ash-brick-manufacturer-coimbatore-acme.webp',
       alt: 'ACME fly ash brick manufacturer in Coimbatore',
       dimensions: { length: 230, width: 110, height: 75 },
       strength: '>= 7.5 N/mm²'
@@ -60,7 +60,7 @@ export default function FeaturedProductsSection({ products, onQuoteClick, onView
     {
       id: '5',
       name: 'Solid Block',
-      image: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.png',
+      image: '/images/products/solid-concrete-block-manufacturer-coimbatore-acme.webp',
       alt: 'ACME solid concrete blocks in Coimbatore',
       dimensions: { length: 290, width: 190, height: 190 },
       strength: '>= 5 N/mm²'
@@ -68,7 +68,7 @@ export default function FeaturedProductsSection({ products, onQuoteClick, onView
     {
       id: '3',
       name: 'Paver Block',
-      image: '/images/products/paver-block-manufacturer-coimbatore-acme.png',
+      image: '/images/products/paver-block-manufacturer-coimbatore-acme.webp',
       alt: 'ACME paver blocks in Coimbatore',
       dimensions: { length: 200, width: 100, height: 60 },
       strength: '>= 35 N/mm²'
@@ -76,7 +76,7 @@ export default function FeaturedProductsSection({ products, onQuoteClick, onView
     {
       id: '4',
       name: 'Interlock Block',
-      image: '/images/products/interlock-brick-manufacturer-coimbatore-acme.png',
+      image: '/images/products/interlock-brick-manufacturer-coimbatore-acme.webp',
       alt: 'ACME interlock bricks in Coimbatore',
       dimensions: { length: 225, width: 112.5, height: 80 },
       strength: '>= 7.5 N/mm²'

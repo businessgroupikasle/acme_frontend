@@ -35,11 +35,10 @@ export default function AboutUs({ onKnowMoreClick }) {
               <picture>
                 <source
                   srcSet="/images/about-page/acme-bricks-manufacturer-coimbatore.webp"
-
                   type="image/webp"
                 />
                 <img
-                  src="/images/about-page/acme-bricks-manufacturer-coimbatore.png"
+                  src="/images/about-page/acme-bricks-manufacturer-coimbatore.webp"
                   alt="ACME Bricks manufacturing company in Coimbatore"
                   loading="lazy"
                   decoding="async"
@@ -47,7 +46,8 @@ export default function AboutUs({ onKnowMoreClick }) {
                   height="360"
                   style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
                   onError={(e) => {
-                    e.target.src = '/images/about-page/about.png';
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = '/images/about.webp';
                   }}
                 />
               </picture>

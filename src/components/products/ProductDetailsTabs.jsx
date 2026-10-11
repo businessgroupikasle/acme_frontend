@@ -842,7 +842,7 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
                           left: 0,
                           right: 0,
                           bottom: 0,
-                          backgroundImage: 'url("/images/about-page/about.png")',
+                          backgroundImage: 'url("/images/about.webp")',
                           backgroundSize: 'cover',
                           backgroundPosition: 'center'
                         }} />

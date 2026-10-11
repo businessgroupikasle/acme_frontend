@@ -27,7 +27,7 @@ export default function ProductsHero({ onHomeClick }) {
           marginBottom: '8px',
           letterSpacing: '-0.02em'
         }}>
-          Bricks &amp; Blocks for Construction
+          Bricks &amp; Blocks Manufacturer in Coimbatore
         </h1>
         <div style={{
           fontSize: '13px',
