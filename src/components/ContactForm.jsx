@@ -155,7 +155,7 @@ export default function ContactForm() {
                   <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)', margin: '4px 0 0 0', lineHeight: 1.4 }}>
                     D No 1, SF NO 517/A, Thennampalayam Road,<br />
                     Serayampalayam, Vellanaipatti,<br />
-                    Coimbatore, Tamil Nadu 641062
+                    Coimbatore, Tamil Nadu 641048
                   </p>
                 </div>
               </div>
