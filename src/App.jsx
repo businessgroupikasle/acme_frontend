@@ -84,7 +84,7 @@ const MOCK_CATALOG = [
     "strength": "5.5-11.77",
     "application": ["residential", "infrastructure", "commercial"],
     "characteristics": [
-      "Thickness Options: 60 mm, 80 mm (custom thickness on request)",
+      "Thickness Options: 2.36 inches & 3.15 inches",
       "Material Composition: High-quality cement, fine aggregates, and colour pigments",
       "Manufacturing Process: Vibrocompaction and hydraulic pressing",
       "Key Benefits: Versatile Designs, High Durability, Slip-Resistant, Weatherproof, Eco-Drainage",

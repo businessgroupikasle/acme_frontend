@@ -33,7 +33,7 @@ export default function ProductDetailsSpecsFeatures({ product }) {
       ]
       : isPaverBlocks
         ? [
-          { param: 'Thickness Options', val: '60 mm, 80 mm (custom thickness on request)' },
+          { param: 'Thickness Options', val: '2.36 inches & 3.15 inches' },
           { param: 'Material Composition', val: 'High-quality cement, fine aggregates, and colour pigments' },
           { param: 'Manufacturing Process', val: 'Vibrocompaction and hydraulic pressing' },
           { param: 'Key Benefits', val: 'Versatile Designs, High Durability, Slip-Resistant, Weatherproof, Eco-Drainage' },

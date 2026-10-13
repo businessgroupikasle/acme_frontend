@@ -44,7 +44,7 @@ export const getProductCardSpecs = (prod) => {
   // 3. Paver Blocks
   if (idStr === '3' || name.includes('paver') || type.includes('paver')) {
     return [
-      { label: 'Thickness Options', val: '60 mm & 80 mm' },
+      { label: 'Thickness Options', val: '2.36 inches & 3.15 inches' },
       { label: 'Material', val: 'Cement & Colour Pigments' }
     ];
   }
@@ -175,7 +175,7 @@ export default function ProductsGrid({
       image: '/images/products/paver-block-manufacturer-coimbatore-acme.webp',
       alt: 'ACME paver blocks in Coimbatore',
       dimensions: { length: 230, width: 230, height: 60 },
-      strength: '60 mm / 80 mm thickness',
+      strength: '2.36 inches & 3.15 inches thickness',
       shortDesc: 'Strong and attractive paver blocks for driveways, pathways, parking areas, gardens and commercial spaces.',
       characteristics: ['Durable & Weather Resistant', 'Suitable for Outdoor Applications']
     },

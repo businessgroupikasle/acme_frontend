@@ -216,7 +216,7 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
       ]
       : isPaverBlocks
         ? [
-          { label: 'Thickness Options', val: '60 mm & 80 mm (2.36 inches & 3.15 inches)' },
+          { label: 'Thickness Options', val: '2.36 inches & 3.15 inches' },
           { label: 'Material', val: 'Cement, fine aggregates and colour pigments' },
           { label: 'Manufacturing Process', val: 'Vibrocompaction and hydraulic pressing' },
           { label: 'Key Benefits', val: 'Multiple design options, Durable construction, Suitable for outdoor paving applications' }

@@ -156,7 +156,7 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
       ]
       : isPaverBlocks
         ? [
-          { param: 'Thickness Options', val: '2.36 inches and 3.15 inches' },
+          { param: 'Thickness Options', val: '2.36 inches & 3.15 inches' },
           { param: 'Material', val: 'Cement, fine aggregates and colour pigments' },
           { param: 'Manufacturing Process', val: 'Vibrocompaction and hydraulic pressing' },
           {
