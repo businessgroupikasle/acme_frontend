@@ -5,29 +5,84 @@ import sharp from 'sharp';
 async function optimizeFavicon() {
   const favPath = path.resolve('public/images/favicon.png');
   const backupPath = path.resolve('public/images/favicon-original.png');
-  if (fs.existsSync(favPath)) {
-    if (!fs.existsSync(backupPath)) {
-      fs.copyFileSync(favPath, backupPath);
-      console.log('Backed up original favicon to favicon-original.png');
-    }
-    // Create 128x128 crisp favicon.png (less than 15 KB)
-    await sharp(backupPath)
-      .resize(128, 128, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .png({ compressionLevel: 9, quality: 90 })
+  const sourcePath = fs.existsSync(backupPath) ? backupPath : favPath;
+
+  if (fs.existsSync(sourcePath)) {
+    const favTrimmed = await sharp(sourcePath).trim().toBuffer({ resolveWithObject: true });
+    const favSize = Math.max(favTrimmed.info.width, favTrimmed.info.height);
+    const pad = Math.round(favSize * 0.06);
+
+    const paddedFavicon = await sharp(favTrimmed.data)
+      .extend({
+        top: pad,
+        bottom: pad,
+        left: Math.round((favSize - favTrimmed.info.width) / 2) + pad,
+        right: Math.round((favSize - favTrimmed.info.width) / 2) + pad,
+        background: { r: 0, g: 0, b: 0, alpha: 0 }
+      })
+      .toBuffer();
+
+    // 128x128 crisp favicon.png
+    await sharp(paddedFavicon)
+      .resize(128, 128)
+      .png({ compressionLevel: 9, quality: 95 })
       .toFile(favPath);
     console.log('Optimized public/images/favicon.png to 128x128');
 
-    // Create 32x32 favicon-32.png
-    await sharp(backupPath)
-      .resize(32, 32, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    // 32x32 favicon-32x32.png
+    await sharp(paddedFavicon)
+      .resize(32, 32)
       .png({ compressionLevel: 9 })
       .toFile(path.resolve('public/images/favicon-32x32.png'));
 
-    // Create 180x180 apple-touch-icon.png
-    await sharp(backupPath)
-      .resize(180, 180, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .png({ compressionLevel: 9 })
+    // 180x180 apple-touch-icon.png
+    await sharp(paddedFavicon)
+      .resize(180, 180)
+      .png({ compressionLevel: 9, quality: 95 })
       .toFile(path.resolve('public/images/apple-touch-icon.png'));
+
+    // 32x32 favicon.ico
+    await sharp(paddedFavicon)
+      .resize(32, 32)
+      .png()
+      .toFile(path.resolve('public/favicon.ico'));
+    console.log('Generated all favicon variants (32x32, 128x128, 180x180, ico)');
+  }
+}
+
+async function optimizeLogo() {
+  const logoBackupPath = path.resolve('public/images/logo-original.png');
+  const logoPath = path.resolve('public/images/logo.png');
+  const sourcePath = fs.existsSync(logoBackupPath) ? logoBackupPath : logoPath;
+
+  if (fs.existsSync(sourcePath)) {
+    const logoTrimmed = await sharp(sourcePath).trim().toBuffer({ resolveWithObject: true });
+    const padH = Math.round(logoTrimmed.info.height * 0.04);
+    const padW = Math.round(logoTrimmed.info.width * 0.02);
+
+    const paddedLogo = await sharp(logoTrimmed.data)
+      .extend({
+        top: padH,
+        bottom: padH,
+        left: padW,
+        right: padW,
+        background: { r: 0, g: 0, b: 0, alpha: 0 }
+      })
+      .toBuffer();
+
+    // High-res WebP (target height 200px)
+    await sharp(paddedLogo)
+      .resize({ height: 200, withoutEnlargement: true })
+      .webp({ quality: 95, effort: 6 })
+      .toFile(path.resolve('public/images/logo.webp'));
+
+    // High-res PNG (target height 200px)
+    await sharp(paddedLogo)
+      .resize({ height: 200, withoutEnlargement: true })
+      .png({ compressionLevel: 9, quality: 95 })
+      .toFile(logoPath);
+
+    console.log('Optimized public/images/logo.webp and public/images/logo.png');
   }
 }
 
@@ -154,6 +209,7 @@ async function optimizeGallery() {
 async function run() {
   console.log('Starting comprehensive image optimization...');
   await optimizeFavicon();
+  await optimizeLogo();
   await optimizeBanners();
   await optimizeProducts();
   await optimizeAboutImages();

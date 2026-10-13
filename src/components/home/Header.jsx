@@ -120,7 +120,8 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
             className="header-logo-img"
             style={{
               height: '46px',
-              objectFit: 'contain'
+              objectFit: 'contain',
+              borderRadius: '6px'
             }}
             onError={(e) => {
               e.target.style.display = 'none';

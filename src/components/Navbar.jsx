@@ -23,7 +23,8 @@ export default function Navbar({ activeTab, setActiveTab }) {
             alt="ACME Bricks Logo" 
             style={{
               height: '40px',
-              objectFit: 'contain'
+              objectFit: 'contain',
+              borderRadius: '6px'
             }}
             onError={(e) => {
               e.target.style.display = 'none';
