@@ -780,17 +780,17 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
                         }}>
                           {/* Logo Image */}
                           <div style={{
-                            background: '#ffffff',
+                            background: '#0f1c13',
                             borderRadius: '4px',
                             padding: '4px 8px',
                             display: 'flex',
                             alignItems: 'center',
-                            boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
+                            border: '1px solid rgba(255, 255, 255, 0.15)'
                           }}>
                             <img
                               src="/images/logo.webp"
                               alt="ACME Logo"
-                              style={{ height: '20px', objectFit: 'contain' }}
+                              style={{ height: '22px', objectFit: 'contain' }}
                             />
                           </div>
 

@@ -51,12 +51,41 @@ async function optimizeFavicon() {
 }
 
 async function optimizeLogo() {
+  const acmeLogoPath = path.resolve('public/images/ACME Logo.png');
   const logoBackupPath = path.resolve('public/images/logo-original.png');
   const logoPath = path.resolve('public/images/logo.png');
-  const sourcePath = fs.existsSync(logoBackupPath) ? logoBackupPath : logoPath;
+  const webpPath = path.resolve('public/images/logo.webp');
 
-  if (fs.existsSync(sourcePath)) {
-    const logoTrimmed = await sharp(sourcePath).trim().toBuffer({ resolveWithObject: true });
+  if (fs.existsSync(acmeLogoPath)) {
+    // Backup ACME Logo as logo-original.png
+    fs.copyFileSync(acmeLogoPath, logoBackupPath);
+
+    const meta = await sharp(acmeLogoPath).metadata();
+    // Bounding box of ACME Logo content: minX: 290, maxX: 4219, minY: 1768, maxY: 2673
+    const padY = 90;
+    const padX = 140;
+    const left = Math.max(0, 290 - padX);
+    const top = Math.max(0, 1768 - padY);
+    const width = Math.min(meta.width - left, 3930 + padX * 2);
+    const height = Math.min(meta.height - top, 906 + padY * 2);
+
+    const cropped = sharp(acmeLogoPath).extract({ left, top, width, height });
+
+    // High-res WebP (target height 240px, crisp on Retina displays)
+    await cropped.clone()
+      .resize({ height: 240, withoutEnlargement: true })
+      .webp({ quality: 95, effort: 6 })
+      .toFile(webpPath);
+
+    // High-res PNG (target height 240px)
+    await cropped.clone()
+      .resize({ height: 240, withoutEnlargement: true })
+      .png({ compressionLevel: 9, quality: 95 })
+      .toFile(logoPath);
+
+    console.log('Optimized public/images/logo.webp and public/images/logo.png from ACME Logo.png');
+  } else if (fs.existsSync(logoBackupPath)) {
+    const logoTrimmed = await sharp(logoBackupPath).trim().toBuffer({ resolveWithObject: true });
     const padH = Math.round(logoTrimmed.info.height * 0.04);
     const padW = Math.round(logoTrimmed.info.width * 0.02);
 
@@ -70,19 +99,17 @@ async function optimizeLogo() {
       })
       .toBuffer();
 
-    // High-res WebP (target height 200px)
     await sharp(paddedLogo)
-      .resize({ height: 200, withoutEnlargement: true })
+      .resize({ height: 240, withoutEnlargement: true })
       .webp({ quality: 95, effort: 6 })
-      .toFile(path.resolve('public/images/logo.webp'));
+      .toFile(webpPath);
 
-    // High-res PNG (target height 200px)
     await sharp(paddedLogo)
-      .resize({ height: 200, withoutEnlargement: true })
+      .resize({ height: 240, withoutEnlargement: true })
       .png({ compressionLevel: 9, quality: 95 })
       .toFile(logoPath);
 
-    console.log('Optimized public/images/logo.webp and public/images/logo.png');
+    console.log('Optimized public/images/logo.webp and public/images/logo.png from backup');
   }
 }
 
