@@ -101,6 +101,8 @@ const DEFAULT_PRODUCTS = [
 
 export default function ProductDetailsRelated({ products, onProductClick, currentProductId }) {
   const sliderRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
+  const [canScrollRight, setCanScrollRight] = React.useState(true);
 
   // Use passed products or fallback catalog
   const catalog = products && products.length > 0 ? products : DEFAULT_PRODUCTS;
@@ -108,14 +110,46 @@ export default function ProductDetailsRelated({ products, onProductClick, curren
   // Filter out the current active product
   const relatedList = catalog.filter(p => String(p.id) !== String(currentProductId));
 
+  const updateScrollState = React.useCallback(() => {
+    if (sliderRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+      setCanScrollLeft(scrollLeft > 4);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 4);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+
+    updateScrollState();
+    el.addEventListener('scroll', updateScrollState, { passive: true });
+    window.addEventListener('resize', updateScrollState);
+
+    return () => {
+      el.removeEventListener('scroll', updateScrollState);
+      window.removeEventListener('resize', updateScrollState);
+    };
+  }, [updateScrollState, relatedList]);
+
+  // Reset scroll position when the active product changes
+  React.useEffect(() => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollLeft = 0;
+      updateScrollState();
+    }
+  }, [currentProductId, updateScrollState]);
+
   const scroll = (direction) => {
     if (sliderRef.current) {
       const firstCard = sliderRef.current.querySelector('.related-product-card');
-      const step = firstCard ? firstCard.offsetWidth + 20 : 270;
+      const computedGap = parseFloat(window.getComputedStyle(sliderRef.current).gap) || 20;
+      const step = firstCard ? (firstCard.offsetWidth + computedGap) : sliderRef.current.clientWidth;
       sliderRef.current.scrollBy({
         left: direction === 'left' ? -step : step,
         behavior: 'smooth'
       });
+      setTimeout(updateScrollState, 350);
     }
   };
 
@@ -123,17 +157,13 @@ export default function ProductDetailsRelated({ products, onProductClick, curren
     <section style={{
       background: '#ffffff',
       padding: '70px 0',
-      borderBottom: '1px solid var(--border)'
+      borderBottom: '1px solid var(--border)',
+      overflow: 'hidden'
     }}>
       <div className="container">
 
         {/* Section Header */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '36px'
-        }}>
+        <div className="related-section-header">
           <h3 style={{
             fontSize: '22px',
             fontWeight: 800,
@@ -147,57 +177,21 @@ export default function ProductDetailsRelated({ products, onProductClick, curren
           <div style={{ display: 'flex', gap: '8px' }}>
             <button 
               onClick={() => scroll('left')}
+              disabled={!canScrollLeft}
               title="Previous"
               aria-label="Previous Products"
-              style={{
-                background: '#ffffff',
-                border: '1px solid var(--border)',
-                borderRadius: '4px',
-                width: '34px',
-                height: '34px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--accent, #9e2a2b)';
-                e.currentTarget.style.background = '#fcf8f8';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--border)';
-                e.currentTarget.style.background = '#ffffff';
-              }}
+              className="related-carousel-nav-btn"
             >
-              <ChevronLeft size={18} color="var(--text-primary)" />
+              <ChevronLeft size={18} />
             </button>
             <button 
               onClick={() => scroll('right')}
+              disabled={!canScrollRight}
               title="Next"
               aria-label="Next Products"
-              style={{
-                background: '#ffffff',
-                border: '1px solid var(--border)',
-                borderRadius: '4px',
-                width: '34px',
-                height: '34px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--accent, #9e2a2b)';
-                e.currentTarget.style.background = '#fcf8f8';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--border)';
-                e.currentTarget.style.background = '#ffffff';
-              }}
+              className="related-carousel-nav-btn"
             >
-              <ChevronRight size={18} color="var(--text-primary)" />
+              <ChevronRight size={18} />
             </button>
           </div>
         </div>
@@ -205,20 +199,6 @@ export default function ProductDetailsRelated({ products, onProductClick, curren
         {/* Product Cards Row */}
         <div 
           ref={sliderRef}
-          style={{
-            display: 'flex',
-            gap: '20px',
-            overflowX: 'auto',
-            scrollSnapType: 'x mandatory',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            paddingBottom: '16px',
-            paddingTop: '6px',
-            paddingLeft: '2px',
-            paddingRight: '2px',
-            scrollBehavior: 'smooth',
-            WebkitOverflowScrolling: 'touch'
-          }} 
           className="related-products-slider"
         >
           {relatedList.map((prod) => {
@@ -231,6 +211,7 @@ export default function ProductDetailsRelated({ products, onProductClick, curren
               <div
                 key={prod.id}
                 onClick={() => onProductClick(prod)}
+                className="related-product-card"
                 style={{
                   background: '#ffffff',
                   border: '1px solid var(--border)',
@@ -240,21 +221,7 @@ export default function ProductDetailsRelated({ products, onProductClick, curren
                   display: 'flex',
                   flexDirection: 'column',
                   boxShadow: '0 4px 15px rgba(0,0,0,0.02)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease',
-                  scrollSnapAlign: 'start',
-                  flex: '0 0 260px',
-                  minWidth: '260px'
-                }}
-                className="related-product-card"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.08)';
-                  e.currentTarget.style.borderColor = 'var(--accent, #9e2a2b)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.02)';
-                  e.currentTarget.style.borderColor = 'var(--border)';
+                  boxSizing: 'border-box'
                 }}
               >
                 {/* Product Image */}

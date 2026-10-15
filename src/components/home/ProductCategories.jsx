@@ -69,41 +69,10 @@ export default function ProductCategories({ onCategorySelect }) {
       <style>{`
         .categories-carousel-wrapper {
           position: relative;
-          padding: 0 55px;
+          padding: 0;
         }
         #categories-section .swiper {
-          padding: 15px 6px 50px 6px;
-        }
-        .categories-nav-btn {
-          position: absolute;
-          top: 48%;
-          transform: translateY(-50%);
-          color: var(--accent);
-          background: #ffffff;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-          border: 1px solid var(--border);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          z-index: 10;
-          transition: all 0.25s ease;
-        }
-        .categories-nav-btn:hover {
-          background: var(--accent);
-          color: #ffffff;
-          border-color: var(--accent);
-          transform: translateY(-50%) scale(1.08);
-          box-shadow: 0 6px 18px rgba(124, 161, 58, 0.3);
-        }
-        .categories-nav-prev {
-          left: 0px;
-        }
-        .categories-nav-next {
-          right: 0px;
+          padding: 15px 4px 50px 4px;
         }
         #categories-section .swiper-pagination-bullet {
           background: var(--text-muted);
@@ -115,9 +84,6 @@ export default function ProductCategories({ onCategorySelect }) {
           width: 22px;
           border-radius: 4px;
           transition: width 0.3s ease;
-        }
-        #categories-section .swiper-slide {
-          width: 290px !important;
         }
         #categories-section .category-card {
           border: 1px solid var(--border);
@@ -149,17 +115,8 @@ export default function ProductCategories({ onCategorySelect }) {
           color: var(--accent);
         }
         @media (max-width: 767px) {
-          .categories-carousel-wrapper {
-            padding: 0;
-          }
           #categories-section .swiper {
             padding: 10px 0px 45px 0px;
-          }
-          #categories-section .swiper-slide {
-            width: 270px !important;
-          }
-          .categories-nav-btn {
-            display: none;
           }
         }
       `}</style>
@@ -200,8 +157,23 @@ export default function ProductCategories({ onCategorySelect }) {
 
           <Swiper
             modules={[Autoplay, Pagination]}
-            spaceBetween={24}
-            slidesPerView={'auto'}
+            spaceBetween={20}
+            slidesPerView={1}
+            speed={600}
+            breakpoints={{
+              540: {
+                slidesPerView: 2,
+                spaceBetween: 16
+              },
+              840: {
+                slidesPerView: 3,
+                spaceBetween: 20
+              },
+              1100: {
+                slidesPerView: 4,
+                spaceBetween: 20
+              }
+            }}
             loop={true}
             autoplay={{
               delay: 4000,

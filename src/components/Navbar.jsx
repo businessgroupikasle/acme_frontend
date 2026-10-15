@@ -1,5 +1,4 @@
-import React from 'react';
-import { Layers, Calculator, ShieldAlert, Home } from 'lucide-react';
+import { Layers, Home } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab }) {
   return (
@@ -60,24 +59,6 @@ export default function Navbar({ activeTab, setActiveTab }) {
           >
             <Home size={16} />
             <span>Home</span>
-          </button>
-
-          {/* <button 
-            onClick={() => setActiveTab('calculator')}
-            className={`btn ${activeTab === 'calculator' ? 'btn-primary' : 'btn-secondary'}`}
-            style={{ padding: '8px 16px', fontSize: '14px', borderRadius: '8px' }}
-          >
-            <Calculator size={16} />
-            <span>Calculator</span>
-          </button> */}
-
-          <button
-            onClick={() => setActiveTab('admin')}
-            className={`btn ${activeTab === 'admin' ? 'btn-primary' : 'btn-secondary'}`}
-            style={{ padding: '8px 16px', fontSize: '14px', borderRadius: '8px' }}
-          >
-            <ShieldAlert size={16} />
-            <span>Admin</span>
           </button>
         </div>
       </div>

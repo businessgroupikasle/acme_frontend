@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Loader2, AlertCircle } from 'lucide-react';
+import { trackFormSubmission, trackWhatsAppClick } from '../utils/gtm.js';
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
@@ -19,11 +20,60 @@ export default function ContactForm() {
 
   const validatePhone = (phone) => {
     if (!phone || !phone.trim()) return 'Phone number is required';
-    const digits = phone.replace(/\D/g, '');
-    if (digits.length < 10 || digits.length > 12) {
-      return 'Please enter a valid 10 to 12 digit phone number';
+    const trimmed = phone.trim();
+    const digits = trimmed.replace(/\D/g, '');
+
+    // Extract the 10 mobile digits (handling +91 country code or leading 0 separately)
+    let mobile = digits;
+    if (trimmed.startsWith('+91') || (digits.length === 12 && digits.startsWith('91'))) {
+      mobile = digits.slice(2);
+    } else if (digits.length === 11 && digits.startsWith('0')) {
+      mobile = digits.slice(1);
     }
+
+    if (mobile.length === 0) {
+      return 'Phone number is required';
+    }
+
+    if (mobile.length !== 10) {
+      return 'Please enter a valid 10-digit Indian mobile number';
+    }
+
+    if (!/^[6-9]/.test(mobile)) {
+      return 'Please enter a valid Indian mobile number starting with 6, 7, 8, or 9';
+    }
+
     return '';
+  };
+
+  const handlePhoneChange = (e) => {
+    const raw = e.target.value;
+    const isPlus91 = raw.startsWith('+91') || raw.startsWith('+ 91');
+    const isZero = !isPlus91 && raw.startsWith('0');
+    // If +91: allow 2 digits for country code + 10 mobile digits = 12 digits
+    // If leading 0: allow 1 digit for trunk prefix + 10 mobile digits = 11 digits
+    // Otherwise: allow exactly 10 digits
+    const maxDigits = isPlus91 ? 12 : (isZero ? 11 : 10);
+
+    let digitCount = 0;
+    let val = '';
+    for (let i = 0; i < raw.length; i++) {
+      const char = raw[i];
+      if (/\d/.test(char)) {
+        if (digitCount < maxDigits) {
+          digitCount++;
+          val += char;
+        }
+      } else if (char === '+' && val.length === 0) {
+        val += char;
+      } else if (char === ' ' || char === '-') {
+        val += char;
+      }
+    }
+    setForm(prev => ({ ...prev, phone: val }));
+    if (touched.phone) {
+      setErrors(prev => ({ ...prev, phone: validatePhone(val) }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -51,6 +101,9 @@ export default function ContactForm() {
 
     const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(waText)}`;
     setWaUrlState(waUrl);
+
+    // Track WhatsApp conversion & lead trigger
+    trackWhatsAppClick('Inline Contact Form');
 
     // Open WhatsApp in new tab / app
     window.open(waUrl, '_blank');
@@ -100,10 +153,14 @@ export default function ContactForm() {
         }
       }
 
+      // Track form submission success in GTM / GA4
+      trackFormSubmission('Inline Contact Form', 'General Inquiry', 'success');
+
       setSubmitted(true);
       setForm({ name: '', email: '', phone: '', message: '' });
     } catch (err) {
       console.error('Error submitting form:', err);
+      trackFormSubmission('Inline Contact Form', 'General Inquiry', 'success');
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -271,34 +328,13 @@ export default function ContactForm() {
                 </div>
 
                 <div className="input-group">
-                  <label className="input-label">Phone Number (10 to 12 digits) *</label>
+                  <label className="input-label">Phone Number (10 digits) *</label>
                   <input
                     type="tel"
                     required
                     maxLength={16}
                     value={form.phone}
-                    onChange={(e) => {
-                      const raw = e.target.value;
-                      let digitCount = 0;
-                      let val = '';
-                      for (let i = 0; i < raw.length; i++) {
-                        const char = raw[i];
-                        if (/\d/.test(char)) {
-                          if (digitCount < 12) {
-                            digitCount++;
-                            val += char;
-                          }
-                        } else if (char === '+' && val.length === 0) {
-                          val += char;
-                        } else if (char === ' ' || char === '-') {
-                          val += char;
-                        }
-                      }
-                      setForm({ ...form, phone: val });
-                      if (touched.phone) {
-                        setErrors((prev) => ({ ...prev, phone: validatePhone(val) }));
-                      }
-                    }}
+                    onChange={handlePhoneChange}
                     onBlur={() => {
                       setTouched((prev) => ({ ...prev, phone: true }));
                       setErrors((prev) => ({ ...prev, phone: validatePhone(form.phone) }));

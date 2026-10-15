@@ -1,5 +1,5 @@
 import React from 'react';
-import { getProductCardSpecs } from '../products/ProductsGrid';
+import { getProductCardSpecs } from '../../utils/productSpecs.js';
 
 const PRODUCT_IMAGES_CONFIG = {
   '1': {

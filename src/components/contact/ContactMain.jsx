@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { User, Mail, Phone, FileText, MessageSquare, Send, MapPin, Clock, Check, Loader2, AlertCircle } from 'lucide-react';
+import { trackFormSubmission, trackWhatsAppClick, trackPhoneCall } from '../../utils/gtm.js';
 
 export default function ContactMain({ onNavigate }) {
   const [form, setForm] = useState({
@@ -14,8 +15,8 @@ export default function ContactMain({ onNavigate }) {
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [waUrlState, setWaUrlState] = useState('');
-  const [errors, setErrors] = useState({ email: '', phone: '' });
-  const [touched, setTouched] = useState({ email: false, phone: false });
+  const [errors, setErrors] = useState({ email: '', phone: '', agree: '' });
+  const [touched, setTouched] = useState({ email: false, phone: false, agree: false });
 
   const validateEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -26,11 +27,71 @@ export default function ContactMain({ onNavigate }) {
 
   const validatePhone = (phone) => {
     if (!phone || !phone.trim()) return 'Phone number is required';
-    const digits = phone.replace(/\D/g, '');
-    if (digits.length < 10 || digits.length > 12) {
-      return 'Please enter a valid 10 to 12 digit phone number';
+    const trimmed = phone.trim();
+    const digits = trimmed.replace(/\D/g, '');
+
+    // Extract the 10 mobile digits (handling +91 country code or leading 0 separately)
+    let mobile = digits;
+    if (trimmed.startsWith('+91') || (digits.length === 12 && digits.startsWith('91'))) {
+      mobile = digits.slice(2);
+    } else if (digits.length === 11 && digits.startsWith('0')) {
+      mobile = digits.slice(1);
     }
+
+    if (mobile.length === 0) {
+      return 'Phone number is required';
+    }
+
+    if (mobile.length !== 10) {
+      return 'Please enter a valid 10-digit Indian mobile number';
+    }
+
+    if (!/^[6-9]/.test(mobile)) {
+      return 'Please enter a valid Indian mobile number starting with 6, 7, 8, or 9';
+    }
+
     return '';
+  };
+
+  const handlePhoneChange = (e) => {
+    const raw = e.target.value;
+    const isPlus91 = raw.startsWith('+91') || raw.startsWith('+ 91');
+    const isZero = !isPlus91 && raw.startsWith('0');
+    // If +91: allow 2 digits for country code + 10 mobile digits = 12 digits
+    // If leading 0: allow 1 digit for trunk prefix + 10 mobile digits = 11 digits
+    // Otherwise: allow exactly 10 digits
+    const maxDigits = isPlus91 ? 12 : (isZero ? 11 : 10);
+
+    let digitCount = 0;
+    let val = '';
+    for (let i = 0; i < raw.length; i++) {
+      const char = raw[i];
+      if (/\d/.test(char)) {
+        if (digitCount < maxDigits) {
+          digitCount++;
+          val += char;
+        }
+      } else if (char === '+' && val.length === 0) {
+        val += char;
+      } else if (char === ' ' || char === '-') {
+        val += char;
+      }
+    }
+    setForm(prev => ({ ...prev, phone: val }));
+    if (touched.phone) {
+      setErrors(prev => ({ ...prev, phone: validatePhone(val) }));
+    }
+  };
+
+  const handleToggleAgree = () => {
+    const nextVal = !form.agree;
+    setForm(prev => ({ ...prev, agree: nextVal }));
+    if (touched.agree) {
+      setErrors(prev => ({
+        ...prev,
+        agree: !nextVal ? 'Please agree to the Privacy Policy.' : ''
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -38,15 +99,11 @@ export default function ContactMain({ onNavigate }) {
 
     const emailErr = validateEmail(form.email);
     const phoneErr = validatePhone(form.phone);
+    const agreeErr = !form.agree ? 'Please agree to the Privacy Policy.' : '';
 
-    if (emailErr || phoneErr) {
-      setErrors({ email: emailErr, phone: phoneErr });
-      setTouched({ email: true, phone: true });
-      return;
-    }
-
-    if (!form.agree) {
-      alert("Please agree to the Privacy Policy.");
+    if (emailErr || phoneErr || agreeErr) {
+      setErrors({ email: emailErr, phone: phoneErr, agree: agreeErr });
+      setTouched({ email: true, phone: true, agree: true });
       return;
     }
 
@@ -64,6 +121,9 @@ export default function ContactMain({ onNavigate }) {
 
     const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(waText)}`;
     setWaUrlState(waUrl);
+
+    // Track WhatsApp conversion & lead trigger
+    trackWhatsAppClick('Contact Page Form');
 
     // Open WhatsApp in new tab / app
     window.open(waUrl, '_blank');
@@ -116,11 +176,17 @@ export default function ContactMain({ onNavigate }) {
         }
       }
 
+      // Track form submission success in GTM / GA4
+      trackFormSubmission('Contact Us Main Form', form.subject || 'General Inquiry', 'success');
+
       setSubmitted(true);
       setForm({ name: '', email: '', phone: '', subject: '', message: '', agree: false });
+      setErrors({ email: '', phone: '', agree: '' });
+      setTouched({ email: false, phone: false, agree: false });
     } catch (err) {
       console.error('Form submission error:', err);
       // Even if mail API had network issue, WhatsApp was triggered and mark as submitted
+      trackFormSubmission('Contact Us Main Form', form.subject || 'General Inquiry', 'success');
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -205,11 +271,13 @@ export default function ContactMain({ onNavigate }) {
         .contact-submit-btn:active {
           transform: translateY(0);
         }
+        .contact-checkbox-wrapper {
+          margin-bottom: 24px;
+        }
         .contact-checkbox-container {
           display: flex;
           align-items: center;
           gap: 10px;
-          margin-bottom: 24px;
           cursor: pointer;
           width: fit-content;
         }
@@ -418,34 +486,13 @@ export default function ContactMain({ onNavigate }) {
                     }}>
                       {/* Phone */}
                       <div className="input-group" style={{ marginBottom: 0 }}>
-                        <label className="contact-input-label">Phone Number (10 to 12 digits) *</label>
+                        <label className="contact-input-label">Phone Number (10 digits) *</label>
                         <input
                           type="tel"
                           required
                           maxLength={16}
                           value={form.phone}
-                          onChange={(e) => {
-                            const raw = e.target.value;
-                            let digitCount = 0;
-                            let val = '';
-                            for (let i = 0; i < raw.length; i++) {
-                              const char = raw[i];
-                              if (/\d/.test(char)) {
-                                if (digitCount < 12) {
-                                  digitCount++;
-                                  val += char;
-                                }
-                              } else if (char === '+' && val.length === 0) {
-                                val += char;
-                              } else if (char === ' ' || char === '-') {
-                                val += char;
-                              }
-                            }
-                            setForm({ ...form, phone: val });
-                            if (touched.phone) {
-                              setErrors((prev) => ({ ...prev, phone: validatePhone(val) }));
-                            }
-                          }}
+                          onChange={handlePhoneChange}
                           onBlur={() => {
                             setTouched((prev) => ({ ...prev, phone: true }));
                             setErrors((prev) => ({ ...prev, phone: validatePhone(form.phone) }));
@@ -509,42 +556,52 @@ export default function ContactMain({ onNavigate }) {
                     </div>
 
                     {/* Checkbox */}
-                    <div className="contact-checkbox-container">
+                    <div className="contact-checkbox-wrapper">
                       <div
-                        onClick={() => setForm({ ...form, agree: !form.agree })}
-                        className={`contact-checkbox-custom ${form.agree ? 'checked' : ''}`}
+                        className="contact-checkbox-container"
+                        onClick={handleToggleAgree}
                       >
-                        {form.agree && <Check size={12} strokeWidth={4} />}
-                      </div>
-                      <span style={{ fontSize: '13px', color: 'var(--text-secondary)', userSelect: 'none' }}>
-                        <span
-                          onClick={() => setForm({ ...form, agree: !form.agree })}
-                          style={{ cursor: 'pointer' }}
-                        >
-                          I agree to the{' '}
-                        </span>
-                        <a
-                          href="/privacy-policy/"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            if (onNavigate) {
-                              onNavigate('privacy');
-                            } else {
-                              window.location.href = '/privacy-policy/';
-                            }
-                          }}
+                        <div
+                          className={`contact-checkbox-custom ${form.agree ? 'checked' : ''}`}
                           style={{
-                            color: 'var(--accent)',
-                            fontWeight: 700,
-                            textDecoration: 'underline',
-                            cursor: 'pointer'
+                            borderColor: touched.agree && errors.agree && !form.agree ? '#ef4444' : undefined,
+                            backgroundColor: touched.agree && errors.agree && !form.agree ? '#fff5f5' : undefined
                           }}
                         >
-                          Privacy Policy
-                        </a>{' '}
-                        *
-                      </span>
+                          {form.agree && <Check size={12} strokeWidth={4} />}
+                        </div>
+                        <span style={{ fontSize: '13px', color: 'var(--text-secondary)', userSelect: 'none' }}>
+                          <span>
+                            I agree to the{' '}
+                          </span>
+                          <a
+                            href="/privacy-policy/"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              if (onNavigate) {
+                                onNavigate('privacy');
+                              } else {
+                                window.location.href = '/privacy-policy/';
+                              }
+                            }}
+                            style={{
+                              color: 'var(--accent)',
+                              fontWeight: 700,
+                              textDecoration: 'underline',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            Privacy Policy
+                          </a>{' '}
+                          *
+                        </span>
+                      </div>
+                      {touched.agree && errors.agree && (
+                        <span style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px', display: 'block', fontWeight: 600 }}>
+                          {errors.agree}
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -642,6 +699,7 @@ export default function ContactMain({ onNavigate }) {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
                     <a
                       href="tel:+919500851880"
+                      onClick={() => trackPhoneCall('+91 95008 51880', 'Contact Page')}
                       style={{ fontSize: '13.5px', color: 'var(--text-secondary)', transition: 'var(--transition)' }}
                       onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
                       onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}
@@ -650,6 +708,7 @@ export default function ContactMain({ onNavigate }) {
                     </a>
                     <a
                       href="tel:+918807408780"
+                      onClick={() => trackPhoneCall('+91 88074 08780', 'Contact Page')}
                       style={{ fontSize: '13.5px', color: 'var(--text-secondary)', transition: 'var(--transition)' }}
                       onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
                       onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}
@@ -658,6 +717,7 @@ export default function ContactMain({ onNavigate }) {
                     </a>
                     <a
                       href="tel:+917305970966"
+                      onClick={() => trackPhoneCall('+91 73059 70966', 'Contact Page')}
                       style={{ fontSize: '13.5px', color: 'var(--text-secondary)', transition: 'var(--transition)' }}
                       onMouseEnter={(e) => e.target.style.color = 'var(--accent)'}
                       onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}

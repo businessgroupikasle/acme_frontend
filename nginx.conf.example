@@ -1,0 +1,71 @@
+# ==============================================================================
+# ACME Bricks - Nginx Configuration Reference (HTTP 404 for Invalid URLs)
+# ==============================================================================
+# In a Single Page Application (SPA), Nginx normally serves /index.html with HTTP 200
+# for every route. To ensure nonexistent URLs (like /contact/admin%20portal) return
+# a real HTTP 404 Not Found status header while displaying the custom 404 React page:
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# OPTION 1: Using PHP Router (Recommended - acmebricks.in already runs PHP for send-mail.php)
+# ------------------------------------------------------------------------------
+# The included public/index.php inspects the requested URI:
+# - Valid site routes return HTTP 200 OK + index.html
+# - Invalid/nonexistent URLs return HTTP 404 Not Found + custom 404 error page
+#
+# server {
+#     listen 80;
+#     listen 443 ssl http2;
+#     server_name acmebricks.in www.acmebricks.in;
+#     root /var/www/acme_bricks_frontend/dist; # or public directory
+#     index index.php index.html;
+#
+#     location / {
+#         try_files $uri $uri/ /index.php?$query_string;
+#     }
+#
+#     location ~ \.php$ {
+#         include snippets/fastcgi-php.conf;
+#         fastcgi_pass unix:/var/run/php/php-fpm.sock;
+#         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#     }
+#
+#     location ~* \.(js|css|png|jpg|jpeg|gif|ico|webp|svg|woff|woff2|ttf)$ {
+#         expires 1y;
+#         add_header Cache-Control "public, no-transform";
+#     }
+# }
+
+# ------------------------------------------------------------------------------
+# OPTION 2: Pure Static Nginx (No PHP)
+# ------------------------------------------------------------------------------
+# Uses Nginx error_page 404 with @fallback location:
+#
+# server {
+#     listen 80;
+#     listen 443 ssl http2;
+#     server_name acmebricks.in www.acmebricks.in;
+#     root /var/www/acme_bricks_frontend/dist;
+#     index index.html;
+#
+#     # Valid known routes rewrite to index.html with HTTP 200
+#     location ~ ^/(home|about|about-us|products|gallery|contact|contact-us|calculator|sitemap|terms-and-conditions|privacy-policy|fly-ash-bricks|fly-ash-blocks|paver-blocks|interlock-bricks|solid-blocks|aac-blocks) {
+#         try_files $uri $uri/ /index.html;
+#     }
+#
+#     # Root homepage
+#     location = / {
+#         try_files /index.html =404;
+#     }
+#
+#     # Catch-all: Any nonexistent/invalid URL returns HTTP 404 and displays index.html
+#     location / {
+#         try_files $uri $uri/ @notfound;
+#     }
+#
+#     location @notfound {
+#         return 404;
+#     }
+#
+#     error_page 404 /index.html;
+# }

@@ -142,24 +142,31 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
       `}</style>
 
       {/* High-Performance Responsive Hero Banner with fetchpriority high */}
-      <img
-        src="/images/brick-manufacturer-coimbatore-acme-bricks.webp"
-        alt="ACME Bricks, brick manufacturer in Coimbatore"
-        fetchPriority="high"
-        decoding="async"
-        loading="eager"
-        width="1920"
-        height="800"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center',
-          zIndex: 1
-        }}
-      />
+      <picture>
+        <source
+          media="(max-width: 640px)"
+          srcSet="/images/brick-manufacturer-coimbatore-acme-bricks-mobile.webp"
+          type="image/webp"
+        />
+        <img
+          src="/images/brick-manufacturer-coimbatore-acme-bricks.webp"
+          alt="ACME Bricks, brick manufacturer in Coimbatore"
+          fetchpriority="high"
+          decoding="async"
+          loading="eager"
+          width="1672"
+          height="941"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            zIndex: 1
+          }}
+        />
+      </picture>
       <div
         style={{
           position: 'absolute',
@@ -193,12 +200,13 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
         <div style={{ maxWidth: '800px' }}>
           {/* Tagline */}
           <div style={{
-            fontSize: '13px',
+            fontSize: '13.5px',
             fontWeight: 800,
-            color: 'var(--accent)',
+            color: '#8ee028',
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            marginBottom: '14px'
+            marginBottom: '14px',
+            textShadow: '0 1px 3px rgba(0,0,0,0.6)'
           }}>
             BRICKS &amp; BLOCKS MANUFACTURER IN COIMBATORE
           </div>
@@ -216,8 +224,19 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
           {/* Feature Icons Row */}
           <div className="home-hero-features">
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ background: 'rgba(124, 161, 58, 0.25)', padding: '8px', borderRadius: '50%', display: 'flex' }}>
-                <ShieldCheck size={20} color="var(--accent)" />
+              <div style={{
+                width: '40px',
+                height: '40px',
+                background: 'rgba(142, 224, 40, 0.18)',
+                border: '1.5px solid rgba(142, 224, 40, 0.55)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 0 14px rgba(142, 224, 40, 0.2)',
+                flexShrink: 0
+              }}>
+                <ShieldCheck size={21} color="#8ee028" strokeWidth={2.3} />
               </div>
               <div>
                 <div style={{ fontWeight: 700, fontSize: '14.5px' }}>QUALITY ASSURED</div>
@@ -226,8 +245,19 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ background: 'rgba(124, 161, 58, 0.25)', padding: '8px', borderRadius: '50%', display: 'flex' }}>
-                <Leaf size={20} color="var(--accent)" />
+              <div style={{
+                width: '40px',
+                height: '40px',
+                background: 'rgba(142, 224, 40, 0.18)',
+                border: '1.5px solid rgba(142, 224, 40, 0.55)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 0 14px rgba(142, 224, 40, 0.2)',
+                flexShrink: 0
+              }}>
+                <Leaf size={21} color="#8ee028" strokeWidth={2.3} />
               </div>
               <div>
                 <div style={{ fontWeight: 700, fontSize: '14.5px' }}>SUSTAINABLE SOLUTIONS</div>
@@ -236,8 +266,19 @@ export default function HeroSection({ onExploreClick, onQuoteClick }) {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ background: 'rgba(124, 161, 58, 0.25)', padding: '8px', borderRadius: '50%', display: 'flex' }}>
-                <Clock size={20} color="var(--accent)" />
+              <div style={{
+                width: '40px',
+                height: '40px',
+                background: 'rgba(142, 224, 40, 0.18)',
+                border: '1.5px solid rgba(142, 224, 40, 0.55)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 0 14px rgba(142, 224, 40, 0.2)',
+                flexShrink: 0
+              }}>
+                <Clock size={21} color="#8ee028" strokeWidth={2.3} />
               </div>
               <div>
                 <div style={{ fontWeight: 700, fontSize: '14.5px' }}>RELIABLE DELIVERY</div>

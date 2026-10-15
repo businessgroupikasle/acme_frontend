@@ -4,40 +4,42 @@ import Header from './components/home/Header.jsx';
 import HeroSection from './components/home/HeroSection.jsx';
 import PartnerLogos from './components/home/PartnerLogos.jsx';
 import AboutUs from './components/home/AboutUs.jsx';
-import ProductCategories from './components/home/ProductCategories.jsx';
 import WhyChooseUs from './components/home/WhyChooseUs.jsx';
 import FeaturedProductsSection from './components/home/FeaturedProductsSection.jsx';
-import ProjectsTestimonials from './components/home/ProjectsTestimonials.jsx';
 import CTASection from './components/home/CTASection.jsx';
 import Footer from './components/home/Footer.jsx';
 import FloatingContactWidget from './components/FloatingContactWidget.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
+import { trackPageView, trackCtaClick } from './utils/gtm.js';
 
-// Core public pages eagerly imported for zero CLS
-import AboutCompany from './components/about/AboutCompany.jsx';
-import AboutMissionVision from './components/about/AboutMissionVision.jsx';
-import AboutWhyChoose from './components/about/AboutWhyChoose.jsx';
-import AboutHero from './components/about/AboutHero.jsx';
-import ManufacturingProcess from './components/home/ManufacturingProcess.jsx';
-import AboutQualityAssurance from './components/about/AboutQualityAssurance.jsx';
+// Below-the-fold homepage carousels (code-split to eliminate Swiper from initial entry bundle)
+const ProductCategories = lazy(() => import('./components/home/ProductCategories.jsx'));
+const ProjectsTestimonials = lazy(() => import('./components/home/ProjectsTestimonials.jsx'));
 
-import ProductsHero from './components/products/ProductsHero.jsx';
-import ProductsGrid from './components/products/ProductsGrid.jsx';
-import ProductsTrustBar from './components/products/ProductsTrustBar.jsx';
+// Lazy loaded views (code-split to eliminate non-homepage JavaScript from initial page load)
+const AboutCompany = lazy(() => import('./components/about/AboutCompany.jsx'));
+const AboutMissionVision = lazy(() => import('./components/about/AboutMissionVision.jsx'));
+const AboutWhyChoose = lazy(() => import('./components/about/AboutWhyChoose.jsx'));
+const AboutHero = lazy(() => import('./components/about/AboutHero.jsx'));
+const ManufacturingProcess = lazy(() => import('./components/home/ManufacturingProcess.jsx'));
+const AboutQualityAssurance = lazy(() => import('./components/about/AboutQualityAssurance.jsx'));
 
-import ProductDetailsBreadcrumb from './components/products/ProductDetailsBreadcrumb.jsx';
-import ProductDetailsMain from './components/products/ProductDetailsMain.jsx';
-import ProductDetailsTabs from './components/products/ProductDetailsTabs.jsx';
-import ProductDetailsRelated from './components/products/ProductDetailsRelated.jsx';
+const ProductsHero = lazy(() => import('./components/products/ProductsHero.jsx'));
+const ProductsGrid = lazy(() => import('./components/products/ProductsGrid.jsx'));
+const ProductsTrustBar = lazy(() => import('./components/products/ProductsTrustBar.jsx'));
 
-import ContactHero from './components/contact/ContactHero.jsx';
-import ContactMain from './components/contact/ContactMain.jsx';
-import ContactMap from './components/contact/ContactMap.jsx';
+const ProductDetailsBreadcrumb = lazy(() => import('./components/products/ProductDetailsBreadcrumb.jsx'));
+const ProductDetailsMain = lazy(() => import('./components/products/ProductDetailsMain.jsx'));
+const ProductDetailsTabs = lazy(() => import('./components/products/ProductDetailsTabs.jsx'));
+const ProductDetailsRelated = lazy(() => import('./components/products/ProductDetailsRelated.jsx'));
+
+const ContactHero = lazy(() => import('./components/contact/ContactHero.jsx'));
+const ContactMain = lazy(() => import('./components/contact/ContactMain.jsx'));
+const ContactMap = lazy(() => import('./components/contact/ContactMap.jsx'));
 
 // Heavy secondary and utility tools code-split on demand
 const Gallery = lazy(() => import('./components/Gallery.jsx'));
 const BrickCalculator = lazy(() => import('./components/BrickCalculator.jsx'));
-const Dashboard = lazy(() => import('./components/Dashboard.jsx'));
 const Sitemap = lazy(() => import('./components/Sitemap.jsx'));
 const TermsAndConditions = lazy(() => import('./components/TermsAndConditions.jsx'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy.jsx'));
@@ -191,7 +193,6 @@ const PAGE_SLUGS = {
   'sitemap': '/sitemap/',
   'terms': '/terms-and-conditions/',
   'privacy': '/privacy-policy/',
-  'admin': '/admin/',
   '404': '/404/'
 };
 
@@ -237,9 +238,6 @@ const getRouteFromUrl = (catalog = MOCK_CATALOG) => {
   if (pathname === 'privacy' || pathname === 'privacy-policy') {
     return { tab: 'privacy', product: null };
   }
-  if (pathname === 'admin') {
-    return { tab: 'admin', product: null };
-  }
   if (pathname === '404' || pathname === 'not-found' || pathname === 'page-not-found') {
     return { tab: '404', product: null };
   }
@@ -255,7 +253,7 @@ const getRouteFromUrl = (catalog = MOCK_CATALOG) => {
     }
     return { tab: '404', product: null };
   }
-  if (page && ['home', 'about', 'products', 'gallery', 'contact', 'calculator', 'sitemap', 'terms', 'privacy', 'admin'].includes(page)) {
+  if (page && ['home', 'about', 'products', 'gallery', 'contact', 'calculator', 'sitemap', 'terms', 'privacy'].includes(page)) {
     return { tab: page, product: null };
   }
   if (page === '404') {
@@ -322,6 +320,22 @@ export default function App() {
       setTimeout(scrollHelper, 700);
     }
   }, []);
+
+  // Effect to reset window scroll position to the top on tab changes unless navigating to an active hash
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash ? window.location.hash.replace('#', '') : null;
+    if (hash && document.getElementById(hash)) {
+      return;
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    const t1 = setTimeout(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }), 30);
+    const t2 = setTimeout(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }), 120);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [activeTab]);
 
   // Effect to handle browser back/forward buttons (popstate changes)
   useEffect(() => {
@@ -731,10 +745,14 @@ export default function App() {
     } else {
       schemaScript.textContent = '';
     }
+
+    // 8. Track SPA virtual page view in GTM / GA4
+    trackPageView(canonicalUrl || window.location.pathname, seoTitle);
   }, [activeTab, selectedProductDetail]);
 
 
   const handleViewDetails = (product) => {
+    trackCtaClick(`View Details - ${product.name}`, 'Products Catalog', `/products/${product.id}`);
     setSelectedProductDetail(product);
     setActiveTab('product-details');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -757,7 +775,8 @@ export default function App() {
     }
   };
 
-  const handleRedirectToContact = () => {
+  const handleRedirectToContact = (ctaName = 'Get a Quote', ctaLocation = 'Global CTA') => {
+    trackCtaClick(ctaName, ctaLocation, '/contact/');
     setActiveTab('contact');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -833,73 +852,45 @@ export default function App() {
     setActiveTab('calculator');
   };
 
-  // Add Product CRUD
-  const handleAddProduct = async (newProduct) => {
-    try {
-      const res = await fetch(`${API_URL}/api/products`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newProduct)
-      });
-      if (res.ok) {
-        fetchProducts();
-      } else {
-        throw new Error('Could not add to server');
-      }
-    } catch (err) {
-      console.warn('Backend sync failed, adding locally.');
-      const localProduct = {
-        ...newProduct,
-        id: String(Date.now()),
-        image: 'clay_brick.png'
-      };
-      setProducts(prev => [...prev, localProduct]);
+  const handleNavigateToAbout = () => {
+    trackCtaClick('Know More About Us', 'Home About Section', '/about/');
+    setSelectedProductDetail(null);
+    setSelectedCategory(null);
+    if (window.location.hash) {
+      window.history.replaceState(null, '', '/about/');
     }
+    setActiveTab('about');
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
-  // Update Product CRUD
-  const handleUpdateProduct = async (id, updatedProduct) => {
-    try {
-      const res = await fetch(`${API_URL}/api/products/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedProduct)
-      });
-      if (res.ok) {
-        fetchProducts();
-      } else {
-        throw new Error('Could not update on server');
-      }
-    } catch (err) {
-      console.warn('Backend sync failed, updating locally.');
-      setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updatedProduct } : p));
+  const handleNavigateToHome = () => {
+    setSelectedProductDetail(null);
+    setSelectedCategory(null);
+    if (window.location.hash) {
+      window.history.replaceState(null, '', '/');
     }
+    setActiveTab('home');
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
-  // Delete Product CRUD
-  const handleDeleteProduct = async (id) => {
-    if (!window.confirm('Are you sure you want to remove this brick variant from the catalog?')) return;
-    try {
-      const res = await fetch(`${API_URL}/api/products/${id}`, {
-        method: 'DELETE'
-      });
-      if (res.ok) {
-        fetchProducts();
-      } else {
-        throw new Error('Could not delete on server');
-      }
-    } catch (err) {
-      console.warn('Backend sync failed, deleting locally.');
-      setProducts(prev => prev.filter(p => p.id !== id));
+  const handleNavigateToProducts = () => {
+    setSelectedProductDetail(null);
+    setSelectedCategory(null);
+    if (window.location.hash) {
+      window.history.replaceState(null, '', '/products/');
     }
+    setActiveTab('products');
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
-  const handleScrollToContact = () => {
+  const handleScrollToContact = (ctaName = 'Get a Quote', ctaLocation = 'Hero / Featured') => {
+    trackCtaClick(ctaName, ctaLocation, '/contact/');
     setActiveTab('contact');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleScrollToProducts = () => {
+    trackCtaClick('Explore Products', 'Hero Section', '#categories-section');
     const el = document.getElementById('categories-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
@@ -1065,149 +1056,132 @@ export default function App() {
       <Header activeTab={activeTab} setActiveTab={setActiveTab} onCategorySelect={handleCategorySelect} />
 
       <main style={{ flex: 1 }}>
-        {activeTab === 'home' && (
-          <>
-            <HeroSection
-              onExploreClick={handleScrollToProducts}
-              onQuoteClick={handleScrollToContact}
-            />
-            <PartnerLogos />
-            <AboutUs onKnowMoreClick={() => setActiveTab('about')} />
-            <ProductCategories onCategorySelect={handleCategorySelect} />
-            <WhyChooseUs />
-            <FeaturedProductsSection
-              products={products}
-              onQuoteClick={handleScrollToContact}
-              onViewDetails={handleViewDetails}
-            />
-            <ProjectsTestimonials />
-            {/* <div id="contact-section">
-              <ContactForm />
-            </div> */}
-          </>
-        )}
-
-        {activeTab === 'about' && (
-          <>
-            <AboutHero onHomeClick={() => setActiveTab('home')} />
-            <AboutCompany />
-            {/* <AboutJourney /> */}
-            <ManufacturingProcess />
-            <AboutQualityAssurance />
-            <AboutMissionVision />
-            <AboutWhyChoose />
-            {/* <AboutCredentials /> */}
-          </>
-        )}
-
-        {activeTab === 'products' && (
-          <>
-            <ProductsHero onHomeClick={() => setActiveTab('home')} />
-            <div className="container" style={{
-              paddingTop: '40px',
-              paddingBottom: '60px'
-            }}>
-              <ProductsGrid
-                products={sortedProducts}
+        <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
+          {activeTab === 'home' && (
+            <>
+              <HeroSection
+                onExploreClick={handleScrollToProducts}
+                onQuoteClick={handleScrollToContact}
+              />
+              <PartnerLogos />
+              <AboutUs onKnowMoreClick={handleNavigateToAbout} />
+              <ProductCategories onCategorySelect={handleCategorySelect} />
+              <WhyChooseUs />
+              <FeaturedProductsSection
+                products={products}
+                onQuoteClick={handleScrollToContact}
                 onViewDetails={handleViewDetails}
-                sortOption={sortOption}
-                onSortChange={setSortOption}
               />
-            </div>
-            <ProductsTrustBar />
-          </>
-        )}
+              <ProjectsTestimonials />
+            </>
+          )}
 
-        {activeTab === 'product-details' && selectedProductDetail && (
-          <>
-            <ProductDetailsBreadcrumb
-              productName={selectedProductDetail.name}
-              categoryName={selectedProductDetail.type || 'Bricks & Blocks'}
-              onHomeClick={() => setActiveTab('home')}
-              onProductsClick={() => setActiveTab('products')}
-            />
-            <ProductDetailsMain
-              product={selectedProductDetail}
-              onQuoteClick={handleRedirectToContact}
-            />
-            <ProductDetailsTabs
-              product={selectedProductDetail}
-              productName={selectedProductDetail.name}
-              onContactClick={handleRedirectToContact}
-            />
-            <ProductDetailsRelated
+          {activeTab === 'about' && (
+            <>
+              <AboutHero onHomeClick={handleNavigateToHome} />
+              <AboutCompany />
+              <ManufacturingProcess />
+              <AboutQualityAssurance />
+              <AboutMissionVision />
+              <AboutWhyChoose />
+            </>
+          )}
+
+          {activeTab === 'products' && (
+            <>
+              <ProductsHero onHomeClick={handleNavigateToHome} />
+              <div className="container" style={{
+                paddingTop: '40px',
+                paddingBottom: '60px'
+              }}>
+                <ProductsGrid
+                  products={sortedProducts}
+                  onViewDetails={handleViewDetails}
+                  sortOption={sortOption}
+                  onSortChange={setSortOption}
+                />
+              </div>
+              <ProductsTrustBar />
+            </>
+          )}
+
+          {activeTab === 'product-details' && selectedProductDetail && (
+            <>
+              <ProductDetailsBreadcrumb
+                productName={selectedProductDetail.name}
+                categoryName={selectedProductDetail.type || 'Bricks & Blocks'}
+                onHomeClick={handleNavigateToHome}
+                onProductsClick={handleNavigateToProducts}
+              />
+              <ProductDetailsMain
+                product={selectedProductDetail}
+                onQuoteClick={handleRedirectToContact}
+              />
+              <ProductDetailsTabs
+                product={selectedProductDetail}
+                productName={selectedProductDetail.name}
+                onContactClick={handleRedirectToContact}
+              />
+              <ProductDetailsRelated
+                products={products}
+                onProductClick={handleViewDetails}
+                currentProductId={selectedProductDetail.id}
+              />
+            </>
+          )}
+
+          {activeTab === 'contact' && (
+            <>
+              <ContactHero onHomeClick={handleNavigateToHome} />
+              <ContactMain onNavigate={handleFooterNavigation} />
+              <ContactMap />
+            </>
+          )}
+
+          {activeTab === 'calculator' && (
+            <BrickCalculator
               products={products}
-              onProductClick={handleViewDetails}
-              currentProductId={selectedProductDetail.id}
+              preselectedProduct={calculatorPreselect}
             />
-          </>
-        )}
+          )}
 
-        {activeTab === 'contact' && (
-          <>
-            <ContactHero onHomeClick={() => setActiveTab('home')} />
-            <ContactMain onNavigate={handleFooterNavigation} />
-            <ContactMap />
-          </>
-        )}
+          {activeTab === 'gallery' && (
+            <Gallery onHomeClick={handleNavigateToHome} />
+          )}
 
-        {['calculator', 'admin', 'gallery', 'sitemap', 'terms', 'privacy', '404'].includes(activeTab) && (
-          <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
-            {activeTab === 'calculator' && (
-              <BrickCalculator
-                products={products}
-                preselectedProduct={calculatorPreselect}
-              />
-            )}
+          {activeTab === 'sitemap' && (
+            <Sitemap onNavigate={handleFooterNavigation} />
+          )}
 
-            {activeTab === 'admin' && (
-              <Dashboard
-                products={products}
-                onAddProduct={handleAddProduct}
-                onUpdateProduct={handleUpdateProduct}
-                onDeleteProduct={handleDeleteProduct}
-                refreshCatalog={fetchProducts}
-              />
-            )}
+          {activeTab === 'terms' && (
+            <TermsAndConditions
+              onHomeClick={handleNavigateToHome}
+              onNavigate={handleFooterNavigation}
+            />
+          )}
 
-            {activeTab === 'gallery' && (
-              <Gallery onHomeClick={() => setActiveTab('home')} />
-            )}
+          {activeTab === 'privacy' && (
+            <PrivacyPolicy
+              onHomeClick={handleNavigateToHome}
+              onNavigate={handleFooterNavigation}
+            />
+          )}
 
-            {activeTab === 'sitemap' && (
-              <Sitemap onNavigate={handleFooterNavigation} />
-            )}
-
-            {activeTab === 'terms' && (
-              <TermsAndConditions
-                onHomeClick={() => setActiveTab('home')}
-                onNavigate={handleFooterNavigation}
-              />
-            )}
-
-            {activeTab === 'privacy' && (
-              <PrivacyPolicy
-                onHomeClick={() => setActiveTab('home')}
-                onNavigate={handleFooterNavigation}
-              />
-            )}
-
-            {activeTab === '404' && (
-              <NotFound
-                onHomeClick={() => setActiveTab('home')}
-                onNavigate={handleFooterNavigation}
-              />
-            )}
-          </Suspense>
-        )}
+          {activeTab === '404' && (
+            <NotFound
+              onHomeClick={handleNavigateToHome}
+              onNavigate={handleFooterNavigation}
+            />
+          )}
+        </Suspense>
       </main>
 
-      {activeTab !== 'admin' && activeTab !== '404' && (
+      {activeTab !== '404' && (
         <CTASection onQuoteClick={activeTab === 'home' ? handleScrollToContact : handleRedirectToContact} />
       )}
       <Footer onNavigate={handleFooterNavigation} />
 
-      {/* Floating Side Contact Bar (WhatsApp, Call, Email) across all pages */}
+      {/* Floating WhatsApp Button across all pages */}
       <FloatingContactWidget />
 
       {/* Floating Tap to Scroll to Top Button */}

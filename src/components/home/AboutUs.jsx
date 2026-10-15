@@ -85,13 +85,27 @@ export default function AboutUs({ onKnowMoreClick }) {
             }}>
               Established in 2015, ACME Bricks & Blocks is a manufacturer and supplier of construction materials in Coimbatore, serving residential, commercial and industrial projects across Tamil Nadu and Kerala.
             </p>
-            <button
-              onClick={onKnowMoreClick}
+            <a
+              href="/about/"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onKnowMoreClick) onKnowMoreClick();
+              }}
               className="btn btn-primary"
-              style={{ padding: '12px 24px', fontSize: '13px', fontWeight: 600, borderRadius: '6px' }}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '12px 24px',
+                fontSize: '13px',
+                fontWeight: 600,
+                borderRadius: '6px',
+                textDecoration: 'none',
+                cursor: 'pointer'
+              }}
             >
               KNOW MORE ABOUT US
-            </button>
+            </a>
           </div>
 
           {/* Column 3: Metrics Grid (2x2) */}

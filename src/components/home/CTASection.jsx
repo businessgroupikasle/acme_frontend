@@ -1,5 +1,6 @@
 import React from 'react';
-import { Phone, MessageSquare } from 'lucide-react';
+import { Phone } from 'lucide-react';
+import { trackCtaClick, trackPhoneCall } from '../../utils/gtm.js';
 
 export default function CTASection({ onQuoteClick }) {
   return (
@@ -42,7 +43,10 @@ export default function CTASection({ onQuoteClick }) {
           flexWrap: 'nowrap'
         }}>
           <button
-            onClick={onQuoteClick}
+            onClick={() => {
+              trackCtaClick('Get a Quote', 'Bottom CTA Section', '/contact/');
+              if (onQuoteClick) onQuoteClick();
+            }}
             className="btn btn-primary cta-btn"
             style={{
               padding: '12px 22px',
@@ -57,6 +61,7 @@ export default function CTASection({ onQuoteClick }) {
 
           <a
             href="tel:+919500851880"
+            onClick={() => trackPhoneCall('+91 95008 51880', 'Bottom CTA Section')}
             className="btn cta-btn"
             style={{
               padding: '12px 22px',
@@ -97,7 +102,6 @@ export default function CTASection({ onQuoteClick }) {
               whiteSpace: 'nowrap'
             }}
           >
-            <MessageSquare size={14} style={{ color: '#25D366' }} />
             <span>WHATSAPP</span>
           </a>
         </div>

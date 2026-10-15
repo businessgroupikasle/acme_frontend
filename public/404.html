@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Tag Manager & GA4 - Non-blocking Defer for 90+ Lighthouse Performance -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    window.gtag = gtag;
+
+    function initAnalytics() {
+      if (window._analyticsInitialized) return;
+      window._analyticsInitialized = true;
+
+      // 1. Google Tag Manager
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start': new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-N5BB2ZGL');
+
+      // 2. Google Analytics (gtag.js)
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        var gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-QJT76BH69E';
+        document.head.appendChild(gaScript);
+        gtag('js', new Date());
+        gtag('config', 'G-QJT76BH69E');
+      }
+    }
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(initAnalytics, { timeout: 2000 });
+    } else {
+      window.addEventListener('load', function () { setTimeout(initAnalytics, 1000); });
+    }
+    ['scroll', 'touchstart', 'mousemove', 'click', 'keydown'].forEach(function (evt) {
+      window.addEventListener(evt, initAnalytics, { once: true, passive: true });
+    });
+  </script>
+  <!-- End Google Tag Manager & GA4 -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="128x128" href="/images/favicon.png" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <title>Fly Ash Bricks, Paver &amp; Interlock Bricks Manufacturer in Coimbatore | ACME</title>
+  <meta name="description"
+    content="ACME Bricks manufactures fly ash bricks, paver blocks and Interlock bricks in Coimbatore, supplying quality construction materials across Tamil Nadu and Kerala." />
+  <meta name="keywords"
+    content="bricks manufacturer in Coimbatore, blocks manufacturer in Coimbatore, fly ash bricks Coimbatore, paver blocks Coimbatore, Interlock bricks Coimbatore, construction material supplier Coimbatore, Fly Ash Bricks, Paver Blocks, Interlock Bricks, Solid Blocks, AAC Blocks" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://acmebricks.in/" />
+
+  <!-- Performance: Preload Critical Responsive Hero Banner -->
+  <link rel="preload" as="image" href="/images/brick-manufacturer-coimbatore-acme-bricks-mobile.webp" media="(max-width: 640px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="/images/brick-manufacturer-coimbatore-acme-bricks.webp" media="(min-width: 641px)" fetchpriority="high" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://acmebricks.in/" />
+  <meta property="og:title" content="Fly Ash Bricks, Paver &amp; Interlock Bricks Manufacturer in Coimbatore | ACME" />
+  <meta property="og:description"
+    content="ACME Bricks manufactures fly ash bricks, paver blocks and Interlock bricks in Coimbatore, supplying quality construction materials across Tamil Nadu and Kerala." />
+  <meta property="og:image" content="https://acmebricks.in/images/brick-manufacturer-coimbatore-acme-bricks.webp" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://acmebricks.in/" />
+  <meta property="twitter:title"
+    content="Fly Ash Bricks, Paver &amp; Interlock Bricks Manufacturer in Coimbatore | ACME" />
+  <meta property="twitter:description"
+    content="ACME Bricks manufactures fly ash bricks, paver blocks and Interlock bricks in Coimbatore, supplying quality construction materials across Tamil Nadu and Kerala." />
+  <meta property="twitter:image" content="https://acmebricks.in/images/about.webp" />
+
+  <!-- Google Fonts: Preconnect & Asynchronous Non-blocking Load with display=swap -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+    />
+  </noscript>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5BB2ZGL" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>

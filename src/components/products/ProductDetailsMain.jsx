@@ -490,17 +490,32 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
               </>
             )}
 
-            {/* Action buttons grid (2x2) */}
+            {/* Action buttons: Single row on desktop, stacked on mobile */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '16px'
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '12px',
+              marginTop: '28px',
+              width: '100%'
             }} className="actions-button-grid">
 
               <button
                 onClick={onQuoteClick}
                 className="btn btn-primary"
-                style={{ padding: '12px', fontSize: '13px', fontWeight: 700, borderRadius: '6px' }}
+                style={{
+                  height: '46px',
+                  padding: '0 12px',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  borderRadius: '6px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  whiteSpace: 'nowrap',
+                  cursor: 'pointer',
+                  width: '100%',
+                  boxSizing: 'border-box'
+                }}
               >
                 GET A QUOTE
               </button>
@@ -511,8 +526,9 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
                 rel="noopener noreferrer"
                 className="btn"
                 style={{
-                  padding: '12px',
-                  fontSize: '13px',
+                  height: '46px',
+                  padding: '0 12px',
+                  fontSize: '12px',
                   fontWeight: 700,
                   borderRadius: '6px',
                   background: 'transparent',
@@ -521,7 +537,11 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '8px'
+                  gap: '6px',
+                  whiteSpace: 'nowrap',
+                  textDecoration: 'none',
+                  width: '100%',
+                  boxSizing: 'border-box'
                 }}
               >
                 <MessageSquare size={14} style={{ color: '#25D366' }} />
@@ -533,8 +553,9 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
                 download="ACME_Bricks_Brochure.pdf"
                 className="btn"
                 style={{
-                  padding: '12px',
-                  fontSize: '13px',
+                  height: '46px',
+                  padding: '0 12px',
+                  fontSize: '12px',
                   fontWeight: 700,
                   borderRadius: '6px',
                   background: 'transparent',
@@ -543,8 +564,11 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '8px',
-                  textDecoration: 'none'
+                  gap: '6px',
+                  whiteSpace: 'nowrap',
+                  textDecoration: 'none',
+                  width: '100%',
+                  boxSizing: 'border-box'
                 }}
               >
                 <Download size={14} color="var(--accent)" />

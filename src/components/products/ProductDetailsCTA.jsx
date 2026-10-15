@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, MessageSquare } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 export default function ProductDetailsCTA({ onQuoteClick }) {
   return (
@@ -96,7 +96,6 @@ export default function ProductDetailsCTA({ onQuoteClick }) {
               whiteSpace: 'nowrap'
             }}
           >
-            <MessageSquare size={14} style={{ color: '#25D366' }} />
             <span>WHATSAPP</span>
           </a>
         </div>

@@ -18,8 +18,7 @@ import {
   ExternalLink,
   CheckCircle2,
   FileText,
-  Lock,
-  AlertTriangle
+  Lock
 } from 'lucide-react';
 
 export default function Sitemap({ onNavigate }) {
@@ -185,13 +184,6 @@ export default function Sitemap({ onNavigate }) {
           icon: <FileCode size={16} />,
           isExternal: true,
           externalUrl: '/sitemap.xml'
-        },
-        {
-          name: '404 Error Page',
-          url: '/404/',
-          description: 'Custom Page Not Found error handler with product finder and quick navigation.',
-          icon: <AlertTriangle size={16} />,
-          action: () => onNavigate && onNavigate('404')
         }
       ]
     }

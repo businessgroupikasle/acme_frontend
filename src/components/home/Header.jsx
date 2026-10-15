@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Layers, Menu, X, ChevronDown } from 'lucide-react';
+import { trackCtaClick } from '../../utils/gtm.js';
 
 export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -118,8 +119,12 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
             src="/images/logo.webp" 
             alt="ACME Bricks Logo" 
             className="header-logo-img"
+            width="178"
+            height="46"
             style={{
               height: '46px',
+              width: 'auto',
+              aspectRatio: '930 / 240',
               objectFit: 'contain',
               borderRadius: '6px'
             }}
@@ -266,6 +271,7 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
             href="#contact"
             onClick={(e) => {
               e.preventDefault();
+              trackCtaClick('Get a Quote', 'Header Desktop', '/contact/');
               navigateToSection('contact');
             }}
             className="btn btn-primary"
@@ -410,6 +416,7 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
             href="#contact"
             onClick={(e) => {
               e.preventDefault();
+              trackCtaClick('Get a Quote', 'Header Mobile Drawer', '/contact/');
               navigateToSection('contact');
             }}
             className="btn btn-primary"
