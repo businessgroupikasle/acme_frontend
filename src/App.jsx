@@ -1056,7 +1056,8 @@ export default function App() {
       <Header activeTab={activeTab} setActiveTab={setActiveTab} onCategorySelect={handleCategorySelect} />
 
       <main style={{ flex: 1 }}>
-        <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
+        {/* Fallback fills the viewport so CTA/Footer stay below the fold until the route chunk loads (avoids CLS) */}
+        <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
           {activeTab === 'home' && (
             <>
               <HeroSection

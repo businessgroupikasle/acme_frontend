@@ -56,9 +56,23 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://acmebricks.in/" />
 
-  <!-- Performance: Preload Critical Responsive Hero Banner -->
-  <link rel="preload" as="image" href="/images/brick-manufacturer-coimbatore-acme-bricks-mobile.webp" media="(max-width: 640px)" fetchpriority="high" />
-  <link rel="preload" as="image" href="/images/brick-manufacturer-coimbatore-acme-bricks.webp" media="(min-width: 641px)" fetchpriority="high" />
+  <!-- Performance: Preload Critical Responsive Hero Banner (homepage only; other routes don't render it) -->
+  <script>
+    if (location.pathname === '/') {
+      [
+        ['/images/brick-manufacturer-coimbatore-acme-bricks-mobile.webp', '(max-width: 640px)'],
+        ['/images/brick-manufacturer-coimbatore-acme-bricks.webp', '(min-width: 641px)']
+      ].forEach(function (p) {
+        var l = document.createElement('link');
+        l.rel = 'preload';
+        l.as = 'image';
+        l.href = p[0];
+        l.media = p[1];
+        l.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(l);
+      });
+    }
+  </script>
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />

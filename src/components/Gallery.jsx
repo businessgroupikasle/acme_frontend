@@ -5,6 +5,7 @@ import { folderImages } from '../data/galleryImages.js';
 export default function Gallery({ onHomeClick }) {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [failedIds, setFailedIds] = useState(() => new Set());
 
   const getThumbPath = (p) => {
     if (!p) return '';
@@ -74,7 +75,8 @@ export default function Gallery({ onHomeClick }) {
     };
   });
 
-  const galleryItems = [...originalItems, ...dynamicItems];
+  // Tiles whose image fails to load are dropped instead of rendering blank
+  const galleryItems = [...originalItems, ...dynamicItems].filter(item => !failedIds.has(item.id));
 
   const filteredItems = selectedFilter === 'All'
     ? galleryItems
@@ -418,13 +420,18 @@ export default function Gallery({ onHomeClick }) {
                 <img
                   src={getThumbPath(item.image)}
                   alt={`${item.title} - ${item.category} manufactured by ACME Bricks in Coimbatore`}
-                  loading="lazy"
+                  loading={index < 4 ? 'eager' : 'lazy'}
+                  fetchpriority={index < 2 ? 'high' : undefined}
                   decoding="async"
                   width="400"
                   height="300"
                   onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = getDisplayPath(item.image);
+                    const fallback = getDisplayPath(item.image);
+                    if (!e.currentTarget.src.endsWith(fallback)) {
+                      e.currentTarget.src = fallback;
+                      return;
+                    }
+                    setFailedIds(prev => new Set(prev).add(item.id));
                   }}
                 />
               </div>
