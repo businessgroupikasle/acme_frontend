@@ -384,7 +384,7 @@ export default function App() {
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "D No 1, SF NO 517/A, Thennampalayam Road, Serayampalayam, Vellanaipatti",
+        "streetAddress": "SF No. 517, Thennampalayam Road, Serayampalayam (East), Vellanaipatti",
         "addressLocality": "Coimbatore",
         "addressRegion": "Tamil Nadu",
         "postalCode": "641048",

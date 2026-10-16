@@ -162,9 +162,9 @@ export default function Footer({ onNavigate }) {
                   className="footer-contact-link footer-address-link"
                 >
                   ACME Bricks,<br />
-                  D No 1, SF NO 517/A,<br />
-                  Thennampalayam Road, Serayampalayam,<br />
-                  Vellanaipatti, Coimbatore - 641048
+                  SF No. 517, Thennampalayam Road,<br />
+                  Serayampalayam (East), Vellanaipatti,<br />
+                  Coimbatore, Tamil Nadu – 641048
                 </a>
               </div>
               <div className="footer-contact-item">

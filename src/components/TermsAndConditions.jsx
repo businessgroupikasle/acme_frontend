@@ -580,10 +580,10 @@ export default function TermsAndConditions({ onHomeClick, onNavigate }) {
                   </div>
                   <p style={{ color: '#cbd5e1', fontSize: '13.5px', lineHeight: 1.6, margin: 0 }}>
                     <strong>ACME Bricks</strong><br />
-                    D No 1, SF No 517/A,<br />
-                    Thennampalayam Road, Serayampalayam,<br />
-                    Vellanaipatti, Coimbatore,<br />
-                    Tamil Nadu – 641048
+                    SF No. 517, Thennampalayam Road,<br />
+                    Serayampalayam (East), Vellanaipatti,<br />
+                    Coimbatore – 641048,<br />
+                    Tamil Nadu
                   </p>
                 </div>
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Phone } from 'lucide-react';
 
 export default function ProductDetailsCTA({ onQuoteClick }) {
   return (
@@ -54,27 +53,6 @@ export default function ProductDetailsCTA({ onQuoteClick }) {
             GET A QUOTE
           </button>
           
-          <a 
-            href="tel:+919500851880"
-            className="btn cta-btn"
-            style={{
-              padding: '12px 22px',
-              fontSize: '13px',
-              fontWeight: 600,
-              borderRadius: '9999px',
-              background: 'transparent',
-              color: '#ffffff',
-              border: '1.5px solid rgba(255, 255, 255, 0.25)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            <Phone size={14} color="var(--accent)" />
-            <span>CALL NOW</span>
-          </a>
 
           <a 
             href="https://wa.me/919500851880"
