@@ -8,13 +8,36 @@ export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [waUrlState, setWaUrlState] = useState('');
-  const [errors, setErrors] = useState({ email: '', phone: '' });
-  const [touched, setTouched] = useState({ email: false, phone: false });
+  const [errors, setErrors] = useState({ name: '', email: '', phone: '' });
+  const [touched, setTouched] = useState({ name: false, email: false, phone: false });
+
+  const validateName = (name) => {
+    if (!name || !name.trim()) return 'Name is required';
+    const trimmed = name.trim();
+    if (!/^[a-zA-Z\s.]+$/.test(trimmed)) {
+      return 'Name can only contain alphabets and spaces';
+    }
+    const lettersOnly = trimmed.replace(/[^a-zA-Z]/g, '');
+    if (lettersOnly.length < 2) {
+      return 'Please enter a valid name (at least 2 letters)';
+    }
+    return '';
+  };
+
+  const handleNameChange = (e) => {
+    // Only allow alphabets, spaces, and dot (for initials)
+    const filtered = e.target.value.replace(/[^a-zA-Z\s.]/g, '');
+    setForm(prev => ({ ...prev, name: filtered }));
+    if (touched.name) {
+      setErrors(prev => ({ ...prev, name: validateName(filtered) }));
+    }
+  };
 
   const validateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || !email.trim()) return 'Email address is required';
-    if (!emailRegex.test(email.trim())) return 'Invalid email address (e.g. name@example.com)';
+    const trimmed = email.trim();
+    const emailRegex = /^[a-zA-Z0-9]+([._%+-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-][a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(trimmed)) return 'Invalid email address (e.g. name@example.com)';
     return '';
   };
 
@@ -79,12 +102,13 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const nameErr = validateName(form.name);
     const emailErr = validateEmail(form.email);
     const phoneErr = validatePhone(form.phone);
 
-    if (emailErr || phoneErr) {
-      setErrors({ email: emailErr, phone: phoneErr });
-      setTouched({ email: true, phone: true });
+    if (nameErr || emailErr || phoneErr) {
+      setErrors({ name: nameErr, email: emailErr, phone: phoneErr });
+      setTouched({ name: true, email: true, phone: true });
       return;
     }
 
@@ -290,12 +314,28 @@ export default function ContactForm() {
               <form onSubmit={handleSubmit}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div className="input-group">
-                    <label className="input-label">Full Name</label>
+                    <label className="input-label">Full Name *</label>
                     <input
-                      type="text" required value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="form-input" placeholder="e.g. Jane Doe"
+                      type="text"
+                      required
+                      value={form.name}
+                      onChange={handleNameChange}
+                      onBlur={() => {
+                        setTouched((prev) => ({ ...prev, name: true }));
+                        setErrors((prev) => ({ ...prev, name: validateName(form.name) }));
+                      }}
+                      className="form-input"
+                      style={{
+                        borderColor: touched.name && errors.name ? '#ef4444' : undefined,
+                        backgroundColor: touched.name && errors.name ? '#fff5f5' : undefined
+                      }}
+                      placeholder="e.g. Jane Doe"
                     />
+                    {touched.name && errors.name && (
+                      <span style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px', display: 'block', fontWeight: 600 }}>
+                        {errors.name}
+                      </span>
+                    )}
                   </div>
                   <div className="input-group">
                     <label className="input-label">Email Address *</label>

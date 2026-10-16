@@ -239,11 +239,13 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
             ]
             : isAACBlocks
               ? [
-                { label: 'Material Composition', val: 'Autoclaved Aerated Concrete' },
-                { label: 'Size Options', val: '600 x 200 x 100/150/200/230 mm' },
-                { label: 'Compressive Strength', val: '3.0 - 4.5 N/mm²' },
-                { label: 'Dry Density', val: 'Approx. 550 - 650 kg/m³' },
-                { label: 'Features', val: 'Lightweight, Fire resistant, Thermal insulation, Soundproof' }
+                { label: 'Available Sizes', val: '4-Inch, 6-Inch, 8-Inch & 9-Inch AAC Blocks' },
+                { label: 'Compressive Strength', val: '3–5 N/mm²' },
+                { label: '4-Inch Dimensions', val: '24 × 8 × 4 inches (L × W × H)' },
+                { label: '6-Inch Dimensions', val: '24 × 8 × 6 inches (L × W × H)' },
+                { label: '8-Inch Dimensions', val: '24 × 8 × 8 inches (L × W × H)' },
+                { label: '9-Inch Dimensions', val: '24 × 9 × 8 inches (L × W × H)' },
+                { label: 'Weight', val: '8–25 kg per block' }
               ]
               : [
                 { label: 'Size (L × B × H)', val: sizeStr },

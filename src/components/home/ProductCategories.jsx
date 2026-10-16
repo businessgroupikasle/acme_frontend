@@ -244,7 +244,8 @@ export default function ProductCategories({ onCategorySelect }) {
                       fontSize: '13px',
                       color: 'var(--text-secondary)',
                       lineHeight: '1.55',
-                      marginBottom: '18px'
+                      marginBottom: '18px',
+                      textAlign: 'justify'
                     }}>
                       {cat.desc}
                     </p>

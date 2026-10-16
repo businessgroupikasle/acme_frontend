@@ -15,13 +15,36 @@ export default function ContactMain({ onNavigate }) {
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [waUrlState, setWaUrlState] = useState('');
-  const [errors, setErrors] = useState({ email: '', phone: '', agree: '' });
-  const [touched, setTouched] = useState({ email: false, phone: false, agree: false });
+  const [errors, setErrors] = useState({ name: '', email: '', phone: '', agree: '' });
+  const [touched, setTouched] = useState({ name: false, email: false, phone: false, agree: false });
+
+  const validateName = (name) => {
+    if (!name || !name.trim()) return 'Your name is required';
+    const trimmed = name.trim();
+    if (!/^[a-zA-Z\s.]+$/.test(trimmed)) {
+      return 'Name can only contain alphabets and spaces';
+    }
+    const lettersOnly = trimmed.replace(/[^a-zA-Z]/g, '');
+    if (lettersOnly.length < 2) {
+      return 'Please enter a valid name (at least 2 letters)';
+    }
+    return '';
+  };
+
+  const handleNameChange = (e) => {
+    // Only allow alphabets, spaces, and dot (for initials)
+    const filtered = e.target.value.replace(/[^a-zA-Z\s.]/g, '');
+    setForm(prev => ({ ...prev, name: filtered }));
+    if (touched.name) {
+      setErrors(prev => ({ ...prev, name: validateName(filtered) }));
+    }
+  };
 
   const validateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email || !email.trim()) return 'Email address is required';
-    if (!emailRegex.test(email.trim())) return 'Invalid email address (e.g. name@example.com)';
+    const trimmed = email.trim();
+    const emailRegex = /^[a-zA-Z0-9]+([._%+-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-][a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(trimmed)) return 'Invalid email address (e.g. name@example.com)';
     return '';
   };
 
@@ -97,13 +120,14 @@ export default function ContactMain({ onNavigate }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const nameErr = validateName(form.name);
     const emailErr = validateEmail(form.email);
     const phoneErr = validatePhone(form.phone);
     const agreeErr = !form.agree ? 'Please agree to the Privacy Policy.' : '';
 
-    if (emailErr || phoneErr || agreeErr) {
-      setErrors({ email: emailErr, phone: phoneErr, agree: agreeErr });
-      setTouched({ email: true, phone: true, agree: true });
+    if (nameErr || emailErr || phoneErr || agreeErr) {
+      setErrors({ name: nameErr, email: emailErr, phone: phoneErr, agree: agreeErr });
+      setTouched({ name: true, email: true, phone: true, agree: true });
       return;
     }
 
@@ -439,10 +463,23 @@ export default function ContactMain({ onNavigate }) {
                           type="text"
                           required
                           value={form.name}
-                          onChange={(e) => setForm({ ...form, name: e.target.value })}
+                          onChange={handleNameChange}
+                          onBlur={() => {
+                            setTouched((prev) => ({ ...prev, name: true }));
+                            setErrors((prev) => ({ ...prev, name: validateName(form.name) }));
+                          }}
                           className="contact-input-field"
-                          placeholder="e.g. John Doe"
+                          style={{
+                            borderColor: touched.name && errors.name ? '#ef4444' : undefined,
+                            backgroundColor: touched.name && errors.name ? '#fff5f5' : undefined
+                          }}
+                          placeholder="Enter your name"
                         />
+                        {touched.name && errors.name && (
+                          <span style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px', display: 'block', fontWeight: 600 }}>
+                            {errors.name}
+                          </span>
+                        )}
                       </div>
 
                       {/* Email */}
@@ -468,7 +505,7 @@ export default function ContactMain({ onNavigate }) {
                             borderColor: touched.email && errors.email ? '#ef4444' : undefined,
                             backgroundColor: touched.email && errors.email ? '#fff5f5' : undefined
                           }}
-                          placeholder="e.g. john@example.com"
+                          placeholder="Enter your email address"
                         />
                         {touched.email && errors.email && (
                           <span style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px', display: 'block', fontWeight: 600 }}>
@@ -502,7 +539,7 @@ export default function ContactMain({ onNavigate }) {
                             borderColor: touched.phone && errors.phone ? '#ef4444' : undefined,
                             backgroundColor: touched.phone && errors.phone ? '#fff5f5' : undefined
                           }}
-                          placeholder="e.g. +91 95008 51880"
+                          placeholder="Enter 10-digit mobile number"
                         />
                         {touched.phone && errors.phone && (
                           <span style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px', display: 'block', fontWeight: 600 }}>
@@ -550,7 +587,7 @@ export default function ContactMain({ onNavigate }) {
                         value={form.message}
                         onChange={(e) => setForm({ ...form, message: e.target.value })}
                         className="contact-input-field"
-                        placeholder="How can we help you? Describe your project requirements..."
+                        placeholder="Enter your message or project requirements..."
                         style={{ resize: 'vertical' }}
                       ></textarea>
                     </div>

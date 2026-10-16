@@ -148,7 +148,6 @@ export default function AboutCompany() {
             font-size: 10px !important;
           }
         }
-        }
       `}</style>
 
       <div className="ac-grid">
@@ -246,11 +245,11 @@ export default function AboutCompany() {
           <div className="ac-img-wrapper">
             <picture>
               <source
-                srcSet="/images/about-page/acme-bricks-manufacturing-facility-tamil-nadu.webp"
+                srcSet="/images/about-page/acme-bricks-manufacturer-coimbatore.webp"
                 type="image/webp"
               />
               <img
-                src="/images/about-page/acme-bricks-manufacturing-facility-tamil-nadu.webp"
+                src="/images/about-page/acme-bricks-manufacturer-coimbatore.webp"
                 alt="ACME Bricks production facility in Tamil Nadu"
                 loading="eager"
                 decoding="async"
@@ -258,7 +257,7 @@ export default function AboutCompany() {
                 height="400"
                 onError={(e) => {
                   e.currentTarget.onerror = null;
-                  e.currentTarget.src = '/images/about-page/acme-bricks-manufacturer-coimbatore.webp';
+                  e.currentTarget.src = '/images/about-page/acme-bricks-manufacturing-facility-coimbatore.webp';
                 }}
               />
             </picture>

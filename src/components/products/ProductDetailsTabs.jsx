@@ -197,13 +197,13 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
             ]
             : isAACBlocks
               ? [
-                { param: 'Size Options', val: '600 x 200 x 100/150/200/230 mm' },
-                { param: 'Compressive Strength', val: '3.0 - 4.5 N/mm²' },
-                { param: 'Indian Standard', val: 'IS 2185' },
-                { param: 'Dry Density', val: 'Approx. 550 - 650 kg/m³' },
-                { param: 'Water Absorption', val: '<15%' },
-                { param: 'Color', val: 'Light Grey' },
-                { param: 'Eco Friendly', val: 'Yes' }
+                { param: 'Available Sizes', val: '4-Inch, 6-Inch, 8-Inch & 9-Inch AAC Blocks' },
+                { param: 'Compressive Strength', val: '3–5 N/mm²' },
+                { param: '4-Inch Dimensions', val: '24 × 8 × 4 inches (L × W × H)' },
+                { param: '6-Inch Dimensions', val: '24 × 8 × 6 inches (L × W × H)' },
+                { param: '8-Inch Dimensions', val: '24 × 8 × 8 inches (L × W × H)' },
+                { param: '9-Inch Dimensions', val: '24 × 9 × 8 inches (L × W × H)' },
+                { param: 'Weight', val: '8–25 kg per block' }
               ]
               : [
                 { param: 'Shape', val: 'Rectangular' },

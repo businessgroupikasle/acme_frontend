@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import { folderImages } from '../data/galleryImages.js';
 
 export default function Gallery({ onHomeClick }) {
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -19,57 +20,7 @@ export default function Gallery({ onHomeClick }) {
 
   const originalItems = [
     {
-      id: 3,
-      image: '/images/acme-bricks-manufacturer-coimbatore.webp',
-      category: 'Solid Blocks',
-      title: 'Pre-curing Stacking Yard',
-      desc: 'Cured solid blocks lined up in our secondary storage yard awaiting distribution.',
-      colSpan: 'span-4',
-      rowSpan: 'span-2',
-      height: '420px'
-    },
-    {
-      id: 4,
-      image: '/images/about-page/oru-mission.webp',
-      category: 'Fly Ash Blocks',
-      title: 'Fly Ash Blocks Automated Production',
-      desc: 'Precision computerized dosing equipment for batch fly ash block compounds.',
-      colSpan: 'span-8',
-      rowSpan: 'span-1',
-      height: '198px'
-    },
-    {
-      id: 6,
-      image: '/images/products/flyash-bricks.webp',
-      category: 'Fly Ash Bricks',
-      title: 'Class 1 Fly Ash Bricks',
-      desc: 'Precision-molded fly ash bricks showing consistent sharp edges and light grey coloring.',
-      colSpan: 'span-4',
-      rowSpan: 'span-1',
-      height: '198px'
-    },
-    {
-      id: 7,
-      image: '/images/products/solid-blocks.webp',
-      category: 'Solid Blocks',
-      title: 'Solid Concrete Blocks',
-      desc: 'Heavy-duty 190mm solid blocks stacked for industrial partition walls.',
-      colSpan: 'span-4',
-      rowSpan: 'span-1',
-      height: '198px'
-    },
-    {
-      id: 8,
-      image: '/images/products/paver-block.webp',
-      category: 'Paver Blocks',
-      title: 'Designer Zig-Zag Paver',
-      desc: '60mm red and grey zig-zag pavers curing on wooden palettes.',
-      colSpan: 'span-6',
-      rowSpan: 'span-1',
-      height: '240px'
-    },
-    {
-      id: 9,
+      id: 1,
       image: '/images/products/interlock.webp',
       category: 'Interlock Bricks',
       title: 'Interlock Wall Bricks',
@@ -79,7 +30,7 @@ export default function Gallery({ onHomeClick }) {
       height: '240px'
     },
     {
-      id: 10,
+      id: 2,
       image: '/images/products/aac-blocks.webp',
       category: 'AAC Blocks',
       title: 'Autoclaved Aerated Concrete Blocks',
@@ -88,79 +39,6 @@ export default function Gallery({ onHomeClick }) {
       rowSpan: 'span-1',
       height: '240px'
     }
-  ];
-
-  const folderImages = [
-    // Fly Ash Blocks
-    ...[
-      'IMG_0004.webp', 'IMG_0005.webp', 'IMG_0007.webp', 'IMG_0008.webp', 'IMG_0009.webp',
-      'IMG_0063.webp', 'IMG_0064.webp', 'IMG_0065.webp', 'IMG_0083.webp', 'IMG_0092.webp'
-    ].map((file, idx) => ({
-      path: `/images/gallery/flyash_blocks/images/${file}`,
-      category: 'Fly Ash Blocks',
-      title: `Fly Ash Block Design ${idx + 1}`,
-      desc: 'High-strength load-bearing block designed for maximum structural integrity.'
-    })),
-
-    // Fly Ash Bricks
-    ...[
-      'acme-flyash-bricks-manufacturer-coimbatore-01.webp',
-      'flyash-bricks-manufacturing-in-coimbatore-02.webp',
-      'acme-bricks-high-strength-flyash-bricks-03.webp',
-      'premium-flyash-bricks-coimbatore-04.webp',
-      'eco-friendly-flyash-bricks-manufacturing-05.webp',
-      'construction-grade-flyash-bricks-coimbatore-06.webp',
-      'quality-tested-flyash-bricks-stockyard-07.webp'
-    ].map((file, idx) => ({
-      path: `/images/gallery/flyash_bricks/${file}`,
-      category: 'Fly Ash Bricks',
-      title: `Fly Ash Brick Setup ${idx + 1}`,
-      desc: 'Eco-friendly and durable fly ash brick cured to perfection for modern masonry.'
-    })),
-
-    // Interlock Bricks
-    ...[
-      'acme-interlock-bricks-manufacturer-coimbatore-01.webp',
-      'interlock-bricks-manufacturing-in-coimbatore-02.webp',
-      'acme-bricks-interlocking-blocks-coimbatore-03.webp',
-      'premium-interlock-bricks-coimbatore-04.webp',
-      'high-strength-interlocking-bricks-coimbatore-05.webp',
-      'eco-friendly-interlock-bricks-manufacturing-06.webp',
-      'dry-stack-interlock-bricks-coimbatore-07.webp',
-      'acme-interlocking-wall-bricks-coimbatore-08.webp',
-      'cost-effective-interlock-bricks-manufacturing-09.webp',
-      'heavy-duty-interlocking-bricks-coimbatore-10.webp',
-      'precision-molded-interlock-bricks-coimbatore-11.webp',
-      'interlock-cement-bricks-manufacturing-coimbatore-12.webp',
-      'residential-building-interlock-bricks-13.webp',
-      'commercial-construction-interlock-bricks-coimbatore-14.webp',
-      'acme-bricks-interlock-stockyard-coimbatore-15.webp',
-      'quality-tested-interlocking-bricks-coimbatore-16.webp',
-      'best-interlock-bricks-manufacturer-coimbatore-17.webp'
-    ].map((file, idx) => ({
-      path: `/images/gallery/interlock/${file}`,
-      category: 'Interlock Bricks',
-      title: `Interlock Brick Arrangement ${idx + 1}`,
-      desc: 'Precision Interlock brick for rapid mortarless construction and walling.'
-    })),
-
-    // Paver Blocks
-    ...Array.from({ length: 56 }, (_, i) => `acme-paver-${String(i + 1).padStart(2, '0')}.webp`).map((file, idx) => ({
-      path: `/images/gallery/pavers/${file}`,
-      category: 'Paver Blocks',
-      title: `Acme Paver Block ${idx + 1}`,
-      desc: 'Heavy-duty exterior paving block ideal for driveways, pathways, and patios.'
-    })),
-
-    // Solid Blocks
-    ...[
-      'IMG_20250611_153156.webp'
-    ].map((file, idx) => ({
-      path: `/images/gallery/solid_blocks/${file}`,
-      category: 'Solid Blocks',
-      title: `Solid Block Structure ${idx + 1}`,
-      desc: 'Robust high-density solid concrete blocks suitable for load-bearing walls.'
-    }))
   ];
 
   const dynamicItems = folderImages.map((item, index) => {

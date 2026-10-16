@@ -153,7 +153,8 @@ export default function AboutMissionVision() {
                   fontSize: '14px',
                   color: 'var(--text-secondary)',
                   lineHeight: '1.65',
-                  margin: 0
+                  margin: 0,
+                  textAlign: 'justify'
                 }}>
                   To manufacture quality bricks, blocks and paving products that construction professionals can rely on for strength, durability and consistent performance. We strive to serve Coimbatore, Tamil Nadu and Kerala with dependable products, competitive value and timely delivery.
                 </p>
@@ -180,7 +181,8 @@ export default function AboutMissionVision() {
                   fontSize: '14px',
                   color: 'var(--text-secondary)',
                   lineHeight: '1.65',
-                  margin: 0
+                  margin: 0,
+                  textAlign: 'justify'
                 }}>
                   To become a preferred name for bricks, blocks and construction materials in Coimbatore, trusted by builders, contractors and customers across Tamil Nadu and Kerala for quality, reliability and consistent service.
                 </p>
