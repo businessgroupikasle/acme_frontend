@@ -197,7 +197,7 @@ export default function ProductDetailsTabs({ product, productName = 'Fly Ash Bri
             ]
             : isAACBlocks
               ? [
-                { param: 'Available Sizes', val: '4-Inch, 6-Inch, 8-Inch & 9-Inch AAC Blocks' },
+                { param: 'Available Sizes', val: '4-Inches, 6-Inches, 8-Inches & 9-Inches AAC Blocks' },
                 { param: 'Compressive Strength', val: '3–5 N/mm²' },
                 { param: '4-Inch Dimensions', val: '24 × 8 × 4 inches (L × W × H)' },
                 { param: '6-Inch Dimensions', val: '24 × 8 × 6 inches (L × W × H)' },

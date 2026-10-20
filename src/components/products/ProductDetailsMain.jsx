@@ -72,27 +72,27 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
                 alt: 'ACME solid blocks in 4-inch, 6-inch and 8-inch sizes'
               }
             ]
-          : isAACBlocks
-          ? [
-            {
-              src: '/images/products/aac-blocks-manufacturer-coimbatore-acme.webp',
-              alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks'
-            },
-            {
-              src: '/images/products/aac-concrete-blocks-supplier-coimbatore-acme.webp',
-              alt: 'AAC concrete blocks supplied by ACME Bricks & Blocks in Coimbatore'
-            }
-          ]
-          : [
-        {
-          src: image,
-          alt: `${name} Manufacturer in Coimbatore | ACME Bricks`
-        },
-        {
-          src: image.replace(/\.webp$/, '-thumb.webp'),
-          alt: `${name} sizes and dimensions`
-        }
-      ];
+            : isAACBlocks
+              ? [
+                {
+                  src: '/images/products/aac-blocks-manufacturer-coimbatore-acme.webp',
+                  alt: 'AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks'
+                },
+                {
+                  src: '/images/products/aac-concrete-blocks-supplier-coimbatore-acme.webp',
+                  alt: 'AAC concrete blocks supplied by ACME Bricks & Blocks in Coimbatore'
+                }
+              ]
+              : [
+                {
+                  src: image,
+                  alt: `${name} Manufacturer in Coimbatore | ACME Bricks`
+                },
+                {
+                  src: image.replace(/\.webp$/, '-thumb.webp'),
+                  alt: `${name} sizes and dimensions`
+                }
+              ];
 
   const highlights = isFlyAshBricks
     ? [
@@ -239,7 +239,7 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
             ]
             : isAACBlocks
               ? [
-                { label: 'Available Sizes', val: '4-Inch, 6-Inch, 8-Inch & 9-Inch AAC Blocks' },
+                { label: 'Available Sizes', val: '4-Inches, 6-Inches, 8-Inches & 9-Inches AAC Blocks' },
                 { label: 'Compressive Strength', val: '3–5 N/mm²' },
                 { label: '4-Inch Dimensions', val: '24 × 8 × 4 inches (L × W × H)' },
                 { label: '6-Inch Dimensions', val: '24 × 8 × 6 inches (L × W × H)' },

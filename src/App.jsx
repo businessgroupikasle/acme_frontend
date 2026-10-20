@@ -1092,9 +1092,24 @@ export default function App() {
             <>
               <ProductsHero onHomeClick={handleNavigateToHome} />
               <div className="container" style={{
-                paddingTop: '40px',
+                paddingTop: '36px',
                 paddingBottom: '60px'
               }}>
+                <div style={{
+                  textAlign: 'center',
+                  maxWidth: '880px',
+                  margin: '0 auto 36px auto',
+                  padding: '0 16px'
+                }}>
+                  <p style={{
+                    fontSize: '15.5px',
+                    lineHeight: '1.7',
+                    color: 'var(--text-secondary)',
+                    margin: 0
+                  }}>
+                    Explore high-quality Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlocking Bricks, Solid Blocks, and AAC Blocks from ACME Bricks &amp; Blocks, a trusted bricks and blocks manufacturer and supplier in Coimbatore, Tamil Nadu.
+                  </p>
+                </div>
                 <ProductsGrid
                   products={sortedProducts}
                   onViewDetails={handleViewDetails}
