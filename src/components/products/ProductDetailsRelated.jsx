@@ -211,6 +211,15 @@ export default function ProductDetailsRelated({ products, onProductClick, curren
               <div
                 key={prod.id}
                 onClick={() => onProductClick(prod)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onProductClick(prod);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`View details for ${prod.name}`}
                 className="related-product-card"
                 style={{
                   background: '#ffffff',

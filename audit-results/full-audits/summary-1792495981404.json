@@ -1,0 +1,14 @@
+[
+  {
+    "route": "homepage",
+    "preset": "mobile",
+    "Performance": 91,
+    "Accessibility": 100,
+    "BestPractices": 100,
+    "SEO": 100,
+    "FCP": "1.7 s",
+    "LCP": "3.0 s",
+    "TBT": "170 ms",
+    "CLS": "0"
+  }
+]

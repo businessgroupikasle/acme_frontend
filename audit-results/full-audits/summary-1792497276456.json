@@ -1,0 +1,26 @@
+[
+  {
+    "route": "product-details",
+    "preset": "mobile",
+    "Performance": 89,
+    "Accessibility": 100,
+    "BestPractices": 100,
+    "SEO": 100,
+    "FCP": "1.7 s",
+    "LCP": "3.0 s",
+    "TBT": "160 ms",
+    "CLS": "0.095"
+  },
+  {
+    "route": "product-details",
+    "preset": "desktop",
+    "Performance": 99,
+    "Accessibility": 100,
+    "BestPractices": 100,
+    "SEO": 100,
+    "FCP": "0.4 s",
+    "LCP": "0.8 s",
+    "TBT": "0 ms",
+    "CLS": "0.062"
+  }
+]

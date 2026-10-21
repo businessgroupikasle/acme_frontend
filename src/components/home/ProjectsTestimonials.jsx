@@ -322,7 +322,7 @@ export default function ProjectsTestimonials() {
                     </div>
 
                     <div style={{ overflow: 'hidden' }}>
-                      <h4 style={{
+                      <h3 style={{
                         fontSize: '14px',
                         fontWeight: 700,
                         color: 'var(--text-primary)',
@@ -332,7 +332,7 @@ export default function ProjectsTestimonials() {
                         overflow: 'hidden'
                       }}>
                         {item.name}
-                      </h4>
+                      </h3>
                       <p style={{
                         fontSize: '12px',
                         color: 'var(--text-secondary)',

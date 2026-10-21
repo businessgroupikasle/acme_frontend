@@ -1,0 +1,361 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Fly Ash Bricks",
+      "type": "Fly Ash Bricks",
+      "price": 1.25,
+      "dimensions": {
+        "length": 230,
+        "width": 100,
+        "height": 75
+      },
+      "strength": "9.15-10.15",
+      "application": [
+        "residential",
+        "commercial"
+      ],
+      "characteristics": [
+        "Size: 9 × 3 × 4 inches",
+        "Compressive Strength: 9.15–10.15 N/mm²",
+        "Dry Density: Approximately 1,700–1,850 kg/m³",
+        "Shape: Rectangular",
+        "Colour: Grey",
+        "Eco-Friendly: Yes"
+      ],
+      "image": "/images/products/fly-ash-brick-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME fly ash brick manufacturer in Coimbatore",
+      "description": "ACME Bricks manufactures and supplies fly ash bricks in Coimbatore for residential buildings, commercial developments and industrial construction projects. We serve homeowners, builders, civil contractors, construction companies and developers looking for a reliable fly ash brick supplier for their projects.\n\nBased in the Coimbatore market, ACME Bricks caters to individual orders and bulk requirements, with supply enquiries welcomed from across Coimbatore, Tamil Nadu and Kerala.",
+      "stock": 25000,
+      "popularity": 95
+    },
+    {
+      "id": "2",
+      "name": "Fly Ash Blocks",
+      "type": "Fly Ash Blocks",
+      "price": 6.8,
+      "dimensions": {
+        "length": 230,
+        "width": 230,
+        "height": 100
+      },
+      "strength": "3.5-7.0",
+      "application": [
+        "infrastructure",
+        "industrial",
+        "residential",
+        "commercial"
+      ],
+      "characteristics": [
+        "Size: 9 × 9 × 4 inches",
+        "Weight: 9.5–10 kg",
+        "Compressive Strength: 3.5–7.0 N/mm²",
+        "Shape: Rectangular",
+        "Colour: Grey",
+        "Eco-Friendly: Yes"
+      ],
+      "image": "/images/products/fly-ash-block-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME fly ash block supplier in Coimbatore",
+      "description": "ACME Bricks manufactures and supplies fly ash blocks in Coimbatore for residential buildings, commercial developments and industrial construction projects. We serve homeowners, builders, civil contractors, construction companies and developers looking for a reliable fly ash block supplier.\n\nWe cater to individual orders and bulk requirements, with supply enquiries welcomed from across Coimbatore, Tamil Nadu and Kerala.",
+      "stock": 8000,
+      "popularity": 80
+    },
+    {
+      "id": "3",
+      "name": "Paver Blocks",
+      "type": "Paver Blocks",
+      "price": 3.8,
+      "dimensions": {
+        "length": 230,
+        "width": 230,
+        "height": 60
+      },
+      "strength": "5.5-11.77",
+      "application": [
+        "residential",
+        "infrastructure",
+        "commercial"
+      ],
+      "characteristics": [
+        "Thickness Options: 2.36 inches & 3.15 inches",
+        "Material Composition: High-quality cement, fine aggregates, and colour pigments",
+        "Manufacturing Process: Vibrocompaction and hydraulic pressing",
+        "Key Benefits: Versatile Designs, High Durability, Slip-Resistant, Weatherproof, Eco-Drainage",
+        "Eco Friendly: Yes"
+      ],
+      "image": "/images/products/paver-block-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME paver blocks in Coimbatore",
+      "description": "ACME Bricks manufactures and supplies paver blocks in Coimbatore for residential, commercial, industrial and landscaping applications. Our paver blocks are available in different colours and thickness options to suit a variety of outdoor paving requirements. We cater to driveways, pathways, parking areas, courtyards and other paving projects across Coimbatore, Tamil Nadu and Kerala.",
+      "stock": 3500,
+      "popularity": 92
+    },
+    {
+      "id": "4",
+      "name": "Interlock Bricks",
+      "type": "Interlock Bricks",
+      "price": 5.5,
+      "dimensions": {
+        "length": 230,
+        "width": 230,
+        "height": 115
+      },
+      "strength": "5.5-11.77",
+      "application": [
+        "infrastructure",
+        "industrial",
+        "residential",
+        "commercial"
+      ],
+      "characteristics": [
+        "Sizes: 6-Inch & 8-Inch Interlock Blocks",
+        "6-Inch Dimensions: 11 x 6 x 5 inches",
+        "8-Inch Dimensions: 11 x 8 x 5 inches",
+        "Weight: 10–12 kg",
+        "Key Benefits: Strong & Durable, Precision Dimensions, Interlock Design, Easy Installation"
+      ],
+      "image": "/images/products/interlock-brick-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME interlock bricks in Coimbatore",
+      "description": "ACME Bricks manufactures and supplies interlock bricks and Interlock blocks in Coimbatore for construction projects. Our product range includes 6-inch and 8-inch interlock blocks to meet different project requirements. We cater to builders, civil contractors, construction companies and bulk buyers across Coimbatore, Tamil Nadu and Kerala.",
+      "stock": 1200,
+      "popularity": 85
+    },
+    {
+      "id": "5",
+      "name": "Solid Blocks",
+      "type": "Solid Blocks",
+      "price": 2.1,
+      "dimensions": {
+        "length": 400,
+        "width": 200,
+        "height": 200
+      },
+      "strength": "4.0-5.0",
+      "application": [
+        "commercial",
+        "industrial",
+        "residential"
+      ],
+      "characteristics": [
+        "Sizes: 4-Inch, 6-Inch & 8-Inch Solid Blocks",
+        "4-Inch Dimensions: 15 x 4 x 8 inches (15–16 kg)",
+        "6-Inch Dimensions: 15 x 6 x 8 inches (15–16 kg)",
+        "8-Inch Dimensions: 12 x 8 x 8 inches (20–23 kg)",
+        "High Strength & Uniform Dimensions"
+      ],
+      "image": "/images/products/solid-concrete-block-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME solid concrete blocks in Coimbatore",
+      "description": "ACME Bricks manufactures and supplies solid concrete blocks in Coimbatore for residential, commercial and industrial construction projects. Our solid blocks are available in different sizes to meet varied masonry requirements. They are suitable for walls, partitions and other construction applications, depending on the project specifications.\n\nWe supply solid blocks to builders, civil contractors, construction companies and bulk buyers across Coimbatore, with supply enquiries welcomed from Tamil Nadu and Kerala.",
+      "stock": 14000,
+      "popularity": 88
+    },
+    {
+      "id": "6",
+      "name": "AAC Blocks",
+      "type": "AAC Blocks",
+      "price": 4.25,
+      "dimensions": {
+        "length": 600,
+        "width": 200,
+        "height": 200
+      },
+      "strength": "3.0-4.5",
+      "application": [
+        "residential",
+        "commercial"
+      ],
+      "characteristics": [
+        "Size Options: 600 x 200 x 100/150/200/230 mm",
+        "Compressive Strength: 3.0 - 4.5 N/mm²",
+        "Indian Standard: IS 2185",
+        "Density: Approx. 550 - 650 kg/m³",
+        "Water Absorption: <15%"
+      ],
+      "image": "/images/products/aac-blocks-manufacturer-coimbatore-acme.webp",
+      "alt": "AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks",
+      "description": "ACME AAC Blocks are lightweight building blocks designed for efficient wall construction. Their cellular structure provides lower weight compared with conventional dense masonry materials while also offering useful thermal insulation properties.\n\nOur AAC blocks in Coimbatore are suitable for residential, commercial and modern building projects where lightweight construction, thermal comfort and construction efficiency are important. We supply AAC blocks for projects across Coimbatore, Tamil Nadu and Kerala.",
+      "stock": 6000,
+      "popularity": 90
+    }
+  ],
+  "metaData": {
+    "entry_1": {
+      "title": "Fly Ash Bricks, Paver & Interlock Bricks Manufacturer in Coimbatore | ACME",
+      "description": "ACME Bricks manufactures fly ash bricks, paver blocks and Interlock bricks in Coimbatore, supplying quality construction materials across Tamil Nadu and Kerala."
+    },
+    "entry_2": {
+      "title": "About ACME Bricks & Blocks | Construction Materials Manufacturer",
+      "description": "Learn about ACME Bricks & Blocks, a Coimbatore-based manufacturer and supplier of fly ash bricks, paver blocks, Interlock bricks and other construction materials since 2015."
+    },
+    "entry_3": {
+      "title": "Bricks & Blocks | Fly Ash, Paver, Interlock & AAC | ACME Bricks",
+      "description": "Explore ACME Bricks\\"
+    },
+    "entry_4": {
+      "title": "Fly Ash Bricks Manufacturer in Coimbatore | ACME Bricks",
+      "description": "ACME Bricks manufactures and supplies fly ash bricks in Coimbatore for residential, commercial and industrial projects. Enquire about bulk orders and delivery."
+    },
+    "entry_5": {
+      "title": "Fly Ash Blocks Manufacturer in Coimbatore | ACME Bricks",
+      "description": "Looking for fly ash blocks in Coimbatore? ACME Bricks supplies fly ash blocks for residential, commercial and industrial construction. Enquire about pricing and bulk orders."
+    },
+    "entry_6": {
+      "title": "Paver Blocks Manufacturer in Coimbatore | ACME Bricks",
+      "description": "Looking for paver blocks in Coimbatore? ACME Bricks supplies paver blocks for driveways, pathways, parking areas and landscaping. Enquire about prices and bulk orders."
+    },
+    "entry_7": {
+      "title": "Interlock Bricks Manufacturer in Coimbatore | ACME Bricks",
+      "description": "Looking for interlock bricks in Coimbatore? ACME Bricks supplies interlock paving bricks for driveways, pathways, parking areas and outdoor spaces. Enquire for prices and bulk orders."
+    },
+    "entry_8": {
+      "title": "Solid Blocks Manufacturer in Coimbatore | ACME Bricks",
+      "description": "Looking for solid concrete blocks in Coimbatore? ACME Bricks supplies 4-inch, 6-inch and 8-inch solid blocks for construction projects. Enquire about prices and bulk orders."
+    },
+    "entry_9": {
+      "title": "AAC Blocks Manufacturer in Coimbatore | ACME Bricks",
+      "description": "Looking for AAC blocks in Coimbatore? ACME Bricks manufactures and supplies lightweight AAC concrete blocks for residential, commercial and industrial projects. Enquire for prices and bulk supply."
+    },
+    "entry_10": {
+      "title": "Brick & Block Estimator Calculator | ACME Bricks",
+      "description": "Estimate the number of bricks, blocks, and mortar volume needed for your construction projects with our easy-to-use brick calculator."
+    },
+    "entry_11": {
+      "title": "ACME Bricks & Blocks Gallery | Brick Manufacturer Coimbatore",
+      "description": "View ACME Bricks\\"
+    },
+    "entry_12": {
+      "title": "Contact ACME Bricks & Blocks | Coimbatore",
+      "description": "Contact ACME Bricks & Blocks in Coimbatore for fly ash bricks, paver blocks, Interlock bricks, fly ash blocks, solid blocks and AAC blocks. Enquire for bulk orders."
+    },
+    "entry_13": {
+      "title": "Sitemap | ACME Bricks & Blocks Coimbatore",
+      "description": "Explore the complete sitemap of ACME Bricks & Blocks. Find links to all pages, products, calculators, specifications, and contact details."
+    },
+    "entry_14": {
+      "title": "Terms & Conditions | ACME Bricks & Blocks Coimbatore",
+      "description": "Review the official Terms & Conditions for ACME Bricks & Blocks website, product enquiry procedures, intellectual property and commercial policies."
+    },
+    "entry_15": {
+      "title": "Privacy Policy | ACME Bricks & Blocks Coimbatore",
+      "description": "Read the Privacy Policy of ACME Bricks & Blocks. Learn how we handle product enquiries, data security, user rights, and privacy protection."
+    },
+    "entry_16": {
+      "title": "404 - Page Not Found | ACME Bricks & Blocks Coimbatore",
+      "description": "The page you are looking for does not exist or has been moved. Explore ACME Bricks products, brick calculator, gallery, and construction materials in Coimbatore."
+    }
+  },
+  "testimonials": [
+    {
+      "paragraph": "The fly ash bricks from Acme Bricks exceeded our expectations. The quality, strength, and timely delivery made our construction process smooth and hassle-free.",
+      "name": "Ramesh Kumar",
+      "city": "Coimbatore",
+      "avatar": ""
+    },
+    {
+      "paragraph": "We purchased paver blocks for our residential project, and the finish was excellent. Their team was supportive and delivered exactly as promised.",
+      "name": "Prakash S",
+      "city": "Tiruppur",
+      "avatar": ""
+    },
+    {
+      "paragraph": "Acme Bricks offers premium-quality concrete blocks at competitive prices. We are highly satisfied with both the product quality and customer service.",
+      "name": "Arun Raj",
+      "city": "Erode",
+      "avatar": ""
+    },
+    {
+      "paragraph": "We've been sourcing construction materials from Acme Bricks for several projects. Their products are durable, eco-friendly, and always delivered on schedule.",
+      "name": "Karthik R",
+      "city": "Salem",
+      "avatar": ""
+    },
+    {
+      "paragraph": "Excellent solid blocks with high compressive strength. Perfect dimensional accuracy that helped us reduce mortar consumption significantly.",
+      "name": "Senthil Nathan",
+      "city": "Coimbatore",
+      "avatar": ""
+    },
+    {
+      "paragraph": "Prompt customer support and reliable fleet delivery. The Interlock bricks have made our boundary and pathway projects effortless.",
+      "name": "Murugan K",
+      "city": "Pollachi",
+      "avatar": ""
+    }
+  ],
+  "productCategories": [
+    {
+      "name": "Fly Ash Bricks",
+      "tagline": "Durable Bricks for Modern Construction",
+      "desc": "Manufactured for consistent strength, dimensional accuracy and durability, our fly ash bricks are suitable for residential, commercial and industrial construction.",
+      "image": "/images/products/fly-ash-brick-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME fly ash brick manufacturer in Coimbatore",
+      "btnText": "VIEW FLY ASH BRICKS"
+    },
+    {
+      "name": "Fly Ash Blocks",
+      "tagline": "Reliable Blocks for Efficient Masonry",
+      "desc": "Fly ash blocks designed for durable masonry construction, offering consistent dimensions and dependable performance across a range of building applications.",
+      "image": "/images/products/fly-ash-block-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME fly ash block supplier in Coimbatore",
+      "btnText": "VIEW FLY ASH BLOCKS"
+    },
+    {
+      "name": "Paver Blocks",
+      "tagline": "Durable Paving for Outdoor Spaces",
+      "desc": "Paver blocks designed for driveways, walkways, pathways, parking areas and other residential and commercial paving applications.",
+      "image": "/images/products/paver-block-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME paver blocks in Coimbatore",
+      "btnText": "VIEW PAVER BLOCKS"
+    },
+    {
+      "name": "Interlock Bricks",
+      "tagline": "Precision-Made for Efficient Construction",
+      "desc": "Interlock bricks manufactured with consistent dimensions for efficient installation and durable performance in suitable construction applications.",
+      "image": "/images/products/interlock-brick-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME interlock bricks in Coimbatore",
+      "btnText": "VIEW Interlock BRICKS"
+    },
+    {
+      "name": "Solid Blocks",
+      "tagline": "Strong Blocks for Durable Structures",
+      "desc": "Solid concrete blocks manufactured for consistent strength and dimensions, suitable for masonry and structural construction applications.",
+      "image": "/images/products/solid-concrete-block-manufacturer-coimbatore-acme.webp",
+      "alt": "ACME solid concrete blocks in Coimbatore",
+      "btnText": "VIEW SOLID BLOCKS"
+    },
+    {
+      "name": "AAC Blocks",
+      "tagline": "Lightweight Blocks for Modern Building",
+      "desc": "Lightweight Autoclaved Aerated Concrete blocks designed to help reduce structural load while supporting efficient construction and thermal performance.",
+      "image": "/images/products/aac-blocks-manufacturer-coimbatore-acme.webp",
+      "alt": "AAC blocks manufacturer in Coimbatore – ACME Bricks & Blocks",
+      "btnText": "VIEW AAC BLOCKS"
+    }
+  ],
+  "contactDetails": {
+    "phones": [
+      "+91 95008 51880",
+      "+91 73059 70966"
+    ],
+    "email": "info@acmebricks.in",
+    "addressLines": [
+      "ACME Bricks,",
+      "SF No. 517, Thennampalayam Road,",
+      "Serayampalayam (East), Vellanaipatti,",
+      "Coimbatore, Tamil Nadu – 641048"
+    ]
+  },
+  "ctas": [
+    "GET A QUOTE",
+    "GET QUOTE",
+    "VIEW DETAILS",
+    "VIEW FLY ASH BRICKS",
+    "VIEW FLY ASH BLOCKS",
+    "VIEW PAVER BLOCKS",
+    "VIEW Interlock BRICKS",
+    "VIEW SOLID BLOCKS",
+    "VIEW AAC BLOCKS",
+    "ENQUIRE ON WHATSAPP",
+    "Explore Products",
+    "Know More About Us"
+  ]
+}

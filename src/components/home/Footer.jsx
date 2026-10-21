@@ -26,10 +26,15 @@ export default function Footer({ onNavigate }) {
         <div className="footer-columns-grid">
           {/* Col 1: Brand Info */}
           <div className="footer-col-brand">
-            <div
-              onClick={() => onNavigate && onNavigate('home')}
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigate) onNavigate('home');
+              }}
               className="footer-brand-logo-wrap"
-              style={{ display: 'flex', alignItems: 'center', marginBottom: '18px', cursor: 'pointer' }}
+              aria-label="ACME Bricks Home"
+              style={{ display: 'flex', alignItems: 'center', marginBottom: '18px', cursor: 'pointer', textDecoration: 'none' }}
             >
               <img
                 src="/images/logo.webp"
@@ -66,7 +71,7 @@ export default function Footer({ onNavigate }) {
                   ACME<span style={{ color: 'var(--accent)' }}>BRICKS</span>
                 </span>
               </div>
-            </div>
+            </a>
             <p className="footer-brand-desc">
               ACME Bricks manufactures and supplies quality fly ash bricks, fly ash blocks, paver blocks, interlock blocks, solid blocks and AAC blocks for residential, commercial and industrial construction.
             </p>
@@ -91,9 +96,9 @@ export default function Footer({ onNavigate }) {
 
           {/* Col 2: Quick Links */}
           <div className="footer-col-links">
-            <h4 className="footer-col-title">
+            <h3 className="footer-col-title">
               QUICK LINKS
-            </h4>
+            </h3>
             <div className="footer-links-list">
               {quickLinks.map((link) => {
                 const handleClick = (e) => {
@@ -122,9 +127,9 @@ export default function Footer({ onNavigate }) {
 
           {/* Col 3: Products */}
           <div className="footer-col-products">
-            <h4 className="footer-col-title">
+            <h3 className="footer-col-title">
               OUR PRODUCTS
-            </h4>
+            </h3>
             <div className="footer-links-list">
               {productsLinks.map((link) => {
                 const handleClick = (e) => {
@@ -149,9 +154,9 @@ export default function Footer({ onNavigate }) {
 
           {/* Col 4: Contact Info */}
           <div className="footer-col-contact">
-            <h4 className="footer-col-title">
+            <h3 className="footer-col-title">
               CONTACT INFO
-            </h4>
+            </h3>
             <div className="footer-contact-list">
               <div className="footer-contact-item">
                 <MapPin size={16} className="footer-contact-icon" />

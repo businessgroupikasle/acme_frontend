@@ -159,7 +159,7 @@ export default function AboutMissionVision() {
                   To manufacture quality bricks, blocks and paving products that construction professionals can rely on for strength, durability and consistent performance. We strive to serve Coimbatore, Tamil Nadu and Kerala with dependable products, competitive value and timely delivery.
                 </p>
               </div>
-              <div className="mv-watermark">Mission</div>
+              <div className="mv-watermark" aria-hidden="true">Mission</div>
             </div>
 
             {/* Vision Card */}
@@ -187,7 +187,7 @@ export default function AboutMissionVision() {
                   To become a preferred name for bricks, blocks and construction materials in Coimbatore, trusted by builders, contractors and customers across Tamil Nadu and Kerala for quality, reliability and consistent service.
                 </p>
               </div>
-              <div className="mv-watermark">Vision</div>
+              <div className="mv-watermark" aria-hidden="true">Vision</div>
             </div>
 
           </div>

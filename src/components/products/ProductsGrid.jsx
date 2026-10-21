@@ -370,6 +370,7 @@ export default function ProductsGrid({
 
                 <button
                   onClick={() => onViewDetails(prod)}
+                  aria-label={`View ${prod.name} details`}
                   style={{
                     background: 'var(--accent)',
                     width: '28px',

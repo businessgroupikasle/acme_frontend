@@ -263,14 +263,14 @@ export default function ManufacturingProcess() {
         .circle-num-badge {
           position: absolute;
           top: 10px;
-          background: #f1f5e9;
-          color: #7ca13a;
+          background: #55721f;
+          color: #ffffff;
           font-size: 11px;
           font-weight: 800;
           padding: 2px 8px;
           border-radius: 12px;
           letter-spacing: 0.04em;
-          border: 1px solid rgba(124, 161, 58, 0.2);
+          border: 1px solid rgba(85, 114, 31, 0.4);
           transition: all 0.3s ease;
         }
 

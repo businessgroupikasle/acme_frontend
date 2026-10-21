@@ -207,6 +207,7 @@ export default function FeaturedProductsSection({ products, onQuoteClick, onView
                   <button 
                     onClick={() => onViewDetails && onViewDetails(prod)}
                     className="btn btn-secondary featured-card-btn"
+                    aria-label={`View details for ${prod.name}`}
                     style={{
                       padding: '8px 12px',
                       fontSize: '11px',
@@ -220,6 +221,7 @@ export default function FeaturedProductsSection({ products, onQuoteClick, onView
                   <button 
                     onClick={() => onQuoteClick(prod)}
                     className="btn btn-primary featured-card-btn"
+                    aria-label={`Get a quote for ${prod.name}`}
                     style={{
                       padding: '8px 12px',
                       fontSize: '11px',

@@ -12,7 +12,7 @@ import FloatingContactWidget from './components/FloatingContactWidget.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import { trackPageView, trackCtaClick } from './utils/gtm.js';
 
-// Below-the-fold homepage carousels (code-split to eliminate Swiper from initial entry bundle)
+// Heavy below-the-fold carousels code-split to isolate Swiper library
 const ProductCategories = lazy(() => import('./components/home/ProductCategories.jsx'));
 const ProjectsTestimonials = lazy(() => import('./components/home/ProjectsTestimonials.jsx'));
 
@@ -44,6 +44,58 @@ const Sitemap = lazy(() => import('./components/Sitemap.jsx'));
 const TermsAndConditions = lazy(() => import('./components/TermsAndConditions.jsx'));
 const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy.jsx'));
 const NotFound = lazy(() => import('./components/NotFound.jsx'));
+
+function DeferredCarousel({ children, minHeight = '380px' }) {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const containerRef = React.useRef(null);
+
+  useEffect(() => {
+    // On desktop, initialize smoothly during idle to avoid late layout reflow
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => setShouldLoad(true));
+      } else {
+        setTimeout(() => setShouldLoad(true), 20);
+      }
+      return;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      setShouldLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} style={{ minHeight: shouldLoad ? undefined : minHeight }}>
+      {shouldLoad ? (
+        <Suspense fallback={<div style={{ minHeight }} />}>
+          {children}
+        </Suspense>
+      ) : (
+        <div style={{ minHeight }} />
+      )}
+    </div>
+  );
+}
 
 // Fallback seed catalog in case backend isn't loaded/running yet
 const MOCK_CATALOG = [
@@ -210,7 +262,33 @@ const getRouteFromUrl = (catalog = MOCK_CATALOG) => {
     }
   }
 
-  // 2. Direct Page Slug match
+  // 2. Query parameter check (e.g. /?page=contact, /?page=about, /?page=product&id=1)
+  const params = new URLSearchParams(window.location.search);
+  const page = (params.get('page') || '').toLowerCase();
+  if (page) {
+    if (page === 'product' && params.get('id')) {
+      const prodId = params.get('id');
+      const prod = catalog.find(p => String(p.id) === String(prodId)) || null;
+      if (prod) {
+        return { tab: 'product-details', product: prod };
+      }
+      return { tab: '404', product: null };
+    }
+    if (page === 'contact' || page === 'contact-us') {
+      return { tab: 'contact', product: null };
+    }
+    if (page === 'about' || page === 'about-us') {
+      return { tab: 'about', product: null };
+    }
+    if (['home', 'products', 'gallery', 'calculator', 'sitemap', 'terms', 'privacy'].includes(page)) {
+      return { tab: page, product: null };
+    }
+    if (page === '404') {
+      return { tab: '404', product: null };
+    }
+  }
+
+  // 3. Direct Page Slug match
   if (pathname === '' || pathname === 'home') {
     return { tab: 'home', product: null };
   }
@@ -239,24 +317,6 @@ const getRouteFromUrl = (catalog = MOCK_CATALOG) => {
     return { tab: 'privacy', product: null };
   }
   if (pathname === '404' || pathname === 'not-found' || pathname === 'page-not-found') {
-    return { tab: '404', product: null };
-  }
-
-  // 3. Fallback for query parameters if someone accesses via old link (?page=...)
-  const params = new URLSearchParams(window.location.search);
-  const page = params.get('page');
-  if (page === 'product' && params.get('id')) {
-    const prodId = params.get('id');
-    const prod = catalog.find(p => String(p.id) === String(prodId)) || null;
-    if (prod) {
-      return { tab: 'product-details', product: prod };
-    }
-    return { tab: '404', product: null };
-  }
-  if (page && ['home', 'about', 'products', 'gallery', 'contact', 'calculator', 'sitemap', 'terms', 'privacy'].includes(page)) {
-    return { tab: page, product: null };
-  }
-  if (page === '404') {
     return { tab: '404', product: null };
   }
 
@@ -775,7 +835,8 @@ export default function App() {
     }
   };
 
-  const handleRedirectToContact = (ctaName = 'Get a Quote', ctaLocation = 'Global CTA') => {
+  const handleRedirectToContact = (ctaNameOrProd = 'Get a Quote', ctaLocation = 'Global CTA') => {
+    const ctaName = typeof ctaNameOrProd === 'string' ? ctaNameOrProd : (ctaNameOrProd?.name ? `Get a Quote - ${ctaNameOrProd.name}` : 'Get a Quote');
     trackCtaClick(ctaName, ctaLocation, '/contact/');
     setActiveTab('contact');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -793,14 +854,14 @@ export default function App() {
     setSelectedCategory(null);
   };
 
-  const API_URL = window.location.hostname === 'localhost' ? '' : (import.meta.env.VITE_API_URL || '');
+  const API_URL = import.meta.env.VITE_API_URL || '';
 
   const fetchProducts = async () => {
     setLoading(true);
     setError(null);
     try {
-      if (!API_URL && window.location.hostname === 'localhost') {
-        // Use static catalog for local development
+      if (!API_URL) {
+        // No external API URL configured - use protected static catalog directly without network error
         setProducts(MOCK_CATALOG);
         setLoading(false);
         return;
@@ -844,8 +905,10 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    if (API_URL) {
+      fetchProducts();
+    }
+  }, [API_URL]);
 
   const handleEstimateSelect = (product) => {
     setCalculatorPreselect(product);
@@ -883,7 +946,8 @@ export default function App() {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
-  const handleScrollToContact = (ctaName = 'Get a Quote', ctaLocation = 'Hero / Featured') => {
+  const handleScrollToContact = (ctaNameOrProd = 'Get a Quote', ctaLocation = 'Hero / Featured') => {
+    const ctaName = typeof ctaNameOrProd === 'string' ? ctaNameOrProd : (ctaNameOrProd?.name ? `Get a Quote - ${ctaNameOrProd.name}` : 'Get a Quote');
     trackCtaClick(ctaName, ctaLocation, '/contact/');
     setActiveTab('contact');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1056,146 +1120,153 @@ export default function App() {
       <Header activeTab={activeTab} setActiveTab={setActiveTab} onCategorySelect={handleCategorySelect} />
 
       <main style={{ flex: 1 }}>
-        {/* Fallback fills the viewport so CTA/Footer stay below the fold until the route chunk loads (avoids CLS) */}
-        <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
-          {activeTab === 'home' && (
-            <>
-              <HeroSection
-                onExploreClick={handleScrollToProducts}
-                onQuoteClick={handleScrollToContact}
-              />
-              <PartnerLogos />
-              <AboutUs onKnowMoreClick={handleNavigateToAbout} />
+        {activeTab === 'home' ? (
+          <>
+            <HeroSection
+              onExploreClick={handleScrollToProducts}
+              onQuoteClick={handleScrollToContact}
+            />
+            <PartnerLogos />
+            <AboutUs onKnowMoreClick={handleNavigateToAbout} />
+            <DeferredCarousel minHeight="380px">
               <ProductCategories onCategorySelect={handleCategorySelect} />
-              <WhyChooseUs />
-              <FeaturedProductsSection
-                products={products}
-                onQuoteClick={handleScrollToContact}
-                onViewDetails={handleViewDetails}
-              />
-              <ProjectsTestimonials />
-            </>
-          )}
-
-          {activeTab === 'about' && (
-            <>
-              <AboutHero onHomeClick={handleNavigateToHome} />
-              <AboutCompany />
-              <ManufacturingProcess />
-              <AboutQualityAssurance />
-              <AboutMissionVision />
-              <AboutWhyChoose />
-            </>
-          )}
-
-          {activeTab === 'products' && (
-            <>
-              <ProductsHero onHomeClick={handleNavigateToHome} />
-              <div className="container" style={{
-                paddingTop: '36px',
-                paddingBottom: '60px'
-              }}>
-                <div style={{
-                  textAlign: 'center',
-                  maxWidth: '880px',
-                  margin: '0 auto 36px auto',
-                  padding: '0 16px'
-                }}>
-                  <p style={{
-                    fontSize: '15.5px',
-                    lineHeight: '1.7',
-                    color: 'var(--text-secondary)',
-                    margin: 0
-                  }}>
-                    Explore high-quality Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlocking Bricks, Solid Blocks, and AAC Blocks from ACME Bricks &amp; Blocks, a trusted bricks and blocks manufacturer and supplier in Coimbatore, Tamil Nadu.
-                  </p>
-                </div>
-                <ProductsGrid
-                  products={sortedProducts}
-                  onViewDetails={handleViewDetails}
-                  sortOption={sortOption}
-                  onSortChange={setSortOption}
-                />
-              </div>
-              <ProductsTrustBar />
-            </>
-          )}
-
-          {activeTab === 'product-details' && selectedProductDetail && (
-            <>
-              <ProductDetailsBreadcrumb
-                productName={selectedProductDetail.name}
-                categoryName={selectedProductDetail.type || 'Bricks & Blocks'}
-                onHomeClick={handleNavigateToHome}
-                onProductsClick={handleNavigateToProducts}
-              />
-              <ProductDetailsMain
-                product={selectedProductDetail}
-                onQuoteClick={handleRedirectToContact}
-              />
-              <ProductDetailsTabs
-                product={selectedProductDetail}
-                productName={selectedProductDetail.name}
-                onContactClick={handleRedirectToContact}
-              />
-              <ProductDetailsRelated
-                products={products}
-                onProductClick={handleViewDetails}
-                currentProductId={selectedProductDetail.id}
-              />
-            </>
-          )}
-
-          {activeTab === 'contact' && (
-            <>
-              <ContactHero onHomeClick={handleNavigateToHome} />
-              <ContactMain onNavigate={handleFooterNavigation} />
-              <ContactMap />
-            </>
-          )}
-
-          {activeTab === 'calculator' && (
-            <BrickCalculator
+            </DeferredCarousel>
+            <WhyChooseUs />
+            <FeaturedProductsSection
               products={products}
-              preselectedProduct={calculatorPreselect}
+              onQuoteClick={handleScrollToContact}
+              onViewDetails={handleViewDetails}
             />
-          )}
+            <DeferredCarousel minHeight="400px">
+              <ProjectsTestimonials />
+            </DeferredCarousel>
+            <CTASection onQuoteClick={handleScrollToContact} />
+            <Footer onNavigate={handleFooterNavigation} />
+          </>
+        ) : (
+          <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
+            {activeTab === 'about' && (
+              <>
+                <AboutHero onHomeClick={handleNavigateToHome} />
+                <AboutCompany />
+                <ManufacturingProcess />
+                <AboutQualityAssurance />
+                <AboutMissionVision />
+                <AboutWhyChoose />
+              </>
+            )}
 
-          {activeTab === 'gallery' && (
-            <Gallery onHomeClick={handleNavigateToHome} />
-          )}
+            {activeTab === 'products' && (
+              <>
+                <ProductsHero onHomeClick={handleNavigateToHome} />
+                <div className="container" style={{
+                  paddingTop: '36px',
+                  paddingBottom: '60px'
+                }}>
+                  <div style={{
+                    textAlign: 'center',
+                    maxWidth: '880px',
+                    margin: '0 auto 36px auto',
+                    padding: '0 16px'
+                  }}>
+                    <p style={{
+                      fontSize: '15.5px',
+                      lineHeight: '1.7',
+                      color: 'var(--text-secondary)',
+                      margin: 0
+                    }}>
+                      Explore high-quality Fly Ash Bricks, Fly Ash Blocks, Paver Blocks, Interlocking Bricks, Solid Blocks, and AAC Blocks from ACME Bricks &amp; Blocks, a trusted bricks and blocks manufacturer and supplier in Coimbatore, Tamil Nadu.
+                    </p>
+                  </div>
+                  <ProductsGrid
+                    products={sortedProducts}
+                    onViewDetails={handleViewDetails}
+                    sortOption={sortOption}
+                    onSortChange={setSortOption}
+                  />
+                </div>
+                <ProductsTrustBar />
+              </>
+            )}
 
-          {activeTab === 'sitemap' && (
-            <Sitemap onNavigate={handleFooterNavigation} />
-          )}
+            {activeTab === 'product-details' && selectedProductDetail && (
+              <>
+                <ProductDetailsBreadcrumb
+                  productName={selectedProductDetail.name}
+                  categoryName={selectedProductDetail.type || 'Bricks & Blocks'}
+                  onHomeClick={handleNavigateToHome}
+                  onProductsClick={handleNavigateToProducts}
+                />
+                <ProductDetailsMain
+                  product={selectedProductDetail}
+                  onQuoteClick={handleRedirectToContact}
+                />
+                <DeferredCarousel minHeight="500px">
+                  <ProductDetailsTabs
+                    product={selectedProductDetail}
+                    productName={selectedProductDetail.name}
+                    onContactClick={handleRedirectToContact}
+                  />
+                  <ProductDetailsRelated
+                    products={products}
+                    onProductClick={handleViewDetails}
+                    currentProductId={selectedProductDetail.id}
+                  />
+                </DeferredCarousel>
+              </>
+            )}
 
-          {activeTab === 'terms' && (
-            <TermsAndConditions
-              onHomeClick={handleNavigateToHome}
-              onNavigate={handleFooterNavigation}
-            />
-          )}
+            {activeTab === 'contact' && (
+              <>
+                <ContactHero onHomeClick={handleNavigateToHome} />
+                <ContactMain onNavigate={handleFooterNavigation} />
+                <ContactMap />
+              </>
+            )}
 
-          {activeTab === 'privacy' && (
-            <PrivacyPolicy
-              onHomeClick={handleNavigateToHome}
-              onNavigate={handleFooterNavigation}
-            />
-          )}
+            {activeTab === 'calculator' && (
+              <BrickCalculator
+                products={products}
+                preselectedProduct={calculatorPreselect}
+              />
+            )}
 
-          {activeTab === '404' && (
-            <NotFound
-              onHomeClick={handleNavigateToHome}
-              onNavigate={handleFooterNavigation}
-            />
-          )}
-        </Suspense>
+            {activeTab === 'gallery' && (
+              <Gallery onHomeClick={handleNavigateToHome} />
+            )}
+
+            {activeTab === 'sitemap' && (
+              <Sitemap onNavigate={handleFooterNavigation} />
+            )}
+
+            {activeTab === 'terms' && (
+              <TermsAndConditions
+                onHomeClick={handleNavigateToHome}
+                onNavigate={handleFooterNavigation}
+              />
+            )}
+
+            {activeTab === 'privacy' && (
+              <PrivacyPolicy
+                onHomeClick={handleNavigateToHome}
+                onNavigate={handleFooterNavigation}
+              />
+            )}
+
+            {activeTab === '404' && (
+              <NotFound
+                onHomeClick={handleNavigateToHome}
+                onNavigate={handleFooterNavigation}
+              />
+            )}
+
+            {activeTab !== '404' && (
+              <CTASection onQuoteClick={handleRedirectToContact} />
+            )}
+            <Footer onNavigate={handleFooterNavigation} />
+          </Suspense>
+        )}
       </main>
-
-      {activeTab !== '404' && (
-        <CTASection onQuoteClick={activeTab === 'home' ? handleScrollToContact : handleRedirectToContact} />
-      )}
-      <Footer onNavigate={handleFooterNavigation} />
 
       {/* Floating WhatsApp Button across all pages */}
       <FloatingContactWidget />

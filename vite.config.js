@@ -41,10 +41,25 @@ export default defineConfig({
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-swiper': ['swiper'],
-          'vendor-icons': ['lucide-react']
+        manualChunks(id) {
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/scheduler')) {
+            return 'vendor-react';
+          }
+          if (id.includes('node_modules/swiper')) {
+            return 'vendor-swiper';
+          }
+          if (id.includes('node_modules/lucide-react')) {
+            return 'vendor-icons';
+          }
+          if (id.includes('src/components/products/ProductDetails')) {
+            return 'view-product-details';
+          }
+          if (id.includes('src/components/about/')) {
+            return 'view-about';
+          }
+          if (id.includes('src/components/products/Products')) {
+            return 'view-products';
+          }
         }
       }
     }

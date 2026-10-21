@@ -30,6 +30,7 @@ $validRoutes = [
     'product',
     // Product catalog slugs
     'fly-ash-bricks',
+    'fly-ash-bricks-manufacturer-coimbatore',
     'fly-ash-blocks',
     'fly-ash-blocks-manufacturer-coimbatore',
     'paver-blocks',

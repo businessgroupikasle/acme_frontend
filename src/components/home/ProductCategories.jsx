@@ -187,6 +187,15 @@ export default function ProductCategories({ onCategorySelect }) {
               <SwiperSlide key={idx} style={{ height: 'auto', display: 'flex', padding: '10px 0' }}>
                 <div
                   onClick={() => onCategorySelect && onCategorySelect(cat.name)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onCategorySelect && onCategorySelect(cat.name);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${cat.btnText || `View ${cat.name}`}`}
                   className="category-card"
                 >
                   {/* Image Container */}

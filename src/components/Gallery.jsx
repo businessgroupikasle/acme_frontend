@@ -100,6 +100,21 @@ export default function Gallery({ onHomeClick }) {
     setLightboxIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
   };
 
+  React.useEffect(() => {
+    if (lightboxIndex === null) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      } else if (e.key === 'ArrowRight') {
+        setLightboxIndex((prev) => (prev + 1) % filteredItems.length);
+      } else if (e.key === 'ArrowLeft') {
+        setLightboxIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex, filteredItems.length]);
+
   return (
     <section id="gallery-page" style={{ paddingBottom: '90px', background: 'var(--bg-primary)' }}>
       {/* Dynamic CSS Styles */}
@@ -415,6 +430,15 @@ export default function Gallery({ onHomeClick }) {
               key={item.id}
               className="gallery-item"
               onClick={() => openLightbox(index)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  openLightbox(index);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label={`View photo of ${item.title}`}
             >
               <div className="gallery-image-wrapper">
                 <img
@@ -447,6 +471,7 @@ export default function Gallery({ onHomeClick }) {
           <button
             onClick={closeLightbox}
             className="lightbox-close-btn"
+            aria-label="Close Lightbox"
           >
             <X size={22} />
           </button>
@@ -455,6 +480,7 @@ export default function Gallery({ onHomeClick }) {
           <button
             onClick={prevLightbox}
             className="lightbox-nav-btn prev"
+            aria-label="Previous Image"
           >
             &#8249;
           </button>
@@ -503,6 +529,7 @@ export default function Gallery({ onHomeClick }) {
           <button
             onClick={nextLightbox}
             className="lightbox-nav-btn next"
+            aria-label="Next Image"
           >
             &#8250;
           </button>

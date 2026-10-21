@@ -550,8 +550,10 @@ export default function ContactMain({ onNavigate }) {
 
                       {/* Subject Select Dropdown */}
                       <div className="input-group" style={{ marginBottom: 0 }}>
-                        <label className="contact-input-label">Subject / Product *</label>
+                        <label htmlFor="contact-subject-select" className="contact-input-label">Subject / Product *</label>
                         <select
+                          id="contact-subject-select"
+                          aria-label="Subject / Product"
                           required
                           value={form.subject}
                           onChange={(e) => setForm({ ...form, subject: e.target.value })}
@@ -703,9 +705,9 @@ export default function ContactMain({ onNavigate }) {
                   <MapPin size={20} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginTop: 0, marginBottom: '4px', lineHeight: 1.3 }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginTop: 0, marginBottom: '4px', lineHeight: 1.3 }}>
                     Our Location
-                  </h4>
+                  </h3>
                   <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '6px' }}>
                     SF No. 517, Thennampalayam Road,<br />
                     Serayampalayam (East), Vellanaipatti,<br />
@@ -730,9 +732,9 @@ export default function ContactMain({ onNavigate }) {
                   <Phone size={20} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginTop: 0, marginBottom: '4px', lineHeight: 1.3 }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginTop: 0, marginBottom: '4px', lineHeight: 1.3 }}>
                     Call Us
-                  </h4>
+                  </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
                     <a
                       href="tel:+919500851880"
@@ -771,9 +773,9 @@ export default function ContactMain({ onNavigate }) {
                   <Mail size={20} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginTop: 0, marginBottom: '4px', lineHeight: 1.3 }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginTop: 0, marginBottom: '4px', lineHeight: 1.3 }}>
                     Email Us
-                  </h4>
+                  </h3>
                   <a
                     href="mailto:info@acmebricks.in"
                     style={{ fontSize: '13.5px', color: 'var(--text-secondary)', transition: 'var(--transition)' }}
@@ -791,9 +793,9 @@ export default function ContactMain({ onNavigate }) {
                   <Clock size={20} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginTop: 0, marginBottom: '4px', lineHeight: 1.3 }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', marginTop: 0, marginBottom: '4px', lineHeight: 1.3 }}>
                     Working Hours
-                  </h4>
+                  </h3>
                   <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
                     Mon - Sat: 8:30 AM - 6:30 PM<br />
                     Sunday: Closed

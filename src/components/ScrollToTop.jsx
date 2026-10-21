@@ -29,8 +29,8 @@ export default function ScrollToTop() {
       <style>{`
         .tap-scroll-top-btn {
           position: fixed;
-          bottom: 28px;
-          right: 28px;
+          bottom: 90px;
+          right: 29px;
           width: 46px;
           height: 46px;
           border-radius: 50%;
@@ -68,8 +68,8 @@ export default function ScrollToTop() {
 
         @media (max-width: 768px) {
           .tap-scroll-top-btn {
-            bottom: 22px;
-            right: 20px;
+            bottom: 86px;
+            right: 25px;
             width: 42px;
             height: 42px;
           }

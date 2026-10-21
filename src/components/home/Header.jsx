@@ -4,6 +4,28 @@ import { trackCtaClick } from '../../utils/gtm.js';
 
 export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const headerRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    const handleClickOutside = (e) => {
+      if (mobileMenuOpen && headerRef.current && !headerRef.current.contains(e.target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside, { passive: true });
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [mobileMenuOpen]);
 
   const categories = [
     'Fly Ash Bricks',
@@ -48,7 +70,7 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
   ];
 
   return (
-    <nav className="site-header-navbar" style={{
+    <nav ref={headerRef} className="site-header-navbar" style={{
       position: 'sticky',
       top: 0,
       zIndex: 100,
@@ -59,7 +81,8 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
       transition: 'var(--transition)'
     }}>
       <style>{`
-        .nav-dropdown-container:hover .nav-dropdown-menu {
+        .nav-dropdown-container:hover .nav-dropdown-menu,
+        .nav-dropdown-container:focus-within .nav-dropdown-menu {
           display: block !important;
           opacity: 1 !important;
           transform: translateX(-50%) translateY(0) !important;
@@ -68,7 +91,8 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
           background: #f1f5f9 !important;
           color: var(--accent) !important;
         }
-        .nav-dropdown-container:hover .dropdown-arrow-icon {
+        .nav-dropdown-container:hover .dropdown-arrow-icon,
+        .nav-dropdown-container:focus-within .dropdown-arrow-icon {
           transform: rotate(180deg) !important;
         }
         @media (max-width: 991px) {
@@ -108,11 +132,12 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
       }}>
         {/* Brand Logo */}
         <a 
-          href="#/"
+          href="/"
           onClick={(e) => {
             e.preventDefault();
             navigateToSection('home');
           }}
+          aria-label="ACME Bricks Home"
           style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', textDecoration: 'none' }}
         >
           <img 
@@ -304,6 +329,8 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
             padding: '6px'
           }}
           aria-label="Toggle Navigation Menu"
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-nav-drawer"
         >
           {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -311,7 +338,7 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div style={{
+        <div id="mobile-nav-drawer" style={{
           background: '#ffffff',
           borderTop: '1px solid var(--border)',
           padding: '16px 24px 24px 24px',
@@ -329,6 +356,7 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
                     onClick={(e) => {
                       e.preventDefault();
                       link.action();
+                      setMobileMenuOpen(false);
                     }}
                     style={{
                       textDecoration: 'none',
@@ -393,6 +421,7 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
                 onClick={(e) => {
                   e.preventDefault();
                   link.action();
+                  setMobileMenuOpen(false);
                 }}
                 style={{
                   textDecoration: 'none',
