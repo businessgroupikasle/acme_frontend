@@ -4,15 +4,59 @@ import { trackCtaClick } from '../../utils/gtm.js';
 
 export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const headerRef = React.useRef(null);
+  const dropdownRef = React.useRef(null);
+  const closeTimeoutRef = React.useRef(null);
 
+  const closeDropdown = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    setDropdownOpen(false);
+    if (dropdownRef.current && dropdownRef.current.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
+  };
+
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    setDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setDropdownOpen(false);
+    }, 150);
+  };
+
+  // Close dropdown automatically when page is scrolled
+  React.useEffect(() => {
+    const handleScroll = () => {
+      closeDropdown();
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Handle escape key and click outside to close dropdown / mobile menu
   React.useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && mobileMenuOpen) {
-        setMobileMenuOpen(false);
+      if (e.key === 'Escape') {
+        closeDropdown();
+        if (mobileMenuOpen) {
+          setMobileMenuOpen(false);
+        }
       }
     };
     const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        closeDropdown();
+      }
       if (mobileMenuOpen && headerRef.current && !headerRef.current.contains(e.target)) {
         setMobileMenuOpen(false);
       }
@@ -64,7 +108,7 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
   const navLinks = [
     { label: 'Home', action: () => navigateToSection('home'), highlight: activeTab === 'home', path: '/' },
     { label: 'About Us', action: () => navigateToSection('about'), highlight: activeTab === 'about', path: '/about/' },
-    { label: 'Products', action: () => navigateToSection('products'), highlight: activeTab === 'products', path: '/products/' },
+    { label: 'Products', action: () => navigateToSection('products'), highlight: activeTab === 'products' || activeTab === 'product-details', path: '/products/' },
     { label: 'Gallery', action: () => navigateToSection('gallery'), highlight: activeTab === 'gallery', path: '/gallery/' },
     { label: 'Contact Us', action: () => navigateToSection('contact'), highlight: activeTab === 'contact', path: '/contact/' }
   ];
@@ -81,19 +125,9 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
       transition: 'var(--transition)'
     }}>
       <style>{`
-        .nav-dropdown-container:hover .nav-dropdown-menu,
-        .nav-dropdown-container:focus-within .nav-dropdown-menu {
-          display: block !important;
-          opacity: 1 !important;
-          transform: translateX(-50%) translateY(0) !important;
-        }
         .dropdown-item-btn:hover {
           background: #f1f5f9 !important;
           color: var(--accent) !important;
-        }
-        .nav-dropdown-container:hover .dropdown-arrow-icon,
-        .nav-dropdown-container:focus-within .dropdown-arrow-icon {
-          transform: rotate(180deg) !important;
         }
         @media (max-width: 991px) {
           .site-header-navbar {
@@ -182,13 +216,25 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
           {navLinks.map((link) => {
             if (link.label === 'Products') {
               return (
-                <div key={link.label} className="nav-dropdown-container" style={{ position: 'relative' }}>
+                <div
+                  key={link.label}
+                  ref={dropdownRef}
+                  className="nav-dropdown-container"
+                  style={{ position: 'relative' }}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
                   <a
                     href={link.path}
                     onClick={(e) => {
                       e.preventDefault();
-                      link.action();
+                      if (closeTimeoutRef.current) {
+                        clearTimeout(closeTimeoutRef.current);
+                      }
+                      setDropdownOpen((prev) => !prev);
                     }}
+                    aria-expanded={dropdownOpen}
+                    aria-haspopup="true"
                     style={{
                       textDecoration: 'none',
                       background: 'none',
@@ -208,29 +254,44 @@ export default function Header({ activeTab, setActiveTab, onCategorySelect }) {
                     className="nav-link-btn"
                   >
                     <span>{link.label}</span>
-                    <ChevronDown size={14} style={{ opacity: 0.7, transition: 'transform 0.2s ease' }} className="dropdown-arrow-icon" />
+                    <ChevronDown
+                      size={14}
+                      style={{
+                        opacity: 0.7,
+                        transition: 'transform 0.2s ease',
+                        transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                      }}
+                      className="dropdown-arrow-icon"
+                    />
                   </a>
                   {/* Dropdown Menu */}
-                  <div className="nav-dropdown-menu" style={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: '50%',
-                    transform: 'translateX(-50%) translateY(0)',
-                    background: '#ffffff',
-                    border: '1px solid var(--border)',
-                    borderRadius: '4px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                    minWidth: '170px',
-                    padding: '4px 0',
-                    zIndex: 200,
-                    display: 'none'
-                  }}>
+                  <div
+                    className="nav-dropdown-menu"
+                    style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: '50%',
+                      transform: dropdownOpen ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(4px)',
+                      background: '#ffffff',
+                      border: '1px solid var(--border)',
+                      borderRadius: '4px',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                      minWidth: '170px',
+                      padding: '4px 0',
+                      zIndex: 200,
+                      display: dropdownOpen ? 'block' : 'none',
+                      opacity: dropdownOpen ? 1 : 0,
+                      pointerEvents: dropdownOpen ? 'auto' : 'none',
+                      transition: 'opacity 0.15s ease, transform 0.15s ease'
+                    }}
+                  >
                     {categories.map((cat) => (
                       <a
                         key={cat}
                         href={getCategoryPath(cat)}
                         onClick={(e) => {
                           e.preventDefault();
+                          closeDropdown();
                           if (onCategorySelect) {
                             onCategorySelect(cat);
                           } else {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Star, MessageSquare, Download, Share2 } from 'lucide-react';
+import { Star, Download, Share2 } from 'lucide-react';
+import { trackWhatsAppClick } from '../../utils/gtm.js';
 
 export default function ProductDetailsMain({ product, onQuoteClick }) {
   const [activeThumb, setActiveThumb] = useState(0);
@@ -523,7 +524,8 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
               </button>
 
               <a
-                href="https://wa.me/919500851880"
+                href={`https://wa.me/919500851880?text=${encodeURIComponent(`Hello ACME Bricks, I would like to enquire about ${name}.`)}`}
+                onClick={() => trackWhatsAppClick(`Product Details: ${name}`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn"
@@ -539,14 +541,23 @@ export default function ProductDetailsMain({ product, onQuoteClick }) {
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px',
+                  gap: '8px',
                   whiteSpace: 'nowrap',
                   textDecoration: 'none',
                   width: '100%',
                   boxSizing: 'border-box'
                 }}
               >
-                <MessageSquare size={14} style={{ color: '#25D366' }} />
+                <svg
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="#25D366"
+                  style={{ flexShrink: 0, display: 'inline-block', verticalAlign: 'middle' }}
+                  aria-hidden="true"
+                >
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.075-2.227-.563-1.834-.766-3.007-2.637-3.098-2.759-.092-.122-.74-1.002-.74-1.912 0-.91.464-1.357.63-1.541.166-.184.364-.23.486-.23.122 0 .244.002.35.007.112.005.262-.043.41.314.152.366.52 1.282.567 1.376.046.094.078.204.015.328-.063.125-.095.203-.188.312-.093.11-.197.245-.281.33-.094.094-.192.196-.083.384.11.188.489.807 1.05 1.306.722.643 1.332.842 1.52.936.188.094.298.079.408-.047.111-.126.474-.552.6-.74.126-.188.252-.157.424-.094.173.063 1.096.517 1.285.611.188.094.314.141.36.22.046.078.046.452-.098.857zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.661 1.435 5.178L2 22l4.981-1.309A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.688 0-3.255-.505-4.568-1.371l-.328-.218-2.97.779.793-2.898-.239-.38A8.136 8.136 0 013.833 12c0-4.503 3.664-8.167 8.167-8.167 4.503 0 8.167 3.664 8.167 8.167 0 4.503-3.664 8.167-8.167 8.167z" />
+                </svg>
                 <span>ENQUIRE ON WHATSAPP</span>
               </a>
 
