@@ -714,9 +714,7 @@ export default function PrivacyPolicy({ onHomeClick, onNavigate }) {
                     Factory Working Hours
                   </div>
                   <p style={{ color: '#cbd5e1', fontSize: '13.5px', lineHeight: 1.6, margin: '0 0 16px 0' }}>
-                    <strong>Monday – Saturday:</strong><br />
-                    8:30 AM – 6:30 PM<br />
-                    <strong>Sunday:</strong> Closed
+                    Open 24 Hours
                   </p>
 
                   <button
