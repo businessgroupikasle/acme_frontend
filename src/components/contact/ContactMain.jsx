@@ -797,7 +797,8 @@ export default function ContactMain({ onNavigate }) {
                     Working Hours
                   </h3>
                   <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
-                    Open 24 Hours
+                    Mon - Sat: 8:30 AM - 6:30 PM<br />
+                    Sunday: Closed
                   </p>
                 </div>
               </div>

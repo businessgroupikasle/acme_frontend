@@ -463,11 +463,10 @@ export default function App() {
           "Wednesday",
           "Thursday",
           "Friday",
-          "Saturday",
-          "Sunday"
+          "Saturday"
         ],
-        "opens": "00:00",
-        "closes": "23:59"
+        "opens": "09:00",
+        "closes": "18:00"
       },
       "sameAs": [
         "https://www.facebook.com/acmebricks",
